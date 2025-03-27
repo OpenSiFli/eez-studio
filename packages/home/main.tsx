@@ -5,6 +5,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { configure } from "mobx";
 import { observer } from "mobx-react";
+import i18next from 'i18next';
 
 import { loadExtensions } from "eez-studio-shared/extensions/extensions";
 import { getNodeModuleFolders } from "eez-studio-shared/extensions/yarn";
@@ -26,6 +27,9 @@ import "home/settings";
 import { extensionsCatalog } from "./extensions-manager/catalog";
 import { buildProject } from "home/build-project";
 import { layoutModels } from "eez-studio-ui/side-dock";
+
+// 导入i18n配置
+import "../eez-studio-shared/i18n/i18n";
 
 configure({ enforceActions: "observed", useProxies: "always" });
 
@@ -173,6 +177,7 @@ async function main() {
 
     extensionsCatalog.load();
 
+    await i18next.init();
     if (!buildProject) {
         loadTabs();
 

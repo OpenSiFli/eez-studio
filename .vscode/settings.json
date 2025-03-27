@@ -111,5 +111,10 @@
     "workbench.editor.enablePreview": false,
     "editor.formatOnSave": true,
     "C_Cpp.formatting": "disabled",
-    "cortex-debug.variableUseNaturalFormat": false
+    "cortex-debug.variableUseNaturalFormat": false,
+    "i18n-ally.localesPaths": [
+        "packages/eez-studio-shared/i18n",
+        "libs/pdfjs/web/locale",
+        "packages/eez-studio-shared/i18n/locales"
+    ]
 }

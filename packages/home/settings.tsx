@@ -16,7 +16,7 @@ import {
 import { observer } from "mobx-react";
 import classNames from "classnames";
 import * as FlexLayout from "flexlayout-react";
-
+import { useTranslation } from "react-i18next";
 import { app, createEmptyFile } from "eez-studio-shared/util-electron";
 import { stringCompare } from "eez-studio-shared/string";
 import {
@@ -193,7 +193,7 @@ class SettingsController {
     get restartRequired() {
         return (
             instrumentDatabases.activeDatabase?.filePath !==
-                instrumentDatabases.activeDatabasePath ||
+            instrumentDatabases.activeDatabasePath ||
             this.locale !== this.activetLocale ||
             this.dateFormat !== this.activeDateFormat ||
             this.timeFormat !== this.activeTimeFormat
@@ -369,7 +369,7 @@ class SettingsController {
         if (
             instrumentDatabases.activeDatabase &&
             instrumentDatabases.activeDatabase.filePath !=
-                instrumentDatabases.activeDatabasePath
+            instrumentDatabases.activeDatabasePath
         ) {
             confirm(
                 "Do you want to restart the application?",
@@ -835,8 +835,8 @@ const PythonSettings = observer(
                                 value={settingsController.pythonUseCustomPath}
                                 onChange={action(
                                     value =>
-                                        (settingsController.pythonUseCustomPath =
-                                            value)
+                                    (settingsController.pythonUseCustomPath =
+                                        value)
                                 )}
                                 checkboxStyleSwitch={true}
                             />
@@ -860,88 +860,86 @@ const PythonSettings = observer(
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export const Settings = observer(
-    class Settings extends React.Component {
-        render() {
-            return (
-                <div className="EezStudio_HomeSettingsBody">
-                    <PropertyList>
-                        <Databases />
-                        <SelectProperty
-                            name="Locale"
-                            value={settingsController.locale}
-                            onChange={settingsController.onLocaleChange}
+export const Settings = observer(() => {
+    const { t } = useTranslation();
+
+    return (
+        <div className="EezStudio_HomeSettingsBody">
+            <PropertyList>
+                <Databases />
+                <SelectProperty
+                    name="Locale"
+                    value={settingsController.locale}
+                    onChange={settingsController.onLocaleChange}
+                >
+                    {Object.keys(LOCALES)
+                        .slice()
+                        .sort((a, b) =>
+                            stringCompare(
+                                (LOCALES as any)[a],
+                                (LOCALES as any)[b]
+                            )
+                        )
+                        .map(locale => (
+                            <option key={locale} value={locale}>
+                                {(LOCALES as any)[locale]}
+                            </option>
+                        ))}
+                </SelectProperty>
+                <SelectProperty
+                    name="Date format"
+                    value={settingsController.dateFormat}
+                    onChange={settingsController.onDateFormatChanged}
+                >
+                    {DATE_FORMATS.map(dateFormat => (
+                        <option
+                            key={dateFormat.format}
+                            value={dateFormat.format}
                         >
-                            {Object.keys(LOCALES)
-                                .slice()
-                                .sort((a, b) =>
-                                    stringCompare(
-                                        (LOCALES as any)[a],
-                                        (LOCALES as any)[b]
-                                    )
-                                )
-                                .map(locale => (
-                                    <option key={locale} value={locale}>
-                                        {(LOCALES as any)[locale]}
-                                    </option>
-                                ))}
-                        </SelectProperty>
-                        <SelectProperty
-                            name="Date format"
-                            value={settingsController.dateFormat}
-                            onChange={settingsController.onDateFormatChanged}
+                            {getMoment()(new Date())
+                                .locale(settingsController.locale)
+                                .format(dateFormat.format)}
+                        </option>
+                    ))}
+                </SelectProperty>
+                <SelectProperty
+                    name="Time format"
+                    value={settingsController.timeFormat}
+                    onChange={settingsController.onTimeFormatChanged}
+                >
+                    {TIME_FORMATS.map(timeFormat => (
+                        <option
+                            key={timeFormat.format}
+                            value={timeFormat.format}
                         >
-                            {DATE_FORMATS.map(dateFormat => (
-                                <option
-                                    key={dateFormat.format}
-                                    value={dateFormat.format}
-                                >
-                                    {getMoment()(new Date())
-                                        .locale(settingsController.locale)
-                                        .format(dateFormat.format)}
-                                </option>
-                            ))}
-                        </SelectProperty>
-                        <SelectProperty
-                            name="Time format"
-                            value={settingsController.timeFormat}
-                            onChange={settingsController.onTimeFormatChanged}
+                            {getMoment()(new Date())
+                                .locale(settingsController.locale)
+                                .format(timeFormat.format)}
+                        </option>
+                    ))}
+                </SelectProperty>
+                <PythonSettings />
+                <BooleanProperty
+                    name={t('settings.darkMode')}
+                    value={settingsController.isDarkTheme}
+                    onChange={settingsController.switchTheme}
+                    checkboxStyleSwitch={true}
+                />
+            </PropertyList>
+            {settingsController.restartRequired && (
+                <Header className="EezStudio_HomeSettingsBar EezStudio_PanelHeader">
+                    <div className="btn-group me-2">
+                        <button
+                            className="btn btn-primary EezStudio_PulseTransition"
+                            onClick={settingsController.restart}
                         >
-                            {TIME_FORMATS.map(timeFormat => (
-                                <option
-                                    key={timeFormat.format}
-                                    value={timeFormat.format}
-                                >
-                                    {getMoment()(new Date())
-                                        .locale(settingsController.locale)
-                                        .format(timeFormat.format)}
-                                </option>
-                            ))}
-                        </SelectProperty>
-                        <PythonSettings />
-                        <BooleanProperty
-                            name={`Dark theme`}
-                            value={settingsController.isDarkTheme}
-                            onChange={settingsController.switchTheme}
-                            checkboxStyleSwitch={true}
-                        />
-                    </PropertyList>
-                    {settingsController.restartRequired && (
-                        <Header className="EezStudio_HomeSettingsBar EezStudio_PanelHeader">
-                            <div className="btn-group me-2">
-                                <button
-                                    className="btn btn-primary EezStudio_PulseTransition"
-                                    onClick={settingsController.restart}
-                                >
-                                    Restart
-                                </button>
-                            </div>
-                        </Header>
-                    )}
-                </div>
-            );
-        }
-    }
-);
+                            Restart
+                        </button>
+                    </div>
+                </Header>
+            )}
+        </div>
+    );
+});
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -1,6 +1,9 @@
 {
     "compilerOptions": {
-        "lib": ["ES2020", "DOM"],
+        "lib": [
+            "ES2020",
+            "DOM"
+        ],
         "module": "commonjs",
         "target": "ES2020",
         "moduleResolution": "node",
@@ -19,7 +22,10 @@
         "outDir": "./build",
         "skipLibCheck": true,
         "strictPropertyInitialization": false,
-        "useDefineForClassFields": true
+        "useDefineForClassFields": true,
+        "resolveJsonModule": true
     },
-    "include": ["./packages"]
+    "include": [
+        "./packages"
+    ]
 }
