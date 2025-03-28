@@ -24,5 +24,17 @@
             "DatabaseLastCompact": "数据库最后压缩于 {{date}}。",
             "CompactDatabase": "压缩数据库"
         }
+    },
+    "about": {
+        "CheckingUpdates": "检查更新中...",
+        "NewVersionAvailable": "有新版本 {{latestVersion}} 可用",
+        "Download": "下载",
+        "HaveNewVersion": "您拥有最新版本",
+        "Version": "版本 {{version}}",
+        "ReleaseNotes": "发行说明",
+        "BuildDate": "构建日期 {{date}}",
+        "CheckUpdate": "检查更新",
+        "Home": "主页",
+        "GitHub": "GitHub"
     }
 }

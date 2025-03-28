@@ -24,5 +24,17 @@
             "DatabaseLastCompact": "Database Compacted {{date}}.",
             "CompactDatabase": "Compact Database"
         }
+    },
+    "about": {
+        "CheckingUpdates": "Checking for updates...",
+        "NewVersionAvailable": "There is a newer version {{latestVersion}}",
+        "Download": "Download",
+        "HaveNewVersion": "You have the latest version",
+        "Version": "Version {{version}}",
+        "ReleaseNotes": "release notes",
+        "BuildDate": "Build Date {{date}}",
+        "CheckUpdate": "Check for Updates",
+        "Home": "Home",
+        "GitHub": "GitHub"
     }
 }

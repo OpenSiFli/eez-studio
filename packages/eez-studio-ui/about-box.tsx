@@ -8,6 +8,8 @@ import { Loader } from "eez-studio-ui/loader";
 
 import { isArray } from "eez-studio-shared/util";
 import { settingsController } from "home/settings";
+import { withTranslation } from 'react-i18next';
+import { TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
 
 const STUDIO_RELEASES_URL =
     "https://api.github.com/repos/eez-open/studio/releases";
@@ -75,8 +77,8 @@ async function getLatestVersion() {
     });
 }
 
-const AboutBox = observer(
-    class AboutBox extends React.Component {
+const AboutBox = withTranslation()(observer(
+    class AboutBox extends React.Component<TranslationComponentProps> {
         packageJSON: {
             version: string;
         };
@@ -123,12 +125,13 @@ const AboutBox = observer(
 
         get versionInfo() {
             let versionInfo: ReactNode;
+            const { t } = this.props;
 
             if (this.checkingForUpdates) {
                 versionInfo = (
                     <>
                         <Loader size={20} />
-                        <span>Checking for updates...</span>
+                        <span>{t("about.CheckingUpdates")}</span>
                     </>
                 );
             } else {
@@ -141,24 +144,24 @@ const AboutBox = observer(
                     ) {
                         versionInfo = (
                             <>
-                                There is a newer version {this.latestVersion} (
+                                {t("about.NewVersionAvailable", { latestVersion: this.latestVersion })} (
                                 <a
                                     href="#"
                                     onClick={event => {
                                         event.preventDefault();
                                         openLink(
                                             STUDIO_SPECIFIC_RELEASE_URL +
-                                                this.latestVersion
+                                            this.latestVersion
                                         );
                                     }}
                                 >
-                                    download
+                                    {t("about.Download")}
                                 </a>
                                 )
                             </>
                         );
                     } else {
-                        versionInfo = "You have the latest version";
+                        versionInfo = `${t("about.HaveNewVersion")}`;
                     }
                 } else {
                     versionInfo = "";
@@ -174,6 +177,8 @@ const AboutBox = observer(
             var mtime = new Date(stats.mtime);
             var buildDate = mtime.toString();
 
+            const { t } = this.props;
+
             return (
                 <Dialog cancelButtonText="Close">
                     <div className="EezStudio_AboutBox">
@@ -188,24 +193,24 @@ const AboutBox = observer(
                         </div>
 
                         <div className="EezStudio_Version">
-                            Version {this.packageJSON.version} (
+                            {t("about.Version", { version: this.packageJSON.version })} (
                             <a
                                 href="#"
                                 onClick={event => {
                                     event.preventDefault();
                                     openLink(
                                         STUDIO_SPECIFIC_RELEASE_URL +
-                                            this.packageJSON.version
+                                        this.packageJSON.version
                                     );
                                 }}
                             >
-                                release notes
+                                {t("about.ReleaseNotes")}
                             </a>
                             )
                         </div>
 
                         <div className="EezStudio_BuildDate">
-                            Build date {formatDateTimeLong(new Date(buildDate))}
+                            {t("about.BuildDate", { date: formatDateTimeLong(new Date(buildDate)) })}
                         </div>
 
                         {this.versionInfo}
@@ -215,7 +220,7 @@ const AboutBox = observer(
                             onClick={this.checkForUpdates}
                             disabled={this.checkingForUpdates}
                         >
-                            Check for Updates
+                            {t("about.CheckUpdate")}
                         </button>
 
                         <div className="EezStudio_Links">
@@ -226,7 +231,7 @@ const AboutBox = observer(
                                     openLink(STUDIO_HOME_PAGE_URL);
                                 }}
                             >
-                                Home
+                                {t("about.Home")}
                             </a>
                             {" | "}
                             <a
@@ -236,7 +241,7 @@ const AboutBox = observer(
                                     openLink(STUDIO_GITHUB_PAGE_URL);
                                 }}
                             >
-                                GitHub
+                                {t("about.GitHub")}
                             </a>
                         </div>
                     </div>
@@ -244,7 +249,7 @@ const AboutBox = observer(
             );
         }
     }
-);
+));
 
 export function showAboutBox() {
     showDialog(<AboutBox />);
