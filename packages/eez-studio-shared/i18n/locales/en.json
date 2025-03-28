@@ -63,5 +63,19 @@
         "ZoomToFitXRulersTitle": "Zoom to fit both x1 and x2",
         "EnableYaxisRulers": "Enable {{axis}} Y axis rulers",
         "ZoomToFitYRulersTitle": "Zoom chart to fit both y1 and y2",
+    },
+    "home": {
+        "ActiveTabTitle": "Open a local project or select one from the recent list",
+        "Open": "Open",
+        "CreateTitle": "Create a new project",
+        "Create": "Create",
+        "ExamplesTitle": "Example projects ready to run or edit",
+        "Examples": "Example",
+        "InstrumentsTitle": "Instruments manager",
+        "Instruments": "Instruments",
+        "ExtensionsTitle": "Extensions manager",
+        "Extensions": "Extensions",
+        "GlobalUserSettingsTitle": "Global user settings",
+        "GlobalUserSettings": "Settings"
     }
 }

@@ -872,7 +872,6 @@ const PythonSettings = withTranslation()(observer(
 
 export const Settings = observer(() => {
     const { t } = useTranslation();
-
     return (
         <div className="EezStudio_HomeSettingsBody">
             <PropertyList>
