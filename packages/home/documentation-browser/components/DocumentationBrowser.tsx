@@ -14,6 +14,8 @@ import { generateHTMLFilesForAllComponents } from "../generate-html";
 import { generateODTFilesForAllComponents } from "../generate-odt";
 import { ComponentContent } from "./ComponentContent";
 
+import { useTranslation } from "react-i18next";
+
 ////////////////////////////////////////////////////////////////////////////////
 
 export const DocumentationBrowser = observer(
@@ -22,9 +24,9 @@ export const DocumentationBrowser = observer(
             super(props);
         }
 
-        componentDidMount() {}
+        componentDidMount() { }
 
-        componentWillUnmount() {}
+        componentWillUnmount() { }
 
         factory = (node: FlexLayout.TabNode) => {
             var component = node.getComponent();
@@ -42,6 +44,8 @@ export const DocumentationBrowser = observer(
 
         render() {
             const model = getModel();
+
+            const { t } = useTranslation();
 
             if (model.loading) {
                 return <Loader />;
@@ -67,7 +71,7 @@ export const DocumentationBrowser = observer(
                                     className="form-check-label"
                                     htmlFor="EezStudio_DocumentationBrowser_Toolbar_GroupByProjectType"
                                 >
-                                    Group by project type
+                                    {t("componet.GroupByProjectType")}
                                 </label>
                             </div>
                             <div className="form-check">
@@ -85,7 +89,7 @@ export const DocumentationBrowser = observer(
                                     className="form-check-label"
                                     htmlFor="EezStudio_DocumentationBrowser_Toolbar_ShowGroups"
                                 >
-                                    Group by component groups
+                                    {t("componet.GroupByComponentGrops")}
                                 </label>
                             </div>
                         </div>
@@ -96,12 +100,12 @@ export const DocumentationBrowser = observer(
                                     model.actionDocCounters.completed -
                                     model.actionDocCounters.drafts >
                                     0 && (
-                                    <span className="badge bg-danger">
-                                        {model.actionDocCounters.total -
-                                            model.actionDocCounters.completed -
-                                            model.actionDocCounters.drafts}
-                                    </span>
-                                )}
+                                        <span className="badge bg-danger">
+                                            {model.actionDocCounters.total -
+                                                model.actionDocCounters.completed -
+                                                model.actionDocCounters.drafts}
+                                        </span>
+                                    )}
                                 {model.actionDocCounters.drafts > 0 && (
                                     <span className="badge bg-warning">
                                         {model.actionDocCounters.drafts}
@@ -121,12 +125,12 @@ export const DocumentationBrowser = observer(
                                     model.widgetDocCounters.completed -
                                     model.widgetDocCounters.drafts >
                                     0 && (
-                                    <span className="badge bg-danger">
-                                        {model.widgetDocCounters.total -
-                                            model.widgetDocCounters.completed -
-                                            model.widgetDocCounters.drafts}
-                                    </span>
-                                )}
+                                        <span className="badge bg-danger">
+                                            {model.widgetDocCounters.total -
+                                                model.widgetDocCounters.completed -
+                                                model.widgetDocCounters.drafts}
+                                        </span>
+                                    )}
                                 {model.widgetDocCounters.drafts > 0 && (
                                     <span className="badge bg-warning">
                                         {model.widgetDocCounters.drafts}
@@ -147,7 +151,7 @@ export const DocumentationBrowser = observer(
                                         generateMarkdownFilesForAllComponents()
                                     }
                                 >
-                                    Generate Markdown Files
+                                    {t("componet.GenMdFile")}
                                 </button>
                                 <button
                                     className="btn btn-success"
@@ -155,7 +159,7 @@ export const DocumentationBrowser = observer(
                                         generateHTMLFilesForAllComponents()
                                     }
                                 >
-                                    Generate HTML Files
+                                    {t("componet.GenHtmlFile")}
                                 </button>
                                 <button
                                     className="btn btn-success"
@@ -163,7 +167,7 @@ export const DocumentationBrowser = observer(
                                         generateODTFilesForAllComponents()
                                     }
                                 >
-                                    Generate ODT Files
+                                    {t("componet.GenOdtFile")}
                                 </button>
                             </div>
                         )}
@@ -194,9 +198,9 @@ const TOC = observer(
                         })}
                         onChange={action(
                             event =>
-                                (model.searchText = $(
-                                    event.target
-                                ).val() as string)
+                            (model.searchText = $(
+                                event.target
+                            ).val() as string)
                         )}
                     />
                     <Tree

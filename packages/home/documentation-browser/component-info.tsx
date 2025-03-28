@@ -16,6 +16,8 @@ import {
     ComponentOutput
 } from "project-editor/flow/component";
 
+import { useTranslation } from "react-i18next";
+
 export interface IComponentInfoProperty {
     name: string;
     metaInfo: PropertyInfo;
@@ -67,7 +69,7 @@ export class ComponentInfo {
 
     componentClass: IObjectClassInfo;
 
-    constructor() {}
+    constructor() { }
 
     makeObservable() {
         makeObservable(this, {
@@ -192,6 +194,7 @@ export class ComponentInfo {
         markdown: MarkdownDescription | undefined,
         generateHTML: boolean
     ) {
+        const { t } = useTranslation();
         let text: string | undefined;
 
         if (markdown != undefined) {
@@ -201,7 +204,7 @@ export class ComponentInfo {
         if (text == undefined) {
             return (
                 <div className="alert alert-danger" role="alert">
-                    No description yet
+                    {t("componet.NotFound")}
                 </div>
             );
         }

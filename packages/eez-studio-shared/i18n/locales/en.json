@@ -92,5 +92,13 @@
         "InstallingExtension": "Installing Extension",
         "Back": "Back",
         "TryAgain": "Try Again"
+    },
+    "componet": {
+        "NotFound": "No description yet",
+        "GroupByProjectType": "Group by project type",
+        "GroupByComponentGrops": "Group by component groups",
+        "GenMdFile": "Generate markdown file",
+        "GenHTMLFile": "Generate HTML file",
+        "GenODTFile": "Generate ODT file"
     }
 }

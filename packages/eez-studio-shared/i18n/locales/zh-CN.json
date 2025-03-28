@@ -92,5 +92,13 @@
         "InstallingExtension": "正在安装扩展",
         "Back": "返回",
         "TryAgain": "重试"
+    },
+    "componet": {
+        "NotFound": "暂无描述",
+        "GroupByProjectType": "按项目类型分组",
+        "GroupByComponentGrops": "按组件组分组",
+        "GenMdFile": "生成 markdown 文件",
+        "GenHTMLFile": "生成 HTML 文件",
+        "GenODTFile": "生成 ODT 文件"
     }
 }
