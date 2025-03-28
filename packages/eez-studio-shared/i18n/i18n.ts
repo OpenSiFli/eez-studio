@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-fs-backend';
 import path from 'path';
-import { getLocale, setLocale } from "eez-studio-shared/i10n";
+import { getLocale } from "eez-studio-shared/i10n";
 
 i18n
     .use(Backend)
@@ -19,9 +19,12 @@ i18n
         debug: true
     });
 
-// 提供一个切换语言的函数
+export const LANGUAGES = {
+    "en": "English",
+    "zh-CN": "简体中文"
+};
+
 export const changeLanguage = (lng: string) => {
-    setLocale(lng);
     return i18n.changeLanguage(lng);
 };
 

@@ -1,29 +1,9 @@
 {
-    "common": {
-        "ok": "OK",
-        "cancel": "Cancel",
-        "save": "Save",
-        "delete": "Delete",
-        "edit": "Edit",
-        "close": "Close"
-    },
-    "menu": {
-        "file": "File",
-        "edit": "Edit",
-        "view": "View",
-        "help": "Help"
-    },
     "settings": {
-        "language": "Language",
-        "theme": "Theme",
-        "darkMode": "Dark Mode",
-        "showWelcomeScreen": "Show welcome screen",
-        "restartRequired": "Application restart required to apply changes",
-        "python": {
-            "defaultPath": "Default path",
-            "notFound": "Python not found",
-            "setCustomPath": "Set custom path",
-            "customPath": "Custom Python path"
-        }
+        "Locale": "Locale",
+        "Language": "Language",
+        "DateFormat": "Date Format",
+        "TimeFormat": "Time Format",
+        "DarkTheme": "Dark Theme"
     }
 }

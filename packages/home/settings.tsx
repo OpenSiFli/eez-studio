@@ -35,6 +35,9 @@ import {
     getTimeFormat,
     setTimeFormat
 } from "eez-studio-shared/i10n";
+
+import { LANGUAGES, changeLanguage } from "eez-studio-shared/i18n/i18n";
+
 import { formatBytes } from "eez-studio-shared/formatBytes";
 
 import { showDialog, Dialog } from "eez-studio-ui/dialog";
@@ -210,7 +213,7 @@ class SettingsController {
 
     onLanguageChange(value: string) {
         this.language = value;
-        this.onLocaleChange(value);
+        changeLanguage(value);
     }
 
     onDateFormatChanged(value: string) {
@@ -876,7 +879,7 @@ export const Settings = observer(() => {
             <PropertyList>
                 <Databases />
                 <SelectProperty
-                    name={t("Locale")}
+                    name={t("settings.Locale")}
                     value={settingsController.locale}
                     onChange={settingsController.onLocaleChange}
                 >
@@ -890,15 +893,18 @@ export const Settings = observer(() => {
                         ))}
                 </SelectProperty>
                 <SelectProperty
-                    name={t("Language")}
+                    name={t("settings.Language")}
                     value={settingsController.language}
                     onChange={settingsController.onLanguageChange}
                 >
-                    <option value="en">English</option>
-                    <option value="zh">中文</option>
+                    {Object.entries(LANGUAGES).map(([code, name]) => (
+                        <option key={code} value={code}>
+                            {name}
+                        </option>
+                    ))}
                 </SelectProperty>
                 <SelectProperty
-                    name={t("Date Format")}
+                    name={t("settings.DateFormat")}
                     value={settingsController.dateFormat}
                     onChange={settingsController.onDateFormatChanged}
                 >
@@ -914,7 +920,7 @@ export const Settings = observer(() => {
                     ))}
                 </SelectProperty>
                 <SelectProperty
-                    name={t("Time Format")}
+                    name={t("settings.TimeFormat")}
                     value={settingsController.timeFormat}
                     onChange={settingsController.onTimeFormatChanged}
                 >
@@ -931,7 +937,7 @@ export const Settings = observer(() => {
                 </SelectProperty>
                 <PythonSettings />
                 <BooleanProperty
-                    name={t('settings.darkMode')}
+                    name={t('settings.DarkTheme')}
                     value={settingsController.isDarkTheme}
                     onChange={settingsController.switchTheme}
                     checkboxStyleSwitch={true}

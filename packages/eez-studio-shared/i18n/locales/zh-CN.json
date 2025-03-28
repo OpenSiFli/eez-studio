@@ -1,0 +1,9 @@
+{
+    "settings": {
+        "Locale": "区域",
+        "Language": "语言",
+        "DateFormat": "日期格式",
+        "TimeFormat": "时间格式",
+        "DarkTheme": "深色主题"
+    }
+}
