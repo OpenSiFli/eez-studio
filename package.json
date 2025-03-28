@@ -50,7 +50,8 @@
         "generate-license-file": "npx generate-license-file",
         "madge-circular": "madge --circular packages/home/main.tsx > circular.txt",
         "madge-graph": "madge --image source-graph.svg packages/home/main.tsx",
-        "madge-graph-circular": "madge --circular --image source-graph-circular.svg packages/home/main.tsx"
+        "madge-graph-circular": "madge --circular --image source-graph-circular.svg packages/home/main.tsx",
+        "extract-translations": "ts-node scripts/extract-translations.ts"
     },
     "prettier": {
         "printWidth": 80,
@@ -80,7 +81,7 @@
         "@types/marked": "5.0.2",
         "@types/moment-duration-format": "2.2.6",
         "@types/mousetrap": "1.6.15",
-        "@types/node": "16.18.119",
+        "@types/node": "^16.18.119",
         "@types/opentype.js": "1.3.8",
         "@types/pg": "8.11.10",
         "@types/plotly.js-dist-min": "2.3.4",
@@ -100,6 +101,7 @@
         "animate.css": "3.5.2",
         "electron": "32.2.2",
         "electron-builder": "25.1.8",
+        "glob": "^11.0.1",
         "globby": "11.1.0",
         "gulp": "4.0.2",
         "gulp-cli": "2.3.0",
@@ -113,7 +115,8 @@
         "request": "2.88.2",
         "request-promise-native": "1.0.9",
         "run-script-os": "1.1.6",
-        "typescript": "5.6.3",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.3",
         "wpapi": "1.2.2"
     },
     "dependencies": {

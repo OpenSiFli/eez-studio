@@ -1,0 +1,23 @@
+{
+  "mobx_react": "mobx-react",
+  "instrument_bb3_objects_script": "instrument/bb3/objects/Script",
+  "version": "Version:",
+  "form_check_label": "form-check-label",
+  "form_select_form_control_sm": "form-select form-control-sm",
+  "instrument_bb3_objects_bb3instrument": "instrument/bb3/objects/BB3Instrument",
+  "instrument_bb3_components_scripts_section_selectsc": "instrument/bb3/components/scripts-section/SelectScriptVersion",
+  "instrument_bb3_components_scripts_section_scriptac": "instrument/bb3/components/scripts-section/ScriptActions",
+  "list_group_item": "list-group-item",
+  "font_weight_bold": "font-weight-bold",
+  "instrument_bb3_components_scripts_section_scriptss": "instrument/bb3/components/scripts-section/ScriptsSectionList",
+  "list_group": "list-group",
+  "btn_btn_sm_btn_primary_text_nowrap": "btn btn-sm btn-primary text-nowrap",
+  "eez_studio_ui_loader": "eez-studio-ui/loader",
+  "instrument_bb3_components_section": "instrument/bb3/components/Section",
+  "micropython_scripts": "MicroPython Scripts",
+  "alert_alert_danger": "alert alert-danger",
+  "6px_12px": "6px 12px",
+  "text_nowrap": "text-nowrap",
+  "btn_btn_sm_btn_primary": "btn btn-sm btn-primary",
+  "btn_btn_sm_btn_secondary": "btn btn-sm btn-secondary"
+}

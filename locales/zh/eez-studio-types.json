@@ -1,0 +1,6 @@
+{
+  "assignable_expression": "assignable-expression",
+  "template_literal": "template-literal",
+  "inline_code": "inline-code",
+  "c_c": "C/C++"
+}

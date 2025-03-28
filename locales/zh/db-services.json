@@ -1,0 +1,6 @@
+{
+  "eez_studio_shared_service": "eez-studio-shared/service",
+  "eez_studio_shared_db": "eez-studio-shared/db",
+  "db_services_vacuum": "db-services/vacuum",
+  "db_services_query": "db-services/query"
+}

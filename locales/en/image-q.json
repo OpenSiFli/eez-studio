@@ -1,0 +1,20 @@
+{
+  "distance": "./distance",
+  "image": "./image",
+  "palette": "./palette",
+  "distance_distancecalculator": "./distance/distanceCalculator",
+  "utils_pointcontainer": "./utils/pointContainer",
+  "utils_palette": "./utils/palette",
+  "cie94_textiles": "cie94-textiles",
+  "cie94_graphic_arts": "cie94-graphic-arts",
+  "color_metric": "color-metric",
+  "euclidean_bt709_noalpha": "euclidean-bt709-noalpha",
+  "euclidean_bt709": "euclidean-bt709",
+  "manhattan_bt709": "manhattan-bt709",
+  "manhattan_nommyde": "manhattan-nommyde",
+  "neuquant_float": "neuquant-float",
+  "floyd_steinberg": "floyd-steinberg",
+  "false_floyd_steinberg": "false-floyd-steinberg",
+  "two_sierra": "two-sierra",
+  "sierra_lite": "sierra-lite"
+}

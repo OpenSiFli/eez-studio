@@ -1,0 +1,11 @@
+{
+  "project_editor_core_object": "project-editor/core/object",
+  "project_editor_store_features": "project-editor/store/features",
+  "project_editor_features_page_page": "project-editor/features/page/page",
+  "eezstudio_project_feature_user_widget": "eezstudio-project-feature-user-widget",
+  "0_1_0": "0.1.0",
+  "user_widgets_support_for_your_project": "User widgets support for your project",
+  "eez_studio_ui_images_eez_logo_png": "../eez-studio-ui/_images/eez_logo.png",
+  "user_widgets": "User Widgets",
+  "svg_user_widgets": "svg:user_widgets"
+}

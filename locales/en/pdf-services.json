@@ -1,0 +1,7 @@
+{
+  "eez_studio_shared_service": "eez-studio-shared/service",
+  "pdf_services_pdf_to_png": "pdf-services/pdf-to-png",
+  "libs_pdfjs_build_pdf_js": "../../libs/pdfjs/build/pdf.js",
+  "libs_pdfjs_build_pdf_worker_js": "../../libs/pdfjs/build/pdf.worker.js",
+  "2d": "2d"
+}

@@ -1,0 +1,16 @@
+{
+  "opentype_js": "opentype.js",
+  "project_editor_features_font_utils": "project-editor/features/font/utils",
+  "project_editor_features_font_font_extract": "project-editor/features/font/font-extract",
+  "unexpected_error": "Unexpected error!",
+  "font_is_not_supported": "Font is not supported!",
+  "2d": "2d",
+  "project_editor_build_helper": "project-editor/build/helper",
+  "lv_font_conv_lib_collect_font_data": "lv_font_conv/lib/collect_font_data",
+  "lv_font_conv_lib_writers_bin": "lv_font_conv/lib/writers/bin",
+  "lv_font_conv_lib_writers_lvgl": "lv_font_conv/lib/writers/lvgl",
+  "project_editor_features_font_font_extract_freetype": "project-editor/features/font/font-extract/freetype",
+  "project_editor_features_font_font_extract_opentype": "project-editor/features/font/font-extract/opentype",
+  "project_editor_features_font_font_extract_lvgl": "project-editor/features/font/font-extract/lvgl",
+  "libs_freetype_tools_wasm_freetype_tools": "../../../../../libs/freetype-tools-wasm/freetype-tools"
+}

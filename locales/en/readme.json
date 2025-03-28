@@ -1,0 +1,19 @@
+{
+  "100": "100%",
+  "mobx_react": "mobx-react",
+  "project_editor_project_context": "project-editor/project/context",
+  "project_editor_project_ui_editorcomponent": "project-editor/project/ui/EditorComponent",
+  "project_editor_store": "project-editor/store",
+  "eez_studio_shared_util_electron": "eez-studio-shared/util-electron",
+  "file": "file://",
+  "http": "http://",
+  "https": "https://",
+  "project_editor_core_object": "project-editor/core/object",
+  "project_editor_store_features": "project-editor/store/features",
+  "0_0_24_24": "0 0 24 24",
+  "m4_5_5h5c1_1046_0_2_8954_2_2v9c0_5523_4477_1_1_1h4": "M4 5.5h5c1.1046 0 2 .8954 2 2v9c0 .5523-.4477 1-1 1H4c-.5523 0-1-.4477-1-1v-10c0-.5523.4477-1 1-1Zm10 14a2.9967 2.9967 0 0 1-1-.1707V19.5c0 .5523-.4477 1-1 1s-1-.4477-1-1v-.1707a2.9967 2.9967 0 0 1-1 .1707H4c-1.6568 0-3-1.3431-3-3v-10c0-1.6569 1.3432-3 3-3h5c1.1947 0 2.2671.5238 3 1.3542.7329-.8304 1.8053-1.3542 3-1.3542h5c1.6569 0 3 1.3431 3 3v10c0 1.6569-1.3431 3-3 3h-6Zm-1-12v9c0 .5523.4477 1 1 1h6c.5523 0 1-.4477 1-1v-10c0-.5523-.4477-1-1-1h-5c-1.1046 0-2 .8954-2 2Zm-8 0h4v2H5v-2Zm10 0h4v2h-4v-2Zm4 3h-4v2h4v-2Zm-14 0h4v2H5v-2Zm14 3h-4v2h4v-2Zm-14 0h4v2H5v-2Z",
+  "eezstudio_project_feature_readme": "eezstudio-project-feature-readme",
+  "0_1_0": "0.1.0",
+  "readme_file": "Readme file",
+  "eez_studio_ui_images_eez_logo_png": "../eez-studio-ui/_images/eez_logo.png"
+}

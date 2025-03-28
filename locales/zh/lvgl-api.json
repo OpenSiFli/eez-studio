@@ -1,0 +1,19 @@
+{
+  "build": "./build",
+  "api": "./api",
+  "8_3": "8.3",
+  "name": "$$$_NAME_$$$",
+  "": " | ",
+  "const": "const ",
+  "error_getting_type": "Error getting type",
+  "return": "return ",
+  "utf_8": "utf-8",
+  "n": "\\n",
+  "lvgl_8_json": "lvgl-8.json",
+  "enum_types": "Enum Types",
+  "struct_types": "Struct Types",
+  "function_pointers": "Function pointers",
+  "forward_decls": "Forward decls",
+  "union_types": "Union types",
+  "make_the_base_object_s_class_publicly_available": "Make the base object's class publicly available. "
+}

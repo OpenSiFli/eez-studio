@@ -1,0 +1,6 @@
+{
+  "distancecalculator": "./distanceCalculator",
+  "constants_bt709": "../constants/bt709",
+  "conversion_rgb2lab": "../conversion/rgb2lab",
+  "utils_arithmetic": "../utils/arithmetic"
+}
