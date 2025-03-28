@@ -12,24 +12,27 @@ import type {
 } from "eez-studio-ui/chart/chart";
 
 import { globalViewOptions } from "eez-studio-ui/chart/GlobalViewOptions";
+import { withTranslation } from 'react-i18next';
+import { TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export const ChartViewOptions = observer(
+export const ChartViewOptions = withTranslation()(observer(
     class ChartViewOptions extends React.Component<
         ChartViewOptionsProps & {
             chartsController: IChartsController;
-        }
+        } & TranslationComponentProps
     > {
         render() {
             const chartsController = this.props.chartsController;
             const viewOptions = chartsController.viewOptions;
+            const { t } = this.props;
 
             return (
                 <div className="EezStudio_ChartViewOptionsContainer">
                     <div>
                         <div className="EezStudio_SideDockView_PropertyLabel">
-                            Axes lines subdivision:
+                            {t("chart.AxesLineSubdivision")}
                         </div>
                         <div className="EezStudio_SideDockView_Property">
                             <Radio
@@ -40,7 +43,7 @@ export const ChartViewOptions = observer(
                                     viewOptions.setAxesLinesType("dynamic")
                                 )}
                             >
-                                Dynamic
+                                {t("chart.Dynamic")}
                             </Radio>
                             {viewOptions.axesLines.type === "dynamic" && (
                                 <DynamicSubdivisionOptions
@@ -53,7 +56,7 @@ export const ChartViewOptions = observer(
                                     viewOptions.setAxesLinesType("fixed")
                                 )}
                             >
-                                Fixed
+                                {t("chart.Fixed")}
                             </Radio>
                             {viewOptions.axesLines.type === "fixed" && (
                                 <FixedSubdivisionOptions
@@ -68,14 +71,14 @@ export const ChartViewOptions = observer(
                                     viewOptions.setAxesLinesSnapToGrid(checked);
                                 })}
                             >
-                                Snap to grid
+                                {t("chart.SnapToGrid")}
                             </Checkbox>
                         </div>
                     </div>
                     {this.props.showRenderAlgorithm && (
                         <div>
                             <div className="EezStudio_SideDockView_PropertyLabel">
-                                Rendering algorithm:
+                                {t("chart.RenderingAlgorithm")}
                             </div>
                             <div className="EezStudio_SideDockView_Property">
                                 <select
@@ -86,14 +89,20 @@ export const ChartViewOptions = observer(
                                         (
                                             event: React.ChangeEvent<HTMLSelectElement>
                                         ) =>
-                                            (globalViewOptions.renderAlgorithm =
-                                                event.target
-                                                    .value as WaveformRenderAlgorithm)
+                                        (globalViewOptions.renderAlgorithm =
+                                            event.target
+                                                .value as WaveformRenderAlgorithm)
                                     )}
                                 >
-                                    <option value="avg">Average</option>
-                                    <option value="minmax">Min-max</option>
-                                    <option value="gradually">Gradually</option>
+                                    <option value="avg">
+                                        {t("chart.Average")}
+                                    </option>
+                                    <option value="minmax">
+                                        {t("chart.MinMax")}
+                                    </option>
+                                    <option value="gradually">
+                                        {t("chart.Gradually")}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -106,7 +115,7 @@ export const ChartViewOptions = observer(
                                     viewOptions.setShowAxisLabels(checked);
                                 })}
                             >
-                                Show axis labels
+                                {t("chart.ShowAxisLabels")}
                             </Checkbox>
                         </div>
                         <div>
@@ -116,11 +125,11 @@ export const ChartViewOptions = observer(
                                     viewOptions.setShowZoomButtons(checked);
                                 })}
                             >
-                                Show zoom in/out buttons
+                                {t("chart.ShowZoomButtons")}
                             </Checkbox>
                         </div>
                         <div className="EezStudio_GlobalOptionsContainer">
-                            Global options:
+                            {t("chart.GlobalOptions")}
                         </div>
                         <div>
                             <Checkbox
@@ -130,7 +139,7 @@ export const ChartViewOptions = observer(
                                         checked;
                                 })}
                             >
-                                Enable zoom in/out animations
+                                {t("chart.EnableZoomAnimations")}
                             </Checkbox>
                         </div>
                         <div>
@@ -140,7 +149,7 @@ export const ChartViewOptions = observer(
                                     globalViewOptions.blackBackground = checked;
                                 })}
                             >
-                                Black background
+                                {t("chart.BlackBackground")}
                             </Checkbox>
                         </div>
                         {this.props.showShowSampledDataOption && (
@@ -149,11 +158,11 @@ export const ChartViewOptions = observer(
                                     checked={globalViewOptions.showSampledData}
                                     onChange={action(
                                         (checked: boolean) =>
-                                            (globalViewOptions.showSampledData =
-                                                checked)
+                                        (globalViewOptions.showSampledData =
+                                            checked)
                                     )}
                                 >
-                                    Show sampled data
+                                    {t("chart.ShowSampledData")}
                                 </Checkbox>
                             </div>
                         )}
@@ -162,7 +171,7 @@ export const ChartViewOptions = observer(
             );
         }
     }
-);
+));
 export interface ChartViewOptionsProps {
     showRenderAlgorithm: boolean;
     showShowSampledDataOption: boolean;
@@ -174,14 +183,14 @@ interface DynamicSubdivisionOptionsProps {
     chartsController: IChartsController;
 }
 
-const DynamicSubdivisionOptions = observer(
-    class DynamicSubdivisionOptions extends React.Component<DynamicSubdivisionOptionsProps> {
+const DynamicSubdivisionOptions = withTranslation()(observer(
+    class DynamicSubdivisionOptions extends React.Component<DynamicSubdivisionOptionsProps & TranslationComponentProps> {
         xAxisSteps: string = "";
         xAxisStepsError: boolean = false;
         yAxisSteps: string[] = [];
         yAxisStepsError: boolean[] = [];
 
-        constructor(props: DynamicSubdivisionOptionsProps) {
+        constructor(props: DynamicSubdivisionOptionsProps & TranslationComponentProps) {
             super(props);
 
             makeObservable(this, {
@@ -209,12 +218,12 @@ const DynamicSubdivisionOptions = observer(
                 viewOptions.axesLines.steps && viewOptions.axesLines.steps.x;
             this.xAxisSteps = xSteps
                 ? xSteps
-                      .map(step =>
-                          chartsController.xAxisController.unit.formatValue(
-                              step
-                          )
-                      )
-                      .join(", ")
+                    .map(step =>
+                        chartsController.xAxisController.unit.formatValue(
+                            step
+                        )
+                    )
+                    .join(", ")
                 : "";
 
             this.yAxisSteps = chartsController.chartControllers.map(
@@ -225,12 +234,12 @@ const DynamicSubdivisionOptions = observer(
                         viewOptions.axesLines.steps.y[i];
                     return ySteps
                         ? ySteps
-                              .map(step =>
-                                  chartsController.chartControllers[
-                                      i
-                                  ].yAxisController.unit.formatValue(step)
-                              )
-                              .join(", ")
+                            .map(step =>
+                                chartsController.chartControllers[
+                                    i
+                                ].yAxisController.unit.formatValue(step)
+                            )
+                            .join(", ")
                         : "";
                 }
             );
@@ -240,6 +249,8 @@ const DynamicSubdivisionOptions = observer(
         render() {
             const chartsController = this.props.chartsController;
             const viewOptions = chartsController.viewOptions;
+
+            const { t } = this.props;
 
             const yAxisSteps = chartsController.chartControllers
                 .filter(
@@ -280,8 +291,8 @@ const DynamicSubdivisionOptions = observer(
                                                     step =>
                                                         step != null &&
                                                         step >=
-                                                            yAxisController.unit
-                                                                .units[0]
+                                                        yAxisController.unit
+                                                            .units[0]
                                                 )
                                             ) {
                                                 this.yAxisStepsError[i] = true;
@@ -307,10 +318,14 @@ const DynamicSubdivisionOptions = observer(
                         <tbody>
                             <tr>
                                 <td />
-                                <td>Steps</td>
+                                <td>
+                                    {t("chart.Steps")}
+                                </td>
                             </tr>
                             <tr>
-                                <td>Time</td>
+                                <td>
+                                    {t("chart.Time")}
+                                </td>
                                 <td>
                                     <input
                                         type="text"
@@ -340,10 +355,10 @@ const DynamicSubdivisionOptions = observer(
                                                         step =>
                                                             step != null &&
                                                             step >=
-                                                                chartsController
-                                                                    .xAxisController
-                                                                    .unit
-                                                                    .units[0]
+                                                            chartsController
+                                                                .xAxisController
+                                                                .unit
+                                                                .units[0]
                                                     )
                                                 ) {
                                                     this.xAxisStepsError = true;
@@ -367,7 +382,7 @@ const DynamicSubdivisionOptions = observer(
             );
         }
     }
-);
+));
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -375,15 +390,15 @@ interface FixedSubdivisionOptionsProps {
     chartsController: IChartsController;
 }
 
-const FixedSubdivisionOptions = observer(
-    class FixedSubdivisionOptions extends React.Component<FixedSubdivisionOptionsProps> {
+const FixedSubdivisionOptions = withTranslation()(observer(
+    class FixedSubdivisionOptions extends React.Component<FixedSubdivisionOptionsProps & TranslationComponentProps> {
         majorSubdivisionHorizontal: number = 0;
         majorSubdivisionVertical: number = 0;
         minorSubdivisionHorizontal: number = 0;
         minorSubdivisionVertical: number = 0;
         majorSubdivisionHorizontalError: boolean = false;
 
-        constructor(props: FixedSubdivisionOptionsProps) {
+        constructor(props: FixedSubdivisionOptionsProps & TranslationComponentProps) {
             super(props);
 
             makeObservable(this, {
@@ -417,6 +432,7 @@ const FixedSubdivisionOptions = observer(
 
         render() {
             const viewOptions = this.props.chartsController.viewOptions;
+            const { t } = this.props;
 
             return (
                 <div className="EezStudio_ChartViewOptions_FixedAxisLines_Properties">
@@ -424,12 +440,18 @@ const FixedSubdivisionOptions = observer(
                         <tbody>
                             <tr>
                                 <td />
-                                <td>X axis</td>
+                                <td>
+                                    {t("chart.XAxis")}
+                                </td>
                                 <td />
-                                <td>Y axis</td>
+                                <td>
+                                    {t("chart.YAxis")}
+                                </td>
                             </tr>
                             <tr>
-                                <td>Major</td>
+                                <td>
+                                    {t("chart.Major")}
+                                </td>
                                 <td>
                                     <input
                                         type="number"
@@ -465,7 +487,9 @@ const FixedSubdivisionOptions = observer(
                                         })}
                                     />
                                 </td>
-                                <td>by</td>
+                                <td>
+                                    {t("chart.by")}
+                                </td>
                                 <td>
                                     <input
                                         type="number"
@@ -496,7 +520,9 @@ const FixedSubdivisionOptions = observer(
                                 </td>
                             </tr>
                             <tr>
-                                <td>Minor</td>
+                                <td>
+                                    {t("chart.Minor")}
+                                </td>
                                 <td>
                                     <input
                                         type="number"
@@ -525,7 +551,9 @@ const FixedSubdivisionOptions = observer(
                                         })}
                                     />
                                 </td>
-                                <td>by</td>
+                                <td>
+                                    {t("chart.by")}
+                                </td>
                                 <td>
                                     <input
                                         type="number"
@@ -561,4 +589,4 @@ const FixedSubdivisionOptions = observer(
             );
         }
     }
-);
+));
