@@ -4,6 +4,25 @@
         "Language": "语言",
         "DateFormat": "日期格式",
         "TimeFormat": "时间格式",
-        "DarkTheme": "深色主题"
+        "DarkTheme": "深色主题",
+        "python": {
+            "DefaultPath": "默认路径",
+            "NotFound": "Python未找到",
+            "CustomPath": "自定义路径",
+            "SetCustomPath": "设置自定义路径"
+        },
+        "Databases": "数据库",
+        "CreateNewDatabase": "创建新数据库",
+        "OpenExistingDatabase": "打开现有数据库",
+        "DeleteDatabase": "删除数据库",
+        "selectedDatabaseDetails": {
+            "SetAsActive": "设为活动",
+            "Description": "描述：",
+            "ShowInFolder": "在文件夹中显示",
+            "CopyPathToClipboard": "复制路径到剪贴板",
+            "DatabaseSize": "数据库大小为 {{size}}",
+            "DatabaseLastCompact": "数据库最后压缩于 {{date}}。",
+            "CompactDatabase": "压缩数据库"
+        }
     }
 }

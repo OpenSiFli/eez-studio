@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-fs-backend';
 import path from 'path';
 import { getLocale } from "eez-studio-shared/i10n";
+import { WithTranslation } from 'react-i18next';
 
 i18n
     .use(Backend)
@@ -28,5 +29,7 @@ export const changeLanguage = (lng: string) => {
     return i18n.changeLanguage(lng);
 };
 
+export interface TranslationComponentProps extends WithTranslation {
+}
 export default i18n;
 

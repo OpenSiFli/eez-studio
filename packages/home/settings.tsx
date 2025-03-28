@@ -36,7 +36,8 @@ import {
     setTimeFormat
 } from "eez-studio-shared/i10n";
 
-import { LANGUAGES, changeLanguage } from "eez-studio-shared/i18n/i18n";
+import { LANGUAGES, changeLanguage, TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
+import { withTranslation } from 'react-i18next';
 
 import { formatBytes } from "eez-studio-shared/formatBytes";
 
@@ -569,9 +570,10 @@ const DatabaseListItem = observer(
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const SelectedDatabaseDetails = observer(
-    class SelectedDatabaseDetails extends React.Component {
+const SelectedDatabaseDetails = withTranslation()(observer(
+    class SelectedDatabaseDetails extends React.Component<TranslationComponentProps> {
         render() {
+            const { t } = this.props;
             const selectedDatabase = settingsController.selectedDatabase;
             if (!selectedDatabase) {
                 return null;
@@ -585,7 +587,7 @@ const SelectedDatabaseDetails = observer(
                                 className="btn btn-primary btn-sm"
                                 onClick={settingsController.setAsActiveDatabase}
                             >
-                                Set as Active
+                                {t("settings.selectedDatabaseDetails.SetAsActive")}
                             </button>
                         </div>
                     )}
@@ -595,7 +597,7 @@ const SelectedDatabaseDetails = observer(
                             htmlFor="EezStudio_ProjectEditorScrapbook_ItemDetails_Description"
                             className="form-label"
                         >
-                            Description:
+                            {t("settings.selectedDatabaseDetails.Description")}
                         </label>
                         <textarea
                             className="form-control"
@@ -622,7 +624,7 @@ const SelectedDatabaseDetails = observer(
                             }
                             style={{ marginTop: "5px" }}
                         >
-                            Show in Folder
+                            {t("settings.selectedDatabaseDetails.ShowInFolder")}
                         </button>
 
                         <button
@@ -633,7 +635,7 @@ const SelectedDatabaseDetails = observer(
                             }
                             style={{ marginTop: "5px", marginLeft: "5px" }}
                         >
-                            Copy Path to Clipboard
+                            {t("settings.selectedDatabaseDetails.CopyPathToClipboard")}
                         </button>
                     </div>
 
@@ -644,15 +646,10 @@ const SelectedDatabaseDetails = observer(
                         })}
                     >
                         <div>
-                            Database size is{" "}
-                            {formatBytes(selectedDatabase.databaseSize)}.
+                            {t('settings.selectedDatabaseDetails.DatabaseSize', { size: formatBytes(selectedDatabase.databaseSize) })}
                         </div>
                         <div>
-                            Database compacted{" "}
-                            {getMoment()(
-                                selectedDatabase.timeOfLastDatabaseCompactOperation
-                            ).fromNow()}
-                            .
+                            {t('settings.selectedDatabaseDetails.DatabaseLastCompact', { date: getMoment()(selectedDatabase.timeOfLastDatabaseCompactOperation).fromNow() })}
                         </div>
                         {selectedDatabase.isCompactDatabaseAdvisable && (
                             <div>{COMPACT_DATABASE_MESSAGE}</div>
@@ -663,7 +660,7 @@ const SelectedDatabaseDetails = observer(
                                 className="btn btn-secondary btn-sm"
                                 onClick={settingsController.compactDatabase}
                             >
-                                Compact Database
+                                {t("settings.selectedDatabaseDetails.CompactDatabase")}
                             </button>
                         </div>
                     </div>
@@ -671,12 +668,12 @@ const SelectedDatabaseDetails = observer(
             );
         }
     }
-);
+));
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const DatatabaseList = observer(
-    class DatatabaseList extends React.Component {
+const DatatabaseList = withTranslation()(observer(
+    class DatatabaseList extends React.Component<TranslationComponentProps> {
         ref = React.createRef<HTMLDivElement>();
 
         componentDidMount() {
@@ -700,17 +697,17 @@ const DatatabaseList = observer(
                     <ToolbarHeader>
                         <IconAction
                             icon="material:add"
-                            title="Create a new database"
+                            title={this.props.t("settings.CreateNewDatabase")}
                             onClick={settingsController.createNewDatabase}
                         />
                         <IconAction
                             icon={HOME_TAB_OPEN_ICON}
-                            title="Open an existing database"
+                            title={this.props.t("settings.OpenExistingDatabase")}
                             onClick={settingsController.openDatabase}
                         />
                         <IconAction
                             icon="material:delete"
-                            title="Delete a database"
+                            title={this.props.t("settings.DeleteDatabase")}
                             onClick={settingsController.deleteDatabase}
                             enabled={
                                 settingsController.selectedDatabase &&
@@ -753,12 +750,12 @@ const DatatabaseList = observer(
             );
         }
     }
-);
+));
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const Databases = observer(
-    class Databases extends React.Component {
+const Databases = withTranslation()(observer(
+    class Databases extends React.Component<TranslationComponentProps> {
         factory(node: FlexLayout.TabNode) {
             var component = node.getComponent();
 
@@ -774,9 +771,10 @@ const Databases = observer(
         }
 
         render() {
+            const { t } = this.props;
             return (
                 <tr>
-                    <td>Databases</td>
+                    <td>{t("settings.Databases")}</td>
 
                     <td>
                         <div className="EezStudio_Settings_Databases">
@@ -790,12 +788,12 @@ const Databases = observer(
             );
         }
     }
-);
+));
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const PythonSettings = observer(
-    class PythonSettings extends React.Component {
+const PythonSettings = withTranslation()(observer(
+    class PythonSettings extends React.Component<TranslationComponentProps> {
         constructor(props: any) {
             super(props);
 
@@ -827,22 +825,23 @@ const PythonSettings = observer(
         pythonPathError: boolean = false;
 
         render() {
+            const { t } = this.props;
             return (
                 <tr>
                     <td>Python</td>
                     <td>
                         <PropertyList>
                             <StaticProperty
-                                name="Default path"
+                                name={t("settings.python.DefaultPath")}
                                 value={
                                     this.pythonPathError
-                                        ? "Python not found"
+                                        ? t("settings.python.NotFound")
                                         : this.pythonPath
                                 }
                                 className="StaticPropertyValueWrap"
                             />
                             <BooleanProperty
-                                name={`Set custom path`}
+                                name={`${t("settings.python.SetCustomPath")}`}
                                 value={settingsController.pythonUseCustomPath}
                                 onChange={action(
                                     value =>
@@ -853,7 +852,7 @@ const PythonSettings = observer(
                             />
                             {settingsController.pythonUseCustomPath && (
                                 <AbsoluteFileInputProperty
-                                    name="Custom Python path"
+                                    name={t("settings.python.CustomPath")}
                                     value={settingsController.pythonCustomPath}
                                     onChange={action(value => {
                                         settingsController.pythonCustomPath =
@@ -867,7 +866,7 @@ const PythonSettings = observer(
             );
         }
     }
-);
+));
 
 ////////////////////////////////////////////////////////////////////////////////
 

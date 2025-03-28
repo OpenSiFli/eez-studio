@@ -4,6 +4,25 @@
         "Language": "Language",
         "DateFormat": "Date Format",
         "TimeFormat": "Time Format",
-        "DarkTheme": "Dark Theme"
+        "DarkTheme": "Dark Theme",
+        "python": {
+            "DefaultPath": "Default Path",
+            "NotFound": "Python not found",
+            "CustomPath": "Custom Path",
+            "SetCustomPath": "Set custom path"
+        },
+        "Databases": "Databases",
+        "CreateNewDatabase": "Create a new database",
+        "OpenExistingDatabase": "Open an existing database",
+        "DeleteDatabase": "Delete a database",
+        "selectedDatabaseDetails": {
+            "SetAsActive": "Set as Active",
+            "Description": "Description:",
+            "ShowInFolder": "Show in Folder",
+            "CopyPathToClipboard": "Copy Path to Clipboard",
+            "DatabaseSize": "Database Size is {{size}}",
+            "DatabaseLastCompact": "Database Compacted {{date}}.",
+            "CompactDatabase": "Compact Database"
+        }
     }
 }
