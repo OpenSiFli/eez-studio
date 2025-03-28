@@ -27,6 +27,10 @@ import {
     downloadAndInstallExtension
 } from "home/extensions-manager/extensions-manager";
 
+import { TFunction } from "i18next";
+import { withTranslation } from 'react-i18next';
+import { TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
+
 ////////////////////////////////////////////////////////////////////////////////
 
 const BB3_INSTRUMENT_EXTENSION_ID = "687b6dee-2093-4c36-afb7-cfc7ea2bf262";
@@ -100,10 +104,10 @@ class SetupState {
 
     extensionInstalling:
         | {
-              inProgress: boolean;
-              infoNode: React.ReactNode;
-              infoType?: notification.Type;
-          }
+            inProgress: boolean;
+            infoNode: React.ReactNode;
+            infoType?: notification.Type;
+        }
         | undefined;
 }
 
@@ -137,7 +141,7 @@ function renderExtension(node: IListNode) {
     );
 }
 
-async function onAddInstrument(onAddCallback: (instrumentId: string) => void) {
+async function onAddInstrument(t: TFunction, onAddCallback: (instrumentId: string) => void) {
     const extensionVersions = setupState.extensionsManagerStore.all.find(
         extensionVersions =>
             extensionVersions.latestVersion.id == setupState.selectedExtensionId
@@ -161,6 +165,7 @@ async function onAddInstrument(onAddCallback: (instrumentId: string) => void) {
 
         try {
             installedVersion = await downloadAndInstallExtension(
+                t,
                 extensionVersions.latestVersion,
                 0,
                 {
@@ -280,10 +285,12 @@ const Setup = observer(() => {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const AddInstrumentDialog = observer(
-    class AddInstrumentDialog extends React.Component<{
-        callback: (instrumentId: string) => void;
-    }> {
+const AddInstrumentDialog = withTranslation()(observer(
+    class AddInstrumentDialog extends React.Component<
+        TranslationComponentProps &
+        {
+            callback: (instrumentId: string) => void;
+        }> {
         open = true;
 
         constructor(props: any) {
@@ -297,7 +304,8 @@ const AddInstrumentDialog = observer(
         }
 
         async onOk() {
-            const instrumentId = await onAddInstrument(instrumentId =>
+            const { t } = this.props;
+            const instrumentId = await onAddInstrument(t, instrumentId =>
                 this.props.callback(instrumentId)
             );
             if (instrumentId) {
@@ -331,7 +339,7 @@ const AddInstrumentDialog = observer(
                             disabled:
                                 setupState.extensionInstalling != undefined &&
                                 setupState.extensionInstalling.infoType !==
-                                    notification.ERROR,
+                                notification.ERROR,
                             style: {},
                             text: "Cancel"
                         },
@@ -352,7 +360,7 @@ const AddInstrumentDialog = observer(
             );
         }
     }
-);
+));
 
 export function showAddInstrumentDialog(
     callback: (instrumentId: string) => void

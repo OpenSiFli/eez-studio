@@ -49,6 +49,9 @@ import { LVGLGroupsTab } from "project-editor/lvgl/groups";
 import { settingsController } from "home/settings";
 import { PageStructure } from "project-editor/features/page/PagesNavigation";
 
+import { withTranslation } from 'react-i18next';
+import { TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
+
 ////////////////////////////////////////////////////////////////////////////////
 
 export const ProjectEditorView = observer(
@@ -310,14 +313,14 @@ const Content = observer(
                             className="info"
                             style={
                                 node.getId() == LayoutModels.OUTPUT_TAB_ID &&
-                                this.context.lastSuccessfulBuildRevision ==
+                                    this.context.lastSuccessfulBuildRevision ==
                                     this.context.lastRevision
                                     ? {
-                                          color: settingsController.isDarkTheme
-                                              ? "#27FB2C"
-                                              : "#00FF21",
-                                          fontWeight: "bold"
-                                      }
+                                        color: settingsController.isDarkTheme
+                                            ? "#27FB2C"
+                                            : "#00FF21",
+                                        fontWeight: "bold"
+                                    }
                                     : undefined
                             }
                         />
@@ -546,8 +549,8 @@ const Content = observer(
     }
 );
 
-const MissingExtensions = observer(
-    class MissingExtensions extends React.Component {
+const MissingExtensions = withTranslation()(observer(
+    class MissingExtensions extends React.Component<TranslationComponentProps> {
         static contextType = ProjectContext;
         declare context: React.ContextType<typeof ProjectContext>;
 
@@ -572,6 +575,7 @@ const MissingExtensions = observer(
         }
 
         installExtension = async (extensionToInstall: IExtension) => {
+            const { t } = this.props;
             const progressToastId = notification.info("Updating...", {
                 autoClose: false
             });
@@ -579,6 +583,7 @@ const MissingExtensions = observer(
             await new Promise(resolve => setTimeout(resolve, 500));
 
             await downloadAndInstallExtension(
+                t,
                 extensionToInstall,
                 progressToastId
             );
@@ -588,7 +593,7 @@ const MissingExtensions = observer(
             }
         };
 
-        installAll = () => {};
+        installAll = () => { };
 
         render() {
             return (
@@ -662,4 +667,4 @@ const MissingExtensions = observer(
             );
         }
     }
-);
+));

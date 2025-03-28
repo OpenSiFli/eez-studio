@@ -57,6 +57,10 @@ import { ButtonAction } from "eez-studio-ui/action";
 import type { CommandsProtocolType } from "eez-studio-shared/extensions/extension";
 import { compareVersions } from "eez-studio-shared/util";
 
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
+import { TFunction } from "i18next";
+
 // from https://envox.eu/gitea
 interface TemplateProject {
     clone_url: string;
@@ -117,9 +121,9 @@ interface IProjectType {
     language?: string;
     resourceFiles?: string[];
     projectFileUrl?:
-        | string
-        | { "8.3": string; "9.0": string }
-        | { SCPI: string; PROPRIETARY: string };
+    | string
+    | { "8.3": string; "9.0": string }
+    | { SCPI: string; PROPRIETARY: string };
 
     author?: string;
     authorLink?: string;
@@ -430,7 +434,7 @@ class WizardModel {
                     runInAction(() => {
                         templateProject._projectType =
                             PROJECT_TYPE_NAMES[
-                                general.projectType as ProjectType
+                            general.projectType as ProjectType
                             ];
                         templateProject._description = general.description;
                         templateProject._keywords = general.keywords;
@@ -794,8 +798,8 @@ class WizardModel {
                     "eez-flow-template-"
                 )
                     ? templateProject.name.substring(
-                          "eez-flow-template-".length
-                      )
+                        "eez-flow-template-".length
+                    )
                     : templateProject.name,
                 description: templateProject._description,
                 keywords: templateProject._keywords,
@@ -1169,8 +1173,8 @@ class WizardModel {
                     try {
                         await fs.promises.writeFile(
                             this.projectFolderPath +
-                                path.sep +
-                                "modular-psu-firmware.eez-project",
+                            path.sep +
+                            "modular-psu-firmware.eez-project",
                             JSON.stringify(req.response, undefined, 2),
                             "utf8"
                         );
@@ -1293,8 +1297,8 @@ class WizardModel {
                                 !this.isSelectedExampleWithGitRepository
                                 ? {}
                                 : {
-                                      "--recurse-submodules": null
-                                  }
+                                    "--recurse-submodules": null
+                                }
                         );
                     } catch (err) {
                         await fs.promises.rm(projectDirPath, {
@@ -1363,8 +1367,8 @@ class WizardModel {
                     const manifestJson = this.isSelectedExampleWithGitRepository
                         ? {}
                         : await readJsObjectFromFile(
-                              projectDirPath + "/template/manifest.json"
-                          );
+                            projectDirPath + "/template/manifest.json"
+                        );
 
                     if (
                         this.gitInit &&
@@ -1390,13 +1394,11 @@ class WizardModel {
                                 const NUM_RETRIES = 3;
 
                                 for (let i = 0; i <= NUM_RETRIES; i++) {
-                                    const message = `Adding submodule ${
-                                        submodule.name
-                                    } ${
-                                        i > 0
+                                    const message = `Adding submodule ${submodule.name
+                                        } ${i > 0
                                             ? `retry ${i} of ${NUM_RETRIES}`
                                             : ""
-                                    } ...`;
+                                        } ...`;
 
                                     runInAction(
                                         () => (this.progress = message)
@@ -1463,8 +1465,8 @@ class WizardModel {
 
                             await fs.promises.rm(
                                 projectDirPath +
-                                    "/" +
-                                    manifestJson["eez-framework-location"],
+                                "/" +
+                                manifestJson["eez-framework-location"],
                                 {
                                     recursive: true,
                                     force: true
@@ -1704,9 +1706,8 @@ class WizardModel {
                 return true;
             } catch (err) {
                 console.error(err);
-                this.projectCreationError = `Failed to create a new project${
-                    this.progress ? ' at: "' + this.progress + '"' : ""
-                }!`;
+                this.projectCreationError = `Failed to create a new project${this.progress ? ' at: "' + this.progress + '"' : ""
+                    }!`;
             } finally {
                 runInAction(() => {
                     this.progress = "";
@@ -1860,7 +1861,7 @@ const ProjectTypesList = observer(
 
                 let pageSize = Math.floor(
                     $(event.target).parent().height()! /
-                        $($rows[0]).outerHeight()!
+                    $($rows[0]).outerHeight()!
                 );
 
                 if (event.keyCode == 38) {
@@ -1996,7 +1997,7 @@ const ProjectTypeComponent = observer(
                             <h6>{projectType.projectName}</h6>
                             {projectType.repository &&
                                 projectType.repository !=
-                                    EEZ_PROJECT_EXAMPLES_REPOSITORY && (
+                                EEZ_PROJECT_EXAMPLES_REPOSITORY && (
                                     <a
                                         href="#"
                                         onClick={event => {
@@ -2053,17 +2054,17 @@ const ProjectTypeComponent = observer(
                                 Language: projectType.language,
                                 Resolution:
                                     projectType.displayWidth != undefined &&
-                                    projectType.displayHeight != undefined
+                                        projectType.displayHeight != undefined
                                         ? `${projectType.displayWidth} x ${projectType.displayHeight}`
                                         : undefined,
                                 "LVGL version":
                                     projectType.projectType ==
-                                    PROJECT_TYPE_NAMES[ProjectType.LVGL]
+                                        PROJECT_TYPE_NAMES[ProjectType.LVGL]
                                         ? this.props.wizardModel.section ==
-                                              "templates" &&
-                                          (projectType.id == "LVGL" ||
-                                              projectType.id ==
-                                                  "LVGL with EEZ Flow")
+                                            "templates" &&
+                                            (projectType.id == "LVGL" ||
+                                                projectType.id ==
+                                                "LVGL with EEZ Flow")
                                             ? "8.x | 9.x"
                                             : "8.x"
                                         : undefined
@@ -2100,11 +2101,13 @@ function ProjectTypeInfo(props: {
     );
 }
 
-const ProjectProperties = observer(
-    class ProjectProperties extends React.Component<{
-        wizardModel: WizardModel;
-        modalDialog: IObservableValue<any>;
-    }> {
+const ProjectProperties = withTranslation()(observer(
+    class ProjectProperties extends React.Component<
+        TranslationComponentProps &
+        {
+            wizardModel: WizardModel;
+            modalDialog: IObservableValue<any>;
+        }> {
         onCreateProject = async () => {
             const success = await this.props.wizardModel.createProject(
                 this.props.modalDialog,
@@ -2132,6 +2135,7 @@ const ProjectProperties = observer(
         };
 
         render() {
+            const { t } = this.props;
             const { wizardModel } = this.props;
 
             if (wizardModel.type == undefined) {
@@ -2143,7 +2147,9 @@ const ProjectProperties = observer(
             if (wizardModel.createProjectInProgress) {
                 return (
                     <div className="EezStudio_NewProjectWizard_CreateProjectProgress">
-                        <h6>Creating project ...</h6>
+                        <h6>
+                            {t("project.CreateProjecting")}
+                        </h6>
                         <Loader />
                         <div>{wizardModel.progress || <span>&nbsp;</span>}</div>
                     </div>
@@ -2152,17 +2158,19 @@ const ProjectProperties = observer(
 
             return (
                 <div className="EezStudio_NewProjectWizard_ProjectProperties">
-                    <PlatformDescription wizardModel={wizardModel} />
+                    <PlatformDescriptionWithTranslation wizardModel={wizardModel} />
 
                     <div className="EezStudio_NewProjectWizard_ProjectProperties_Section">
-                        <h6>Project Settings</h6>
+                        <h6>
+                            {t("project.ProjectSettings")}
+                        </h6>
                         <div>
                             <div className="mb-3">
                                 <label
                                     htmlFor="new-project-wizard-name-input"
                                     className="form-label"
                                 >
-                                    Name
+                                    {t("project.Name")}
                                 </label>
                                 <NameInput
                                     id="new-project-wizard-name-input"
@@ -2183,24 +2191,26 @@ const ProjectProperties = observer(
                             {wizardModel.section == "templates" &&
                                 (wizardModel.type == "LVGL" ||
                                     wizardModel.type ==
-                                        "LVGL with EEZ Flow") && (
+                                    "LVGL with EEZ Flow") && (
                                     <div className="mb-3">
                                         <label
                                             className="form-label"
                                             htmlFor="new-project-wizard-lvgl-version"
                                         >
-                                            LVGL version
+                                            {
+                                                t("project.LVGLVersion")
+                                            }
                                         </label>
                                         <select
                                             id="new-project-wizard-lvgl-version"
                                             className="form-select"
                                             onChange={action(
                                                 event =>
-                                                    (wizardModel.lvglVersion =
-                                                        event.target.value ==
+                                                (wizardModel.lvglVersion =
+                                                    event.target.value ==
                                                         "9.0"
-                                                            ? "9.0"
-                                                            : "8.3")
+                                                        ? "9.0"
+                                                        : "8.3")
                                             )}
                                             value={wizardModel.lvglVersion}
                                         >
@@ -2217,24 +2227,26 @@ const ProjectProperties = observer(
                                             className="form-label"
                                             htmlFor="new-project-wizard-commands-protocol"
                                         >
-                                            Commands protocol
+                                            {
+                                                t("project.CommandsProtocol")
+                                            }
                                         </label>
                                         <select
                                             id="new-project-wizard-commands-protocol"
                                             className="form-select"
                                             onChange={action(
                                                 event =>
-                                                    (wizardModel.commandsProtocol =
-                                                        event.target.value ==
+                                                (wizardModel.commandsProtocol =
+                                                    event.target.value ==
                                                         "PROPRIETARY"
-                                                            ? "PROPRIETARY"
-                                                            : "SCPI")
+                                                        ? "PROPRIETARY"
+                                                        : "SCPI")
                                             )}
                                             value={wizardModel.commandsProtocol}
                                         >
                                             <option value="SCPI">SCPI</option>
                                             <option value="PROPRIETARY">
-                                                Proprietary
+                                                {t("project.Proprietary")}
                                             </option>
                                         </select>
                                     </div>
@@ -2245,7 +2257,7 @@ const ProjectProperties = observer(
                                     htmlFor="new-project-wizard-location-input"
                                     className="col-form-label"
                                 >
-                                    Location
+                                    {t("project.Location")}
                                 </label>
                                 <DirectoryBrowserInput
                                     value={wizardModel.location || ""}
@@ -2266,26 +2278,26 @@ const ProjectProperties = observer(
                                 (wizardModel.isSelectedExampleWithGitRepository &&
                                     wizardModel.gitClone)
                             ) && (
-                                <div className="mb-3 form-check">
-                                    <input
-                                        id="new-project-wizard-create-directory-checkbox"
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        checked={wizardModel.createDirectory}
-                                        onChange={action(
-                                            event =>
+                                    <div className="mb-3 form-check">
+                                        <input
+                                            id="new-project-wizard-create-directory-checkbox"
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            checked={wizardModel.createDirectory}
+                                            onChange={action(
+                                                event =>
                                                 (wizardModel.createDirectory =
                                                     event.target.checked)
-                                        )}
-                                    />
-                                    <label
-                                        className="form-check-label"
-                                        htmlFor="new-project-wizard-create-directory-checkbox"
-                                    >
-                                        Create directory
-                                    </label>
-                                </div>
-                            )}
+                                            )}
+                                        />
+                                        <label
+                                            className="form-check-label"
+                                            htmlFor="new-project-wizard-create-directory-checkbox"
+                                        >
+                                            {t("project.CreateDirectory")}
+                                        </label>
+                                    </div>
+                                )}
 
                             <div className="mb-3">
                                 <label
@@ -2293,22 +2305,22 @@ const ProjectProperties = observer(
                                     className="form-label"
                                 >
                                     {wizardModel.selectedTemplateProject ||
-                                    (wizardModel.isSelectedExampleWithGitRepository &&
-                                        wizardModel.gitClone)
-                                        ? "Project folder path"
-                                        : "Project file path"}
+                                        (wizardModel.isSelectedExampleWithGitRepository &&
+                                            wizardModel.gitClone)
+                                        ? t("project.ProjectFolderPath")
+                                        : t("project.ProjectFilePath")}
                                 </label>
                                 <div
                                     id="new-project-wizard-project-path-static"
                                     className="form-control EezStudio_NewProjectWizard_StaticField"
                                 >
                                     {(wizardModel.selectedTemplateProject ||
-                                    (wizardModel.isSelectedExampleWithGitRepository &&
-                                        wizardModel.gitClone)
+                                        (wizardModel.isSelectedExampleWithGitRepository &&
+                                            wizardModel.gitClone)
                                         ? wizardModel.projectFolderPath
                                         : wizardModel.projectFilePath) || (
-                                        <span>&nbsp;</span>
-                                    )}
+                                            <span>&nbsp;</span>
+                                        )}
                                 </div>
                             </div>
 
@@ -2321,20 +2333,18 @@ const ProjectProperties = observer(
                                         checked={wizardModel.gitClone}
                                         onChange={action(
                                             event =>
-                                                (wizardModel.gitClone =
-                                                    event.target.checked)
+                                            (wizardModel.gitClone =
+                                                event.target.checked)
                                         )}
                                     />
                                     <label
                                         className="form-check-label"
                                         htmlFor="new-project-wizard-git-clone-checkbox"
                                     >
-                                        Clone Git repository
+                                        {t("project.CloneGitRepository")}
                                     </label>
                                     <div className="form-text">
-                                        Check this if you want to download the
-                                        entire repository not only eez-project
-                                        file and its dependencies.
+                                        {t("project.CheckGit")}
                                     </div>
                                 </div>
                             )}
@@ -2348,15 +2358,15 @@ const ProjectProperties = observer(
                                         checked={wizardModel.gitInit}
                                         onChange={action(
                                             event =>
-                                                (wizardModel.gitInit =
-                                                    event.target.checked)
+                                            (wizardModel.gitInit =
+                                                event.target.checked)
                                         )}
                                     />
                                     <label
                                         className="form-check-label"
                                         htmlFor="new-project-wizard-git-init-checkbox"
                                     >
-                                        Initialize as Git repository
+                                        {t("project.InitGit")}
                                     </label>
                                 </div>
                             )}
@@ -2367,7 +2377,7 @@ const ProjectProperties = observer(
                                     <>
                                         <div className="mb-3">
                                             <label className="form-label">
-                                                BB3 project file option
+                                                {t("project.BB3Project")}
                                             </label>
 
                                             <div className="form-check ms-4">
@@ -2383,11 +2393,11 @@ const ProjectProperties = observer(
                                                     }
                                                     onChange={action(
                                                         event =>
-                                                            (wizardModel.bb3ProjectOption =
-                                                                event.target
-                                                                    .checked
-                                                                    ? "download"
-                                                                    : "local")
+                                                        (wizardModel.bb3ProjectOption =
+                                                            event.target
+                                                                .checked
+                                                                ? "download"
+                                                                : "local")
                                                     )}
                                                 />
 
@@ -2395,7 +2405,7 @@ const ProjectProperties = observer(
                                                     className="form-check-label"
                                                     htmlFor="new-project-wizard-bb3-project-download"
                                                 >
-                                                    Download from GitHub
+                                                    {t("project.DownloadFromGitHub")}
                                                 </label>
 
                                                 {wizardModel.bb3ProjectOption ==
@@ -2422,11 +2432,11 @@ const ProjectProperties = observer(
                                                     }
                                                     onChange={action(
                                                         event =>
-                                                            (wizardModel.bb3ProjectOption =
-                                                                event.target
-                                                                    .checked
-                                                                    ? "local"
-                                                                    : "download")
+                                                        (wizardModel.bb3ProjectOption =
+                                                            event.target
+                                                                .checked
+                                                                ? "local"
+                                                                : "download")
                                                     )}
                                                 />
 
@@ -2434,44 +2444,44 @@ const ProjectProperties = observer(
                                                     className="form-check-label"
                                                     htmlFor="new-project-wizard-bb3-project-local"
                                                 >
-                                                    I already have a local copy
+                                                    {t("project.AlreadyHaveLocal")}
                                                 </label>
                                             </div>
                                         </div>
 
                                         {wizardModel.bb3ProjectOption ==
                                             "local" && (
-                                            <div className="mb-3">
-                                                <label
-                                                    htmlFor="new-project-wizard-bb3-project-file-path-input"
-                                                    className="form-label"
-                                                >
-                                                    BB3 project file path
-                                                </label>
-                                                <FileBrowserInput
-                                                    id="new-project-wizard-bb3-project-file-path-input"
-                                                    value={
-                                                        wizardModel.bb3ProjectFile
-                                                    }
-                                                    onChange={action(
-                                                        (
-                                                            value:
-                                                                | string
-                                                                | undefined
-                                                        ) =>
+                                                <div className="mb-3">
+                                                    <label
+                                                        htmlFor="new-project-wizard-bb3-project-file-path-input"
+                                                        className="form-label"
+                                                    >
+                                                        {t("project.BB3ProjectFilePath")}
+                                                    </label>
+                                                    <FileBrowserInputWithTranslation
+                                                        id="new-project-wizard-bb3-project-file-path-input"
+                                                        value={
+                                                            wizardModel.bb3ProjectFile
+                                                        }
+                                                        onChange={action(
+                                                            (
+                                                                value:
+                                                                    | string
+                                                                    | undefined
+                                                            ) =>
                                                             (wizardModel.bb3ProjectFile =
                                                                 value)
+                                                        )}
+                                                    />
+                                                    {wizardModel.bb3ProjectFileError && (
+                                                        <div className="form-text text-danger">
+                                                            {
+                                                                wizardModel.bb3ProjectFileError
+                                                            }
+                                                        </div>
                                                     )}
-                                                />
-                                                {wizardModel.bb3ProjectFileError && (
-                                                    <div className="form-text text-danger">
-                                                        {
-                                                            wizardModel.bb3ProjectFileError
-                                                        }
-                                                    </div>
-                                                )}
-                                            </div>
-                                        )}
+                                                </div>
+                                            )}
                                     </>
                                 )}
 
@@ -2495,17 +2505,17 @@ const ProjectProperties = observer(
                                                 }
                                                 onChange={action(
                                                     event =>
-                                                        (wizardModel.projectVersion =
-                                                            event.target.checked
-                                                                ? "v3"
-                                                                : "v2")
+                                                    (wizardModel.projectVersion =
+                                                        event.target.checked
+                                                            ? "v3"
+                                                            : "v2")
                                                 )}
                                             />
                                             <label
                                                 className="form-check-label"
                                                 htmlFor="new-project-wizard-bb3-target-version-v3"
                                             >
-                                                1.8 or newer
+                                                {t("project.NewerOr1_8")}
                                             </label>
                                         </div>
 
@@ -2522,17 +2532,17 @@ const ProjectProperties = observer(
                                                 }
                                                 onChange={action(
                                                     event =>
-                                                        (wizardModel.projectVersion =
-                                                            event.target.checked
-                                                                ? "v2"
-                                                                : "v3")
+                                                    (wizardModel.projectVersion =
+                                                        event.target.checked
+                                                            ? "v2"
+                                                            : "v3")
                                                 )}
                                             />
                                             <label
                                                 className="form-check-label"
                                                 htmlFor="new-project-wizard-bb3-target-version-v2"
                                             >
-                                                1.7.X or older
+                                                {t("project.OlderOr1_7_x")}
                                             </label>
                                         </div>
                                     </div>
@@ -2547,7 +2557,7 @@ const ProjectProperties = observer(
                                             wizardModel.createProjectInProgress
                                         }
                                     >
-                                        Create Project
+                                        {t("project.CreateProject")}
                                     </button>
                                 ) : (
                                     <>
@@ -2563,20 +2573,20 @@ const ProjectProperties = observer(
                                         />
                                         {wizardModel.selectedProjectType
                                             ?.projectType != "IEXT" && (
-                                            <ButtonAction
-                                                className="btn-secondary"
-                                                text="Run Project"
-                                                title="Run Project"
-                                                icon="material:play_arrow"
-                                                onClick={this.onRunProject}
-                                                enabled={
-                                                    !wizardModel.createProjectInProgress
-                                                }
-                                                style={{
-                                                    marginLeft: 10
-                                                }}
-                                            />
-                                        )}
+                                                <ButtonAction
+                                                    className="btn-secondary"
+                                                    text="Run Project"
+                                                    title="Run Project"
+                                                    icon="material:play_arrow"
+                                                    onClick={this.onRunProject}
+                                                    enabled={
+                                                        !wizardModel.createProjectInProgress
+                                                    }
+                                                    style={{
+                                                        marginLeft: 10
+                                                    }}
+                                                />
+                                            )}
                                     </>
                                 )}
                             </div>
@@ -2597,9 +2607,15 @@ const ProjectProperties = observer(
             );
         }
     }
-);
+));
 
-function PlatformDescription({ wizardModel }: { wizardModel: WizardModel }) {
+interface PlatformDescriptionOwnProps {
+    wizardModel: WizardModel;
+}
+
+type PlatformDescriptionProps = PlatformDescriptionOwnProps & WithTranslation;
+
+const PlatformDescription: React.FC<PlatformDescriptionProps> = ({ wizardModel, t }) => {
     if (!wizardModel.selectedProjectType) {
         return null;
     }
@@ -2626,7 +2642,7 @@ function PlatformDescription({ wizardModel }: { wizardModel: WizardModel }) {
                     {wizardModel.selectedProjectType.projectType == "IEXT"
                         ? "Instrument"
                         : "Platform"}{" "}
-                    Description
+                    {t("project.Description")}
                 </span>
             </h6>
             <div>
@@ -2640,7 +2656,7 @@ function PlatformDescription({ wizardModel }: { wizardModel: WizardModel }) {
                                 openLink(targetPlatformLink);
                             }}
                         >
-                            Find more on the platform web site ...
+                            {t("project.FindMoreOnWeb")}
                         </a>
                     </div>
                 )}
@@ -2648,6 +2664,10 @@ function PlatformDescription({ wizardModel }: { wizardModel: WizardModel }) {
         </div>
     );
 }
+
+const PlatformDescriptionWithTranslation = withTranslation()(PlatformDescription);
+
+export default withTranslation()(PlatformDescription) as React.ComponentType<PlatformDescriptionOwnProps>;
 
 export const NewProjectWizard = observer(
     class NewProjectWizard extends React.Component<{
@@ -2709,7 +2729,7 @@ export const NewProjectWizard = observer(
     }
 );
 
-export function showNewProjectWizard() {
+export function showNewProjectWizard(t: TFunction) {
     const modalDialogObservable = observable.box<any>();
 
     const [modalDialog] = showDialog(
@@ -2720,7 +2740,7 @@ export function showNewProjectWizard() {
         {
             jsPanel: {
                 id: "new-project-wizard",
-                title: "New Project",
+                title: t("project.NewProject"),
                 width: 1280,
                 height: 800
             }
@@ -2789,17 +2809,20 @@ class DirectoryBrowserInput extends React.Component<{
     }
 }
 
-class FileBrowserInput extends React.Component<{
-    id?: string;
-    value: string | undefined;
-    onChange: (value: string | undefined) => void;
-}> {
+class FileBrowserInput extends React.Component<
+    TranslationComponentProps &
+    {
+        id?: string;
+        value: string | undefined;
+        onChange: (value: string | undefined) => void;
+    }> {
     onSelect = async () => {
+        const { t } = this.props;
         const result = await dialog.showOpenDialog(getCurrentWindow(), {
             properties: ["openFile"],
             filters: [
-                { name: "EEZ Project", extensions: ["eez-project"] },
-                { name: "All Files", extensions: ["*"] }
+                { name: `${t("project.EEZProject")}`, extensions: ["eez-project"] },
+                { name: `${t("project.AllFiles")}`, extensions: ["*"] }
             ]
         });
 
@@ -2904,3 +2927,5 @@ const Count = observer(
         );
     }
 );
+
+const FileBrowserInputWithTranslation = withTranslation()(FileBrowserInput);

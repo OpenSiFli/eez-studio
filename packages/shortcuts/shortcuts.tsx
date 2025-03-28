@@ -30,6 +30,10 @@ import { isSameShortcutFromDifferentExtension } from "./isSameShortcutFromDiffer
 
 import { isArray } from "eez-studio-shared/util";
 
+import { withTranslation } from 'react-i18next';
+import { TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
+import { TFunction } from "i18next";
+
 ////////////////////////////////////////////////////////////////////////////////
 
 const selectedShortcutId = observable.box<string>();
@@ -61,8 +65,9 @@ const showExtensionShortcuts = observable.box<boolean>();
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export const ShortcutsToolbarButtons = observer(
+export const ShortcutsToolbarButtons = withTranslation()(observer(
     class ShortcutsToolbarButtons extends React.Component<
+        TranslationComponentProps &
         {
             shortcutsStore: IShortcutsStore;
             groupsStore?: IGroupsStore;
@@ -126,6 +131,7 @@ export const ShortcutsToolbarButtons = observer(
         };
 
         render() {
+            const { t } = this.props;
             let buttons = [];
 
             if (this.props.groupsStore) {
@@ -154,7 +160,7 @@ export const ShortcutsToolbarButtons = observer(
                                     );
                                 })}
                             />
-                            Show IEXT shortcuts
+                            {t("shortcuts.ShowIEXTShortcuts")}
                         </label>
                     </div>
                 );
@@ -164,8 +170,8 @@ export const ShortcutsToolbarButtons = observer(
                 buttons.push(
                     <ButtonAction
                         key="addShortcut"
-                        text="Add Shortcut"
-                        title="Add shortcut"
+                        text={t("shortcuts.AddShortcut")}
+                        title={t("shortcuts.AddShortcut")}
                         onClick={this.addShortcut}
                         className="btn-primary"
                     />
@@ -176,8 +182,8 @@ export const ShortcutsToolbarButtons = observer(
                 buttons.push(
                     <ButtonAction
                         key="groups"
-                        text="Show Groups"
-                        title="Show groups"
+                        text={t("shortcuts.ShowGroups")}
+                        title={t("shortcuts.ShowGroups")}
                         onClick={this.showGroups}
                         className="btn-secondary"
                     />
@@ -187,7 +193,7 @@ export const ShortcutsToolbarButtons = observer(
             return buttons;
         }
     }
-);
+));
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -230,6 +236,7 @@ class ShortcutRow implements IRow {
             shortcutsStore: IShortcutsStore;
             groupsStore?: IGroupsStore;
             shortcut: IShortcut | IShortcut[];
+            t: TFunction;
         }
     ) {
         makeObservable(this, {
@@ -361,10 +368,10 @@ class ShortcutRow implements IRow {
         return this.shortcut.action.type === "scpi-commands"
             ? "SCPI"
             : this.shortcut.action.type === "commands"
-            ? "Commands"
-            : this.shortcut.action.type === "javascript"
-            ? "JavaScript"
-            : "MicroPython";
+                ? "Commands"
+                : this.shortcut.action.type === "javascript"
+                    ? "JavaScript"
+                    : "MicroPython";
     }
 
     get confirmation() {
@@ -403,12 +410,13 @@ class ShortcutRow implements IRow {
     }
 
     get actions() {
+        const { t } = this.props;
         return (
             this.props.shortcutsStore.addShortcut && (
                 <Toolbar>
                     <IconAction
                         icon="material:edit"
-                        title="Edit shortcut"
+                        title={t("shortcuts.EditShortcut")}
                         onClick={() => {
                             showShortcutDialog(
                                 this.props.shortcutsStore,
@@ -424,9 +432,9 @@ class ShortcutRow implements IRow {
                     />
                     <IconAction
                         icon="material:delete"
-                        title="Delete shortcut"
+                        title={t("shortcuts.DeleteShortcut")}
                         onClick={() => {
-                            confirm("Are you sure?", undefined, () => {
+                            confirm(`${t("shortcuts.AreYouSure")}`, undefined, () => {
                                 this.props.shortcutsStore.deleteShortcut!(
                                     this.shortcut
                                 );
@@ -464,18 +472,20 @@ class ShortcutRow implements IRow {
     };
 }
 
-export const Shortcuts = observer(
+export const Shortcuts = withTranslation()(observer(
     class Shortcuts extends React.Component<
+        TranslationComponentProps &
         {
             shortcutsStore: IShortcutsStore;
             groupsStore?: IGroupsStore;
         },
         {}
     > {
-        constructor(props: {
-            shortcutsStore: IShortcutsStore;
-            groupsStore?: IGroupsStore;
-        }) {
+        constructor(props:
+            TranslationComponentProps & {
+                shortcutsStore: IShortcutsStore;
+                groupsStore?: IGroupsStore;
+            }) {
             super(props);
 
             makeObservable(this, {
@@ -546,6 +556,7 @@ export const Shortcuts = observer(
         }
 
         get rows() {
+            const { t } = this.props;
             let result: (IShortcut | IShortcut[])[] = [];
 
             const sorted = Array.from(
@@ -599,7 +610,8 @@ export const Shortcuts = observer(
                     new ShortcutRow({
                         shortcutsStore: this.props.shortcutsStore,
                         groupsStore: this.props.groupsStore,
-                        shortcut
+                        shortcut,
+                        t
                     })
             );
         }
@@ -616,4 +628,4 @@ export const Shortcuts = observer(
             );
         }
     }
-);
+));

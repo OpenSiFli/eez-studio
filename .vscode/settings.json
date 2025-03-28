@@ -117,6 +117,6 @@
         "libs/pdfjs/web/locale",
         "packages/eez-studio-shared/i18n/locales"
     ],
-    "i18n-ally.displayLanguage": "zh-CN",
+    "i18n-ally.displayLanguage": "en",
     "i18n-ally.keystyle": "nested"
 }

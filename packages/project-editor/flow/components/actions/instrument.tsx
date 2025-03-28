@@ -74,6 +74,8 @@ import { DashboardComponentContext } from "project-editor/flow/runtime/worker-da
 import type { PlotlyLineChartExecutionState } from "../widgets/dashboard/plotly";
 import type { TabulatorExecutionState } from "../widgets/dashboard/tabulator";
 
+import i18n from 'i18next';
+
 ////////////////////////////////////////////////////////////////////////////////
 
 export class SCPIActionComponent extends ActionComponent {
@@ -194,7 +196,7 @@ export class SCPIActionComponent extends ActionComponent {
                                 });
                             }
                         }
-                    } catch (err) {}
+                    } catch (err) { }
                 }
             }
 
@@ -812,7 +814,7 @@ export class InstrumentRead extends ActionComponent {
             context = context.startAsyncExecution();
 
             const readableStream = new Stream.Readable();
-            readableStream._read = () => {};
+            readableStream._read = () => { };
 
             readableStream.on("close", () => {
                 context.endAsyncExecution();
@@ -1538,14 +1540,14 @@ export class AddToInstrumentHistoryActionComponent extends ActionComponent {
                     chartFormatStr == "float"
                         ? WaveformFormat.FLOATS_32BIT
                         : chartFormatStr == "double"
-                        ? WaveformFormat.FLOATS_64BIT
-                        : chartFormatStr == "rigol-byte"
-                        ? WaveformFormat.RIGOL_BYTE
-                        : chartFormatStr == "rigol-word"
-                        ? WaveformFormat.RIGOL_WORD
-                        : chartFormatStr == "csv"
-                        ? WaveformFormat.CSV_STRING
-                        : WaveformFormat.JS_NUMBERS;
+                            ? WaveformFormat.FLOATS_64BIT
+                            : chartFormatStr == "rigol-byte"
+                                ? WaveformFormat.RIGOL_BYTE
+                                : chartFormatStr == "rigol-word"
+                                    ? WaveformFormat.RIGOL_WORD
+                                    : chartFormatStr == "csv"
+                                        ? WaveformFormat.CSV_STRING
+                                        : WaveformFormat.JS_NUMBERS;
 
                 const chartUnit = context.evalProperty<string>("chartUnit");
                 if (chartUnit == undefined) {
@@ -2086,7 +2088,7 @@ export async function showSelectInstrumentDialog(
     selectAndConnect?: boolean
 ) {
     return new Promise<InstrumentObject | undefined>(resolve => {
-        const instrumentsStore = new InstrumentsStore(true);
+        const instrumentsStore = new InstrumentsStore(true, i18n.t.bind(i18n));
         instrumentsStore.selectedInstrumentId = instrumentId;
 
         const [modalDialog] = showDialog(
@@ -2141,8 +2143,8 @@ function getInstrumentIdFromConstructorParams(
     return constructorParams == null
         ? null
         : typeof constructorParams === "string"
-        ? constructorParams
-        : (constructorParams.id as string);
+            ? constructorParams
+            : (constructorParams.id as string);
 }
 
 registerObjectVariableType("Instrument", {
@@ -2155,14 +2157,14 @@ registerObjectVariableType("Instrument", {
             ProjectEditor.getProjectStore(variable as any),
             variable.description || variable.fullName,
             getInstrumentIdFromConstructorParams(constructorParams) ??
-                undefined,
+            undefined,
             !(runtime === false)
         );
 
         return instrument
             ? {
-                  id: instrument.id
-              }
+                id: instrument.id
+            }
             : undefined;
     },
 
@@ -2192,7 +2194,7 @@ registerObjectVariableType("Instrument", {
             }
         };
     },
-    destroyValue: (value: IObjectVariableValue) => {},
+    destroyValue: (value: IObjectVariableValue) => { },
 
     getValue: (variableValue: any): IObjectVariableValue | null => {
         const { instruments } =

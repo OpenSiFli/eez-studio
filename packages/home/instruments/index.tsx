@@ -34,16 +34,22 @@ import { SearchInput } from "eez-studio-ui/search-input";
 import { showExportDialog } from "./export-dialog";
 import { showImportDialog } from "./import-dialog";
 
+import { TFunction } from 'i18next';
+import i18n from 'i18next';
+
 ////////////////////////////////////////////////////////////////////////////////
 
 export class InstrumentsStore {
+    private t: TFunction;
+
     _selectedInstrumentId: string | undefined;
     connectionParameters: ConnectionParameters | null;
     searchText: string;
 
     onSelectInstrument: (() => void) | undefined;
 
-    constructor(public selectInstrument: boolean) {
+    constructor(public selectInstrument: boolean, t: TFunction) {
+        this.t = t;
         makeObservable(this, {
             _selectedInstrumentId: observable,
             searchText: observable,
@@ -58,8 +64,8 @@ export class InstrumentsStore {
         return this._selectedInstrumentId
             ? this._selectedInstrumentId
             : this.instruments.length > 0
-            ? this.instruments[0].id
-            : undefined;
+                ? this.instruments[0].id
+                : undefined;
     }
 
     set selectedInstrumentId(id: string | undefined) {
@@ -119,7 +125,7 @@ export class InstrumentsStore {
                     click: () => {
                         const { installExtension } =
                             require("home/instruments/instrument-object-details") as typeof import("home/instruments/instrument-object-details");
-                        installExtension(instrument);
+                        installExtension(this.t, instrument);
                     }
                 })
             );
@@ -203,7 +209,7 @@ export class InstrumentsStore {
     }
 }
 
-export const defaultInstrumentsStore = new InstrumentsStore(false);
+export const defaultInstrumentsStore = new InstrumentsStore(false, i18n.t.bind(i18n));
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -316,30 +322,30 @@ const Toolbar = observer(
                 onClick: () => void;
                 enabled?: boolean;
             }[] = [
-                {
-                    id: "instrument-add",
-                    label: "Add Instrument",
-                    title: "Add instrument",
-                    className: "btn-success",
-                    style:
-                        deletedInstruments.size == 0
-                            ? {
-                                  marginRight: 20
-                              }
-                            : undefined,
-                    onClick: () => {
-                        const { showAddInstrumentDialog } =
-                            require("instrument/add-instrument-dialog") as typeof import("instrument/add-instrument-dialog");
+                    {
+                        id: "instrument-add",
+                        label: "Add Instrument",
+                        title: "Add instrument",
+                        className: "btn-success",
+                        style:
+                            deletedInstruments.size == 0
+                                ? {
+                                    marginRight: 20
+                                }
+                                : undefined,
+                        onClick: () => {
+                            const { showAddInstrumentDialog } =
+                                require("instrument/add-instrument-dialog") as typeof import("instrument/add-instrument-dialog");
 
-                        showAddInstrumentDialog(instrumentId => {
-                            setTimeout(() => {
-                                this.props.instrumentsStore.selectedInstrumentId =
-                                    instrumentId;
-                            }, 100);
-                        });
+                            showAddInstrumentDialog(instrumentId => {
+                                setTimeout(() => {
+                                    this.props.instrumentsStore.selectedInstrumentId =
+                                        instrumentId;
+                                }, 100);
+                            });
+                        }
                     }
-                }
-            ];
+                ];
 
             if (deletedInstruments.size > 0) {
                 buttons.push({
@@ -720,8 +726,8 @@ export const Instruments = observer(
                                         instrumentsStore.selectedInstrumentId
                                     }
                                     selectInstrument={instrument =>
-                                        (instrumentsStore.selectedInstrumentId =
-                                            instrument.id)
+                                    (instrumentsStore.selectedInstrumentId =
+                                        instrument.id)
                                     }
                                 />
                             ))}

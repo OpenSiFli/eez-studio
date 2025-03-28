@@ -27,6 +27,7 @@ import {
 import { tabs } from "./tabs-store";
 
 import { useTranslation } from "react-i18next";
+import { TFunction } from "i18next";
 
 const BB3_INSTRUMENT_EXTENSION_ID = "687b6dee-2093-4c36-afb7-cfc7ea2bf262";
 const BB3_INSTRUMENT_MANUFACTURER = "EEZ";
@@ -134,6 +135,7 @@ function renderExtension(node: IListNode) {
 }
 
 export async function onAddInstrument(
+    t: TFunction,
     onAddCallback?: (instrumentId: string) => void
 ) {
     const extensionVersions = setupState.extensionsManagerStore.all.find(
@@ -162,6 +164,7 @@ export async function onAddInstrument(
                 extensionVersions.latestVersion
             );
             installedVersion = await downloadAndInstallExtension(
+                t,
                 extensionVersions.latestVersion,
                 0,
                 {
@@ -211,10 +214,10 @@ export async function onAddInstrument(
     }
 }
 
-function onTryAgain() {
+function onTryAgain(t: TFunction) {
     runInAction(() => {
         setupState.extensionInstalling = undefined;
-        onAddInstrument(undefined);
+        onAddInstrument(t, undefined);
     });
 }
 
@@ -268,7 +271,7 @@ export const Setup = observer(() => {
                         }
                         onClick={event => {
                             event.preventDefault();
-                            onTryAgain();
+                            onTryAgain(t);
                         }}
                     >
                         {t("setup.TryAgain")}

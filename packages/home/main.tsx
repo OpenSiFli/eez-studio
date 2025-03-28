@@ -28,8 +28,8 @@ import { extensionsCatalog } from "./extensions-manager/catalog";
 import { buildProject } from "home/build-project";
 import { layoutModels } from "eez-studio-ui/side-dock";
 
-// 导入i18n配置
 import "../eez-studio-shared/i18n/i18n";
+import { useTranslation } from "react-i18next";
 
 configure({ enforceActions: "observed", useProxies: "always" });
 
@@ -131,7 +131,8 @@ ipcRenderer.on("new-project", async (sender: any, filePath: any) => {
     const { showNewProjectWizard } = await import(
         "project-editor/project/ui/Wizard"
     );
-    showNewProjectWizard();
+    const { t } = useTranslation();
+    showNewProjectWizard(t);
 });
 
 ipcRenderer.on("add-instrument", async (sender: any, filePath: any) => {

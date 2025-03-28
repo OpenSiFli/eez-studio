@@ -22,13 +22,19 @@ import type * as CatalogModule from "home/extensions-manager/catalog";
 import type * as ExtensionManagerModule from "home/extensions-manager/extensions-manager";
 import type { InstrumentsStore } from "home/instruments";
 
+import { withTranslation } from 'react-i18next';
+import { TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
+import { TFunction } from 'i18next';
+
 ////////////////////////////////////////////////////////////////////////////////
 
-export const InstrumentToolbar = observer(
-    class InstrumentToolbar extends React.Component<{
-        instrument: InstrumentObject;
-        instrumentsStore: InstrumentsStore;
-    }> {
+export const InstrumentToolbar = withTranslation()(observer(
+    class InstrumentToolbar extends React.Component<
+        TranslationComponentProps &
+        {
+            instrument: InstrumentObject;
+            instrumentsStore: InstrumentsStore;
+        }> {
         onOpenInTab = () => {
             this.props.instrument.openEditor("tab");
         };
@@ -48,37 +54,38 @@ export const InstrumentToolbar = observer(
         };
 
         render() {
+            const { t } = this.props;
             return (
                 <Toolbar>
                     {this.props.instrument.isUnknownExtension && (
                         <ButtonAction
-                            text="Install Extension"
-                            title="Install extension for this instrument"
+                            text={t("instrument.InstallExtension")}
+                            title={t("instrument.InstallExtensionTitle")}
                             className="btn btn-default btn-primary"
                             onClick={() =>
-                                installExtension(this.props.instrument)
+                                installExtension(t, this.props.instrument)
                             }
                         />
                     )}
                     {!this.props.instrumentsStore.selectInstrument && (
                         <ButtonAction
-                            text="Open in Tab"
-                            title="Open instrument in new tab"
+                            text={t("instrument.OpenInTab")}
+                            title={t("instrument.OpenInTabTitle")}
                             className="btn btn-secondary"
                             onClick={this.onOpenInTab}
                         />
                     )}
                     {!this.props.instrumentsStore.selectInstrument && (
                         <ButtonAction
-                            text="Open in New Window"
-                            title="Open instrument in new window"
+                            text={t("instrument.OpenInNewWindow")}
+                            title={t("instrument.OpenInNewWindowTitle")}
                             className="btn btn-secondary"
                             onClick={this.onOpenInWindow}
                         />
                     )}
                     <ButtonAction
-                        text="Delete"
-                        title="Delete instrument"
+                        text={t("instrument.Delete")}
+                        title={t("instrument.DeleteTitle")}
                         className="btn btn-danger"
                         onClick={this.onDelete}
                     />
@@ -86,7 +93,7 @@ export const InstrumentToolbar = observer(
             );
         }
     }
-);
+));
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -114,12 +121,15 @@ export const InstrumentConnection = observer(
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export const ConnectionParametersDetails = observer(
-    class ConnectionParametersDetails extends React.Component<{
-        instrument: InstrumentObject;
-    }> {
+export const ConnectionParametersDetails = withTranslation()(observer(
+    class ConnectionParametersDetails extends React.Component<
+        TranslationComponentProps &
+        {
+            instrument: InstrumentObject;
+        }> {
         render() {
             const { instrument } = this.props;
+            const { t } = this.props;
 
             if (instrument.lastConnection) {
                 if (instrument.lastConnection.type === "ethernet") {
@@ -127,14 +137,14 @@ export const ConnectionParametersDetails = observer(
                         <PropertyList>
                             <StaticProperty name="Interface" value="Ethernet" />
                             <StaticProperty
-                                name="Server address"
+                                name={t("instrument.ServerAddress")}
                                 value={
                                     instrument.lastConnection.ethernetParameters
                                         .address
                                 }
                             />
                             <StaticProperty
-                                name="Port"
+                                name={t("instrument.ServerPort")}
                                 value={instrument.lastConnection.ethernetParameters.port.toString()}
                             />
                         </PropertyList>
@@ -144,33 +154,33 @@ export const ConnectionParametersDetails = observer(
                         <PropertyList>
                             <StaticProperty name="Interface" value="Serial" />
                             <StaticProperty
-                                name="Port"
+                                name={t("instrument.SerialPort")}
                                 value={
                                     instrument.lastConnection.serialParameters
                                         .port
                                 }
                             />
                             <StaticProperty
-                                name="Baud rate"
+                                name={t("instrument.BaudRate")}
                                 value={instrument.lastConnection.serialParameters.baudRate.toString()}
                             />
                             <StaticProperty
-                                name="Data bits"
+                                name={t("instrument.DataBits")}
                                 value={instrument.lastConnection.serialParameters.dataBits.toString()}
                             />
                             <StaticProperty
-                                name="Stop bits"
+                                name={t("instrument.StopBits")}
                                 value={instrument.lastConnection.serialParameters.stopBits.toString()}
                             />
                             <StaticProperty
-                                name="Parity"
+                                name={t("instrument.Parity")}
                                 value={
                                     instrument.lastConnection.serialParameters
                                         .parity
                                 }
                             />
                             <StaticProperty
-                                name="Flow control"
+                                name={t("instrument.FlowControl")}
                                 value={
                                     instrument.lastConnection.serialParameters
                                         .flowControl
@@ -183,7 +193,7 @@ export const ConnectionParametersDetails = observer(
                         <PropertyList>
                             <StaticProperty name="Interface" value="USBTMC" />
                             <StaticProperty
-                                name="Vendor ID"
+                                name={t("instrument.VendorID")}
                                 value={
                                     "0x" +
                                     instrument.lastConnection.usbtmcParameters.idVendor.toString(
@@ -192,7 +202,7 @@ export const ConnectionParametersDetails = observer(
                                 }
                             />
                             <StaticProperty
-                                name="Product ID"
+                                name={t("instrument.ProductID")}
                                 value={
                                     "0x" +
                                     instrument.lastConnection.usbtmcParameters.idProduct.toString(
@@ -206,8 +216,8 @@ export const ConnectionParametersDetails = observer(
                     return (
                         <PropertyList>
                             <StaticProperty
-                                name="Interface"
-                                value="WebSimulator"
+                                name={t("instrument.WebSimulatoKey")}
+                                value={t("instrument.WebSimulatoKeyValue")}
                             />
                         </PropertyList>
                     );
@@ -216,7 +226,7 @@ export const ConnectionParametersDetails = observer(
                         <PropertyList>
                             <StaticProperty name="Interface" value="VISA" />
                             <StaticProperty
-                                name="Resource"
+                                name={t("instrument.VisaKey")}
                                 value={
                                     instrument.lastConnection.visaParameters
                                         .resource
@@ -229,11 +239,11 @@ export const ConnectionParametersDetails = observer(
             return null;
         }
     }
-);
+));
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export async function installExtension(instrument: InstrumentObject) {
+export async function installExtension(t: TFunction, instrument: InstrumentObject) {
     const { extensionsCatalog } =
         require("home/extensions-manager/catalog") as typeof CatalogModule;
 
@@ -241,29 +251,34 @@ export async function installExtension(instrument: InstrumentObject) {
         extension => extension.id === instrument.extension!.id
     );
     if (extension) {
-        const progressToastId = notification.info("Installing...", {
-            autoClose: false
-        });
+        const progressToastId = notification.info(
+            `${t("instrument.Installing")}`,
+            {
+                autoClose: false
+            });
 
         const { downloadAndInstallExtension } =
             require("home/extensions-manager/extensions-manager") as typeof ExtensionManagerModule;
 
-        await downloadAndInstallExtension(extension, progressToastId);
+        await downloadAndInstallExtension(t, extension, progressToastId);
 
         notification.update(progressToastId, {
-            render: "Extensions successfully installed!",
+            render: `${t("instrument.InstallSuccess")}`,
             type: notification.SUCCESS,
             autoClose: 500
         });
     } else {
-        notification.error("Instrument extension not found!");
+        notification.error(
+            `${t("instrument.ExtensionNotFound")}`
+        );
     }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const Properties = observer(
+const Properties = withTranslation()(observer(
     class Properties extends React.Component<
+        TranslationComponentProps &
         {
             instrument: InstrumentObject;
         },
@@ -271,6 +286,7 @@ const Properties = observer(
     > {
         render() {
             const extension = this.props.instrument.extension;
+            const { t } = this.props;
             if (!extension) {
                 return null;
             }
@@ -278,26 +294,26 @@ const Properties = observer(
             return (
                 <PropertyList>
                     <StaticProperty
-                        name="Instrument"
+                        name={t("instrument.Instrument")}
                         value={extension!.displayName || extension!.name}
                     />
                     <StaticProperty
-                        name="ID"
+                        name={t("instrument.ID")}
                         value={this.props.instrument.id}
                     />
                     <TextInputProperty
-                        name="Label"
+                        name={t("instrument.Label")}
                         value={this.props.instrument.label || ""}
                         onChange={value =>
                             this.props.instrument.setLabel(value)
                         }
                     />
                     <StaticProperty
-                        name="IDN"
+                        name={t("instrument.IDN")}
                         value={this.props.instrument.idn || ""}
                     />
                     <BooleanProperty
-                        name="Auto connect"
+                        name={t("instrument.AutoConnect")}
                         value={this.props.instrument.autoConnect}
                         onChange={value =>
                             this.props.instrument.setAutoConnect(value)
@@ -307,14 +323,16 @@ const Properties = observer(
             );
         }
     }
-);
+));
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const Connection = observer(
-    class Connection extends React.Component<{
-        instrument: InstrumentObject;
-    }> {
+const Connection = withTranslation()(observer(
+    class Connection extends React.Component<
+        TranslationComponentProps &
+        {
+            instrument: InstrumentObject;
+        }> {
         connectionParameters: ConnectionParameters | null;
 
         dismissError = () => {
@@ -323,6 +341,7 @@ const Connection = observer(
 
         render() {
             let { instrument } = this.props;
+            const { t } = this.props;
 
             let connection = this.props.instrument.connection;
 
@@ -380,7 +399,7 @@ const Connection = observer(
                                 connection!.connect();
                             }}
                         >
-                            Connect
+                            {t("instrument.Connect")}
                         </button>
                     );
                 } else {
@@ -400,7 +419,7 @@ const Connection = observer(
                                 className="btn btn-danger"
                                 onClick={() => connection!.disconnect()}
                             >
-                                Disconnect
+                                {t("instrument.Disconnect")}
                             </button>
                         );
                     } else {
@@ -409,7 +428,7 @@ const Connection = observer(
                                 className="btn btn-danger"
                                 onClick={() => connection!.disconnect()}
                             >
-                                Abort
+                                {t("instrument.About")}
                             </button>
                         );
                     }
@@ -428,4 +447,4 @@ const Connection = observer(
             );
         }
     }
-);
+));

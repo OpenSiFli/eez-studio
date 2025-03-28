@@ -13,10 +13,14 @@ import { isPropertyOptional } from "project-editor/core/object";
 import { replaceObjectReference } from "project-editor/core/search";
 import { Icon } from "eez-studio-ui/icon";
 
+import { withTranslation } from 'react-i18next';
+import { TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
+
 ////////////////////////////////////////////////////////////////////////////////
 
-export const UniqueValueInput = observer(
+export const UniqueValueInput = withTranslation()(observer(
     class UniqueValueInput extends React.Component<
+        TranslationComponentProps &
         PropertyProps & { value: any; changeValue: (newValue: any) => void }
     > {
         static contextType = ProjectContext;
@@ -67,7 +71,7 @@ export const UniqueValueInput = observer(
             this.discardChange();
         };
 
-        onBlur = (event: React.FocusEvent) => {};
+        onBlur = (event: React.FocusEvent) => { };
 
         resetChange() {
             runInAction(() => {
@@ -160,6 +164,7 @@ export const UniqueValueInput = observer(
         };
 
         render() {
+            const { t } = this.props;
             return (
                 <>
                     <div className="input-group">
@@ -182,7 +187,7 @@ export const UniqueValueInput = observer(
                                     className="btn btn-secondary"
                                     type="button"
                                     onClick={this.onOK}
-                                    title={"Commit Change (ENTER)"}
+                                    title={t("project_editor.CommitChanges")}
                                 >
                                     <Icon icon="material:check" size={16} />
                                 </button>
@@ -190,7 +195,7 @@ export const UniqueValueInput = observer(
                                     className="btn btn-secondary"
                                     type="button"
                                     onClick={this.onCancel}
-                                    title={"Discard Change (ESC)"}
+                                    title={t("project_editor.DiscardChanges")}
                                 >
                                     <Icon icon="material:close" size={16} />
                                 </button>
@@ -204,7 +209,7 @@ export const UniqueValueInput = observer(
             );
         }
     }
-);
+));
 
 function arrayCompareShallow(arr1: any, arr2: any) {
     if (!arr1 && !arr2) {
