@@ -62,7 +62,7 @@
         "XAxisRulersEnabled": "X axis rulers enabled",
         "ZoomToFitXRulersTitle": "Zoom to fit both x1 and x2",
         "EnableYaxisRulers": "Enable {{axis}} Y axis rulers",
-        "ZoomToFitYRulersTitle": "Zoom chart to fit both y1 and y2",
+        "ZoomToFitYRulersTitle": "Zoom chart to fit both y1 and y2"
     },
     "home": {
         "ActiveTabTitle": "Open a local project or select one from the recent list",
