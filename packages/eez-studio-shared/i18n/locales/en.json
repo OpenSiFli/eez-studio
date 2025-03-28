@@ -77,5 +77,20 @@
         "Extensions": "Extensions",
         "GlobalUserSettingsTitle": "Global user settings",
         "GlobalUserSettings": "Settings"
+    },
+    "project": {
+        "EditProject": "Edit Project",
+        "RunProject": "Run Project",
+        "CopyProjectPath": "Copy Project Path",
+        "RemoveFromList": "Remove From List",
+        "SortAlphabetically": "Sort alphabetically",
+        "ShowMostRecentFirst": "Show most recent first",
+        "OpenProject": "Open Project",
+        "OpenProjectTitle": "Open a local EEZ Studio Project"
+    },
+    "setup": {
+        "InstallingExtension": "Installing Extension",
+        "Back": "Back",
+        "TryAgain": "Try Again"
     }
 }

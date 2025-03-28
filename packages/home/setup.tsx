@@ -26,6 +26,8 @@ import {
 } from "home/extensions-manager/extensions-manager";
 import { tabs } from "./tabs-store";
 
+import { useTranslation } from "react-i18next";
+
 const BB3_INSTRUMENT_EXTENSION_ID = "687b6dee-2093-4c36-afb7-cfc7ea2bf262";
 const BB3_INSTRUMENT_MANUFACTURER = "EEZ";
 
@@ -97,10 +99,10 @@ class SetupState {
 
     extensionInstalling:
         | {
-              inProgress: boolean;
-              infoNode: React.ReactNode;
-              infoType?: notification.Type;
-          }
+            inProgress: boolean;
+            infoNode: React.ReactNode;
+            infoType?: notification.Type;
+        }
         | undefined;
 }
 
@@ -217,6 +219,8 @@ function onTryAgain() {
 }
 
 export const Setup = observer(() => {
+    const { t } = useTranslation();
+
     if (setupState.extensionInstalling) {
         const buttonsContainerClassName = classNames(
             "d-flex justify-content-between mt-3 mb-5",
@@ -231,7 +235,9 @@ export const Setup = observer(() => {
             <div className="d-flex flex-column justify-content-center align-items-center h-100">
                 {setupState.extensionInstalling.inProgress && (
                     <div>
-                        <h3>Installing Extension</h3>
+                        <h3>
+                            {t("setup.InstallingExtension")}
+                        </h3>
                         <Loader />
                     </div>
                 )}
@@ -252,7 +258,7 @@ export const Setup = observer(() => {
                             setupState.extensionInstalling = undefined;
                         })}
                     >
-                        Back
+                        {t("setup.Back")}
                     </button>
                     <button
                         className="btn btn-primary"
@@ -265,7 +271,7 @@ export const Setup = observer(() => {
                             onTryAgain();
                         }}
                     >
-                        Try Again
+                        {t("setup.TryAgain")}
                     </button>
                 </div>
             </div>

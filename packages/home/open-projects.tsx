@@ -27,6 +27,9 @@ import { ProjectEditorTab, tabs } from "home/tabs-store";
 import { initProjectEditor } from "project-editor/project-editor-bootstrap";
 import { HOME_TAB_OPEN_ICON } from "project-editor/ui-components/icons";
 
+import { withTranslation } from 'react-i18next';
+import { TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
+
 ////////////////////////////////////////////////////////////////////////////////
 
 const SORT_ALPHA_ICON = (
@@ -227,16 +230,17 @@ const openProjectsStore = new OpenProjectsStore();
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export const Projects = observer(
-    class Projects extends React.Component {
+export const Projects = withTranslation()(observer(
+    class Projects extends React.Component<TranslationComponentProps> {
         onContextMenu = (node: IListNode<IMruItem>) => {
             runInAction(() => (openProjectsStore.selectedMruItem = node.data));
 
             const menu = new Menu();
+            const { t } = this.props;
 
             menu.append(
                 new MenuItem({
-                    label: "Edit Project",
+                    label: `${t("project.EditProject")}`,
                     click: openProjectsStore.editProject
                 })
             );
@@ -244,7 +248,7 @@ export const Projects = observer(
             if (node.data.hasFlowSupport) {
                 menu.append(
                     new MenuItem({
-                        label: "Run Project",
+                        label: `${t("project.RunProject")}`,
                         click: openProjectsStore.runProject
                     })
                 );
@@ -252,14 +256,14 @@ export const Projects = observer(
 
             menu.append(
                 new MenuItem({
-                    label: "Copy Project Path",
+                    label: `${t("project.CopyProjectPath")}`,
                     click: openProjectsStore.copyProjectPath
                 })
             );
 
             menu.append(
                 new MenuItem({
-                    label: "Remove From List",
+                    label: `${t("project.RemoveFromList")}`,
                     click: openProjectsStore.removeFromList
                 })
             );
@@ -268,6 +272,7 @@ export const Projects = observer(
         };
 
         render() {
+            const { t } = this.props;
             return (
                 <div className="EezStudio_HomeTab_Projects">
                     <div className="EezStudio_HomeTab_Projects_Header">
@@ -288,8 +293,8 @@ export const Projects = observer(
                             }
                             title={
                                 openProjectsStore.sortAlphabetically
-                                    ? "Sort alphabetically"
-                                    : "Show most recent first"
+                                    ? `${t("project.SortAlphabetically")}`
+                                    : `${t("project.ShowMostRecentFirst")}`
                             }
                             onClick={openProjectsStore.toggleSort}
                         />
@@ -299,8 +304,8 @@ export const Projects = observer(
                         <div className="EezStudio_HomeTab_Projects_Actions">
                             <ButtonAction
                                 className="btn-primary"
-                                text={"Open Project"}
-                                title="Open a local EEZ Studio Project"
+                                text={t("project.OpenProject")}
+                                title={t("project.OpenProjectTitle")}
                                 icon={HOME_TAB_OPEN_ICON}
                                 onClick={() => {
                                     ipcRenderer.send("open-project");
@@ -360,8 +365,8 @@ export const Projects = observer(
                                 selectNode={(node: IListNode<IMruItem>) => {
                                     runInAction(
                                         () =>
-                                            (openProjectsStore.selectedMruItem =
-                                                node.data)
+                                        (openProjectsStore.selectedMruItem =
+                                            node.data)
                                     );
                                 }}
                                 onContextMenu={this.onContextMenu}
@@ -374,43 +379,44 @@ export const Projects = observer(
             );
         }
     }
-);
+));
 
-export const ProjectInfo = observer(
-    class ProjectInfo extends React.Component {
+export const ProjectInfo = withTranslation()(observer(
+    class ProjectInfo extends React.Component<TranslationComponentProps> {
         render() {
+            const { t } = this.props;
             return (
                 <div className="EezStudio_HomeTab_Projects_ProjectInfo">
                     {openProjectsStore.selectedProjectInfo && (
                         <div className="EezStudio_HomeTab_Projects_ProjectInfo_Actions">
                             <ButtonAction
                                 className="btn-primary"
-                                text="Edit Project"
-                                title="Edit Project"
+                                text={t("project.EditProject")}
+                                title={t("project.EditProject")}
                                 icon="material:edit"
                                 onClick={openProjectsStore.editProject}
                             />
                             {openProjectsStore.selectedProjectInfo
                                 .hasFlowSupport && (
-                                <ButtonAction
-                                    className="btn-secondary"
-                                    text="Run Project"
-                                    title="Run Project"
-                                    icon="material:play_arrow"
-                                    onClick={openProjectsStore.runProject}
-                                />
-                            )}
+                                    <ButtonAction
+                                        className="btn-secondary"
+                                        text="Run Project"
+                                        title="Run Project"
+                                        icon="material:play_arrow"
+                                        onClick={openProjectsStore.runProject}
+                                    />
+                                )}
                             <ButtonAction
                                 className="btn-secondary"
-                                text="Copy Project Path"
-                                title="Copy Project Path"
+                                text={t("project.CopyProjectPath")}
+                                title={t("project.CopyProjectPath")}
                                 icon="material:content_copy"
                                 onClick={openProjectsStore.copyProjectPath}
                             />
                             <ButtonAction
                                 className="btn-danger"
-                                text="Remove From List"
-                                title="Remove From List"
+                                text={t("project.RemoveFromList")}
+                                title={t("project.RemoveFromList")}
                                 icon="material:close"
                                 onClick={openProjectsStore.removeFromList}
                             />
@@ -420,4 +426,4 @@ export const ProjectInfo = observer(
             );
         }
     }
-);
+));

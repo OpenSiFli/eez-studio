@@ -77,5 +77,20 @@
         "Extensions": "扩展",
         "GlobalUserSettingsTitle": "全局用户设置",
         "GlobalUserSettings": "设置"
+    },
+    "project": {
+        "EditProject": "编辑项目",
+        "RunProject": "运行项目",
+        "CopyProjectPath": "复制项目路径",
+        "RemoveFromList": "从列表中移除",
+        "SortAlphabetically": "按字母排序",
+        "ShowMostRecentFirst": "最新的在前",
+        "OpenProject": "打开项目",
+        "OpenProjectTitle": "打开本地 EEZ Studio 项目"
+    },
+    "setup": {
+        "InstallingExtension": "正在安装扩展",
+        "Back": "返回",
+        "TryAgain": "重试"
     }
 }
