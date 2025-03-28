@@ -132,6 +132,7 @@ class SettingsController {
     selectedDatabase: InstrumentDatabase | undefined;
 
     locale: string = getLocale();
+    language: string = getLocale();
     dateFormat: string = getDateFormat();
     timeFormat: string = getTimeFormat();
     isDarkTheme: boolean = getIsDarkTheme();
@@ -156,12 +157,14 @@ class SettingsController {
         makeObservable(this, {
             selectedDatabase: observable,
             locale: observable,
+            language: observable,
             dateFormat: observable,
             timeFormat: observable,
             isDarkTheme: observable,
             mru: observable,
             restartRequired: computed,
             onLocaleChange: action.bound,
+            onLanguageChange: action.bound,
             onDateFormatChanged: action.bound,
             onTimeFormatChanged: action.bound,
             switchTheme: action.bound,
@@ -203,6 +206,11 @@ class SettingsController {
     onLocaleChange(value: string) {
         this.locale = value;
         setLocale(value);
+    }
+
+    onLanguageChange(value: string) {
+        this.language = value;
+        this.onLocaleChange(value);
     }
 
     onDateFormatChanged(value: string) {
@@ -868,53 +876,56 @@ export const Settings = observer(() => {
             <PropertyList>
                 <Databases />
                 <SelectProperty
-                    name="Locale"
+                    name={t("Locale")}
                     value={settingsController.locale}
                     onChange={settingsController.onLocaleChange}
                 >
-                    {Object.keys(LOCALES)
+                    {Object.entries(LOCALES)
                         .slice()
-                        .sort((a, b) =>
-                            stringCompare(
-                                (LOCALES as any)[a],
-                                (LOCALES as any)[b]
-                            )
-                        )
-                        .map(locale => (
-                            <option key={locale} value={locale}>
-                                {(LOCALES as any)[locale]}
+                        .sort((a, b) => stringCompare(a[1], b[1]))
+                        .map(([code, name]) => (
+                            <option key={code} value={code}>
+                                {name}
                             </option>
                         ))}
                 </SelectProperty>
                 <SelectProperty
-                    name="Date format"
+                    name={t("Language")}
+                    value={settingsController.language}
+                    onChange={settingsController.onLanguageChange}
+                >
+                    <option value="en">English</option>
+                    <option value="zh">中文</option>
+                </SelectProperty>
+                <SelectProperty
+                    name={t("Date Format")}
                     value={settingsController.dateFormat}
                     onChange={settingsController.onDateFormatChanged}
                 >
-                    {DATE_FORMATS.map(dateFormat => (
+                    {DATE_FORMATS.map(format => (
                         <option
-                            key={dateFormat.format}
-                            value={dateFormat.format}
+                            key={format.format}
+                            value={format.format}
                         >
                             {getMoment()(new Date())
                                 .locale(settingsController.locale)
-                                .format(dateFormat.format)}
+                                .format(format.format)}
                         </option>
                     ))}
                 </SelectProperty>
                 <SelectProperty
-                    name="Time format"
+                    name={t("Time Format")}
                     value={settingsController.timeFormat}
                     onChange={settingsController.onTimeFormatChanged}
                 >
-                    {TIME_FORMATS.map(timeFormat => (
+                    {TIME_FORMATS.map(format => (
                         <option
-                            key={timeFormat.format}
-                            value={timeFormat.format}
+                            key={format.format}
+                            value={format.format}
                         >
                             {getMoment()(new Date())
                                 .locale(settingsController.locale)
-                                .format(timeFormat.format)}
+                                .format(format.format)}
                         </option>
                     ))}
                 </SelectProperty>
