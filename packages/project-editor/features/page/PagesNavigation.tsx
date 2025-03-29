@@ -26,6 +26,8 @@ import {
 import { Toolbar } from "eez-studio-ui/toolbar";
 import { visitObjects } from "project-editor/core/search";
 import { CommentActionComponent } from "project-editor/flow/components/actions";
+import {useTranslation} from "react-i18next";
+import i18n from "i18next";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -289,6 +291,7 @@ export const PageStructure = observer(
             }
 
             const widget = item.object as Widget;
+            const { t } = useTranslation();
 
             return (
                 <span
@@ -303,8 +306,8 @@ export const PageStructure = observer(
                             icon={widget.locked ? LOCK_ICON : UNLOCK_ICON}
                             title={
                                 widget.locked
-                                    ? "Unlock this widget"
-                                    : "Lock this widget"
+                                    ? t('editor.Features.Page.PageNavigation.UnlockThisWidget')
+                                    : t('editor.Features.Page.PageNavigation.LockThisWidget')
                             }
                             iconSize={14}
                             onClick={action(() =>
@@ -322,7 +325,7 @@ export const PageStructure = observer(
                                     ? EYE_CLOSE_ICON
                                     : EYE_OPEN_ICON
                             }
-                            title={widget.hiddenInEditor ? "Show" : "Hide"}
+                            title={widget.hiddenInEditor ? t('common.VisibilityOptions.Show') : t('common.VisibilityOptions.hidden')}
                             iconSize={14}
                             onClick={action(() => {
                                 const hiddenInEditor = !widget.hiddenInEditor;
@@ -386,15 +389,15 @@ export const PageStructure = observer(
                                         })}
                                         style={{ margin: "2px 10px 2px 5px" }}
                                     >
-                                        <option value="visible">Visible</option>
-                                        <option value="dimmed">Dimmed</option>
-                                        <option value="hidden">Hidden</option>
+                                        <option value="visible">{i18n.t('common.VisibilityOptions.visible')}</option>
+                                        <option value="dimmed">{i18n.t('common.VisibilityOptions.dimmed')}</option>
+                                        <option value="hidden">{i18n.t('common.VisibilityOptions.hidden')}</option>
                                     </select>
                                 </label>
                             ) : null}
                             <IconAction
                                 title={
-                                    this.isAnyLocked ? "Unlock All" : "Lock All"
+                                    this.isAnyLocked ? i18n.t('common.LockedOptions.UnlockAll') : i18n.t('common.LockedOptions.LockAll')
                                 }
                                 icon={
                                     this.isAnyLocked ? UNLOCK_ICON : LOCK_ICON
@@ -408,7 +411,7 @@ export const PageStructure = observer(
                             />
                             <IconAction
                                 title={
-                                    this.isAnyHidden ? "Show All" : "Hide all"
+                                    this.isAnyHidden ? i18n.t('common.VisibilityOptions.ShowAll') : i18n.t('common.VisibilityOptions.hiddenAll')
                                 }
                                 icon={
                                     this.isAnyHidden

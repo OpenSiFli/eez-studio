@@ -15,7 +15,7 @@
         "CreateNewDatabase": "Create a new database",
         "OpenExistingDatabase": "Open an existing database",
         "DeleteDatabase": "Delete a database",
-        "selectedDatabaseDetails": {
+        "SelectedDatabaseDetails": {
             "SetAsActive": "Set as Active",
             "Description": "Description:",
             "ShowInFolder": "Show in Folder",
@@ -23,7 +23,8 @@
             "DatabaseSize": "Database Size is {{size}}",
             "DatabaseLastCompact": "Database Compacted {{date}}.",
             "CompactDatabase": "Compact Database"
-        }
+        },
+        "DatabaseMaintenanceRecommendation": "It is recommended to compact the database every 30 days."
     },
     "about": {
         "CheckingUpdates": "Checking for updates...",
@@ -94,7 +95,6 @@
         "CreateProjecting": "Creating project...",
         "ProjectSettings": "Project settings",
         "Name": "Name",
-        "LVGLVersion": "LVGL version",
         "CommandsProtocol": "Commands protocol",
         "Proprietary": "Proprietary",
         "Location": "Location",
@@ -111,10 +111,16 @@
         "CreateProject": "Create project",
         "Description": "Description",
         "FindMoreOnWeb": "Find more on the platform web site ...",
-        "EEZProject": "EEZ project",
         "AllFiles": "All files",
         "ProjectFilePath": "Project file path",
-        "ProjectFolderPath": "Project folder path"
+        "ProjectFolderPath": "Project folder path",
+        "dashboardDescription": "Start your new Dashboard project development here.",
+        "firmwareDescription": "Start your new EEZ-GUI project development here.",
+        "LVGLDescription": "Start your new LVGL project development here.",
+        "LVGLWithEEZFlowDescription": "Start your new LVGL with EEZ Flow project development here.",
+        "IEXTDescription": "Start your new IEXT project development here.",
+        "BB3AppletDescription": "Start your new BB3 Applet project development here.",
+        "BB3MicroPythonScriptDescription": "Start your new BB3 MicroPython project development here."
     },
     "setup": {
         "InstallingExtension": "Installing Extension",
@@ -130,10 +136,6 @@
         "GenODTFile": "Generate ODT file"
     },
     "extension": {
-        "Button": {
-            "OK": "OK",
-            "Cancel": "Cancel"
-        },
         "Installed": "Installed",
         "NotInstalled": "Not installed",
         "ConFirmMessage": "You are about to install version {{version}} of the '{{name}}' extension.",
@@ -151,10 +153,7 @@
         "AreYouSure": "Are you sure?",
         "ExtensionUninstalled": "Extension {{name}} uninstalled.",
         "ExtensionUninstallFailed": "Failed to uninstall {{name}} extension: {{error}}.",
-        "ExtensionFiles": "Extension files",
-        "AllFiles": "All files",
         "SaveTo": "Save to {{path}}",
-        "ImageFiles": "Image files",
         "ChangeImage": "Change image",
         "Versions": "Versions:",
         "Install": "Install",
@@ -181,7 +180,10 @@
         "UpdateCatalog": "Update Catalog",
         "InstallExtension": "Install Extension",
         "InstallExtensionTitle": "Install extension from local file",
-        "NoExtensionFound": "No extension found"
+        "NoExtensionFound": "No extension found",
+        "ProjectEditorExtensionsLabel" : "Project Editor Extensions",
+        "InstrumentExtensionsLabel" : "Instrument Extensions",
+        "MeasurementExtensionsLabel" : "Measurement Extensions"
     },
     "instrument": {
         "InstallExtension": "Install Extension",
@@ -228,5 +230,129 @@
     "project_editor": {
         "CommitChanges": "Commit changes (ENTER)",
         "DiscardChanges": "Discard changes (ESC)"
+    },
+    "templates": {
+        "AllTemplates": "All Templates",
+        "BuiltinTemplates" : "Builtin Templates",
+        "BB3ScriptTemplates" : "BB3 Script Templates",
+        "FromEnvox.eu/gitea" : "From envox.eu/gitea"
+    },
+    "example": {
+        "NewExamples" : "New Examples",
+        "AllExamples" : "All Examples"
+    },
+    "error" :{
+        "DLFailed" : "Download failed!",
+        "NetworkError" : "Network error",
+        "loadEezProjectErrorNoURL" : "Can't load EEZ-PROJECT file: no URL specified"
+    },
+    "validation" : {
+        "required": "This field is required.",
+        "invalidName": "Invalid project name",
+        "duplicateName": "Project with the same name already exists at this location.",
+        "fileNotExists": "File does not exist.",
+        "selectAtLeastOneInstrument": "At least one instrument must be selected.",
+        "selectAtLeastOneSession": "At least one session must be selected.",
+        "selectAtLeastOneShortcut": "At least one shortcut must be selected.",
+        "descriptionRequired": "Description is required."
+    },
+    "button" : {
+        "OK" : "OK",
+        "Cancel" : "Cancel",
+        "Restart" : "Restart",
+        "AddInstrument" : {
+            "label" : "Add instrument",
+            "title" : "Add instrument"
+        },
+        "DeletedInstruments" : {
+            "label" : "Deleted Instruments",
+            "title" :  "Show deleted instruments"
+        },
+        "ExportInstruments" : {
+            "label" : "Export",
+            "title" :  "Export to database"
+        },
+        "ImportInstruments" : {
+            "label" : "Import",
+            "title" :  "Import from database"
+        }
+    },
+    "dialog" : {
+        "AllFiles" : "All Files",
+        "DBFiles" : "DB files",
+        "EEZProject": "EEZ project",
+        "ExtensionFiles": "Extension files",
+        "ImageFiles": "Image files",
+        "DatabaseActiveConfirmMessage" : "Do you want to make this database active?",
+        "AskForRestartMessage" : "Do you want to restart the application?",
+        "AskForRestartDetail" : "Restart is required to finish activation of new database.",
+        "ExportInstrumentsDialog" : {
+            "ExportInstrumentsOption" : "Export Instruments",
+            "ExportSessionsOption" : "Export Sessions",
+            "ExportShortcutsOption" : "Export Shortcuts",
+            "ArchiveHistoryOption" : "Archive History",
+            "ArchiveModeTitle": "Archive history items older then:",
+            "ItemDetailsDescriptionTitle" : "Description:",
+            "deleteHistoryAfterExport": "Delete history after export"
+        }
+    },
+    "common" : {
+        "LVGLVersion" : "LVGL version",
+        "VisibilityOptions": {
+            "Show" : "show",
+            "visible": "visible",
+            "dimmed": "dimmed",
+            "hidden": "hidden"
+        },
+        "LockedOptions" : {
+            "UnlockAll" : "Unlock All",
+            "LockAll" : "Lock All"
+        }
+    },
+    "editor" : {
+        "Features" : {
+            "Page" : {
+                "PageEditor" : {
+
+                },
+                "PageNavigation" : {
+                    "UnlockThisWidget": "Unlock this widget",
+                    "LockThisWidget" : "Lock this widget"
+                },
+                "PageTimeline" : {
+
+                }
+            }
+        },
+        "LVGL" : {
+            "StyleCatalog" : {
+                "PositionGroupName" : "POSITION AND SIZE",
+                "PositionGroupDescription" : "Properties related to size, position, alignment and layout of the objects.",
+                "LayoutGroupName" : "LAYOUT",
+                "LayoutGroupDescription" : "Properties to describe layout.",
+                "PaddingGroupName" : "PADDING",
+                "PaddingGroupDescription" : "Properties to describe spacing between the parent's sides and the children and among the children. Very similar to the padding properties in HTML.",
+                "MarginGroupName" : "MARGIN",
+                "MarginGroupDescription" : "Properties to describe spacing around an object. Very similar to the margin properties in HTML.",
+                "BackgroundGroupName" : "BACKGROUND",
+                "BackgroundGroupDescription" : "Properties to describe the background color and image of the objects.",
+                "BorderGroupName" : "BORDER",
+                "BorderGroupDescription" : "Properties to describe the borders",
+                "OutlineGroupName" : "OUTLINE",
+                "OutlineGroupDescription" : "Properties to describe the outline. It's like a border but drawn outside of the rectangles.",
+                "ShadowGroupName" : "SHADOW",
+                "ShadowGroupDescription" : "Properties to describe the shadow drawn under the rectangles.",
+                "ImageGroupName" : "IMAGE",
+                "ImageGroupDescription" : "Properties to describe the images",
+                "LineGroupName" : "LINE",
+                "LineGroupDescription" : "Properties to describe line-like objects",
+                "ArcGroupName" : "ARC",
+                "ArcGroupDescription" : "TODO",
+                "TextGroupName" : "TEXT",
+                "TextGroupDescription" : "Properties to describe the properties of text. All these properties are inherited.",
+                "MiscGroupName" : "MISCELLANEOUS",
+                "MiscGroupDescription" : "Mixed properties for various purposes."
+            }
+        }
     }
 }

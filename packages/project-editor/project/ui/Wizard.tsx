@@ -18,6 +18,7 @@ import {
     autorun
 } from "mobx";
 import { observer } from "mobx-react";
+import i18n from "i18next";
 
 import {
     fetchUrlOrReadFromCache,
@@ -606,7 +607,7 @@ class WizardModel {
         if (this.exampleProjectTypes.get("_newExamples")!.length > 0) {
             rootNode.children.push({
                 id: "_newExamples",
-                label: "New Examples",
+                label: i18n.t('example.NewExamples'),
                 children: [],
                 selected: this.folder == "_newExamples",
                 expanded: true
@@ -615,7 +616,7 @@ class WizardModel {
 
         rootNode.children.push({
             id: "_allExamples",
-            label: "All Examples",
+            label: i18n.t('example.AllExamples'),
             children: [],
             selected: this.folder == "_allExamples",
             expanded: true
@@ -710,8 +711,7 @@ class WizardModel {
                 projectType: PROJECT_TYPE_NAMES[ProjectType.DASHBOARD],
                 image: DASHBOARD_PROJECT_ICON(128),
                 projectName: "Dashboard",
-                description:
-                    "Start your new Dashboard project development here.",
+                description: i18n.t('project.DashboardDescription'),
                 projectFileUrl:
                     "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/dashboard.eez-project"
             },
@@ -720,7 +720,7 @@ class WizardModel {
                 projectType: PROJECT_TYPE_NAMES[ProjectType.FIRMWARE],
                 image: EEZ_GUI_PROJECT_ICON(128),
                 projectName: "EEZ-GUI",
-                description: "Start your new EEZ-GUI project development here.",
+                description: i18n.t('project.FirmwareDescription'),
                 projectFileUrl:
                     "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/firmware.eez-project"
             },
@@ -729,7 +729,7 @@ class WizardModel {
                 projectType: PROJECT_TYPE_NAMES[ProjectType.LVGL],
                 image: LVGL_PROJECT_ICON(128),
                 projectName: "LVGL",
-                description: "Start your new LVGL project development here.",
+                description: i18n.t('project.LVGLDescription'),
                 projectFileUrl: {
                     "8.3": "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/v0.23.0/LVGL-8.3.eez-project",
                     "9.0": "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/v0.23.0/LVGL-9.0.eez-project"
@@ -740,8 +740,7 @@ class WizardModel {
                 projectType: PROJECT_TYPE_NAMES[ProjectType.LVGL],
                 image: LVGL_WITH_FLOW_PROJECT_ICON(128),
                 projectName: "LVGL with EEZ Flow",
-                description:
-                    "Start your new LVGL with EEZ Flow project development here.",
+                description: i18n.t('project.LVGLWithEEZFlowDescription'),
                 projectFileUrl: {
                     "8.3": "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/v0.23.0/LVGL%20with%20EEZ%20Flow-8.3.eez-project",
                     "9.0": "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/v0.23.0/LVGL%20with%20EEZ%20Flow-9.0.eez-project"
@@ -752,7 +751,7 @@ class WizardModel {
                 projectType: PROJECT_TYPE_NAMES[ProjectType.IEXT],
                 image: IEXT_PROJECT_ICON(128),
                 projectName: "IEXT",
-                description: "Start your new IEXT project development here.",
+                description: i18n.t('project.IEXTDescription'),
                 projectFileUrl: {
                     SCPI: "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/IEXT.eez-project",
                     PROPRIETARY:
@@ -769,8 +768,7 @@ class WizardModel {
                 projectType: PROJECT_TYPE_NAMES[ProjectType.APPLET],
                 image: APPLET_ICON(128),
                 projectName: "BB3 Applet",
-                description:
-                    "Start your new BB3 Applet project development here.",
+                description: i18n.t('project.BB3AppletDescription'),
                 projectFileUrl:
                     "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/applet.eez-project"
             },
@@ -779,8 +777,7 @@ class WizardModel {
                 projectType: PROJECT_TYPE_NAMES[ProjectType.RESOURCE],
                 image: MICROPYTHON_ICON(128),
                 projectName: "BB3 MicroPython Script",
-                description:
-                    "Start your new BB3 MicroPython project development here.",
+                description: i18n.t('project.BB3MicroPythonScriptDescription'),
                 projectFileUrl:
                     "https://raw.githubusercontent.com/eez-open/eez-project-templates/master/templates/resource.eez-project"
             }
@@ -828,7 +825,7 @@ class WizardModel {
                     id: "_allTemplates",
                     label: (
                         <Count
-                            label="All Templates"
+                            label={i18n.t('templates.AllTemplates')}
                             count={this.allTemplateProjectTypes.length}
                             attention={false}
                         ></Count>
@@ -845,7 +842,7 @@ class WizardModel {
                     id: "_standard",
                     label: (
                         <Count
-                            label="Builtin Templates"
+                            label={i18n.t('templates.BuiltinTemplates')}
                             count={this.standardProjectTypes.length}
                             attention={false}
                         ></Count>
@@ -862,7 +859,7 @@ class WizardModel {
                     id: "_bb3",
                     label: (
                         <Count
-                            label="BB3 Script Templates"
+                            label={i18n.t('templates.BB3ScriptTemplates')}
                             count={this.bb3ProjectTypes.length}
                             attention={false}
                         ></Count>
@@ -879,7 +876,7 @@ class WizardModel {
                     id: "_templates",
                     label: (
                         <Count
-                            label="From envox.eu/gitea"
+                            label={i18n.t('templates.FromEnvox.eu/gitea')}
                             count={this.templateProjectTypes.length}
                             attention={false}
                         ></Count>
@@ -1009,7 +1006,7 @@ class WizardModel {
         if (this.section == "templates") {
             const urlDef = this.selectedProjectType?.projectFileUrl;
             if (!urlDef) {
-                throw "Can't load EEZ-PROJECT file: no URL specified";
+                throw i18n.t('error.loadEezProjectErrorNoURL');
             }
 
             if (typeof urlDef == "string") {
@@ -1040,7 +1037,7 @@ class WizardModel {
             req.addEventListener("load", async () => {
                 if (req.readyState == 4) {
                     if (req.status != 200 || !req.response) {
-                        reject("Download failed!");
+                        reject(i18n.t('error.DLFailed'));
                         return;
                     }
                     try {
@@ -1052,7 +1049,7 @@ class WizardModel {
             });
 
             req.addEventListener("error", error => {
-                reject("Network error");
+                reject(i18n.t('error.NetworkError'));
             });
 
             req.send();
@@ -1088,12 +1085,12 @@ class WizardModel {
     validateName() {
         const name = this.name?.trim();
         if (!name) {
-            this.nameError = "This field is required.";
+            this.nameError = i18n.t('validation.required');
             return;
         }
 
         if (!name.match(/[a-zA-Z_\-][a-zA-Z_\-0-9]*/)) {
-            this.nameError = "Invalid project name";
+            this.nameError = i18n.t('validation.invalidPrjName');
         }
 
         this.nameError = undefined;
@@ -1103,7 +1100,7 @@ class WizardModel {
     validateLocation() {
         const location = this.location?.trim();
         if (!location) {
-            this.locationError = "This field is required.";
+            this.locationError = i18n.t('validation.required');
             return;
         }
 
@@ -1120,8 +1117,7 @@ class WizardModel {
                 fs.existsSync(this.projectFilePath!) &&
                 this.section == "templates"
             ) {
-                this.locationError =
-                    "Project with the same name already exists at this location.";
+                this.locationError = i18n.t('validation.duplicateName');
                 return;
             }
         }
@@ -1140,12 +1136,12 @@ class WizardModel {
 
         const bb3ProjectFile = this.bb3ProjectFile?.trim();
         if (!bb3ProjectFile) {
-            this.bb3ProjectFileError = "This field is required.";
+            this.bb3ProjectFileError = i18n.t('validation.required');
             return;
         }
 
         if (!fs.existsSync(bb3ProjectFile)) {
-            this.bb3ProjectFileError = "File does not exists.";
+            this.bb3ProjectFileError = i18n.t('validation.fileNotExists');
             return;
         }
 
@@ -1167,7 +1163,7 @@ class WizardModel {
             req.addEventListener("load", async () => {
                 if (req.readyState == 4) {
                     if (req.status != 200 || !req.response) {
-                        reject("Download failed!");
+                        reject(i18n.t('error.DLFailed'));
                         return;
                     }
                     try {
@@ -1187,7 +1183,7 @@ class WizardModel {
             });
 
             req.addEventListener("error", error => {
-                reject("Network error");
+                reject(i18n.t('error.NetworkError'));
             });
 
             req.send();
@@ -2198,7 +2194,7 @@ const ProjectProperties = withTranslation()(observer(
                                             htmlFor="new-project-wizard-lvgl-version"
                                         >
                                             {
-                                                t("project.LVGLVersion")
+                                                t("common.LVGLVersion")
                                             }
                                         </label>
                                         <select
@@ -2563,8 +2559,8 @@ const ProjectProperties = withTranslation()(observer(
                                     <>
                                         <ButtonAction
                                             className="btn-primary"
-                                            text="Edit Project"
-                                            title="Edit Project"
+                                            text={i18n.t("project.EditProject")}
+                                            title={i18n.t("project.EditProject")}
                                             icon="material:edit"
                                             onClick={this.onCreateProject}
                                             enabled={
@@ -2575,8 +2571,8 @@ const ProjectProperties = withTranslation()(observer(
                                             ?.projectType != "IEXT" && (
                                                 <ButtonAction
                                                     className="btn-secondary"
-                                                    text="Run Project"
-                                                    title="Run Project"
+                                                    text={i18n.t("project.RunProject")}
+                                                    title={i18n.t("project.RunProject")}
                                                     icon="material:play_arrow"
                                                     onClick={this.onRunProject}
                                                     enabled={
@@ -2821,8 +2817,8 @@ class FileBrowserInput extends React.Component<
         const result = await dialog.showOpenDialog(getCurrentWindow(), {
             properties: ["openFile"],
             filters: [
-                { name: `${t("project.EEZProject")}`, extensions: ["eez-project"] },
-                { name: `${t("project.AllFiles")}`, extensions: ["*"] }
+                { name: `${t("dialog.EEZProject")}`, extensions: ["eez-project"] },
+                { name: `${t("dialog.AllFiles")}`, extensions: ["*"] }
             ]
         });
 

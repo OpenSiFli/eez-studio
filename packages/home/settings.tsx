@@ -16,6 +16,7 @@ import {
 import { observer } from "mobx-react";
 import classNames from "classnames";
 import * as FlexLayout from "flexlayout-react";
+import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import { app, createEmptyFile } from "eez-studio-shared/util-electron";
 import { stringCompare } from "eez-studio-shared/string";
@@ -68,8 +69,7 @@ import { homeLayoutModels } from "./home-layout-models";
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export const COMPACT_DATABASE_MESSAGE =
-    "It is recommended to compact the database every 30 days.";
+export const COMPACT_DATABASE_MESSAGE = i18n.t('settings.DatabaseMaintenanceRecommendation');
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -299,8 +299,8 @@ class SettingsController {
 
         const result = await dialog.showSaveDialog(getCurrentWindow(), {
             filters: [
-                { name: "DB files", extensions: ["db"] },
-                { name: "All Files", extensions: ["*"] }
+                { name: i18n.t('dialog.DBFiles'), extensions: ["db"] },
+                { name: i18n.t('dialog.AllFiles'), extensions: ["*"] }
             ],
             defaultPath: defaultPath ?? undefined
         });
@@ -327,7 +327,7 @@ class SettingsController {
                 });
 
                 confirm(
-                    "Do you want to make this database active?",
+                    i18n.t('dialog.DatabaseActiveConfirmMessage'),
                     undefined,
                     () => onFinish(true),
                     () => onFinish(false)
@@ -344,8 +344,8 @@ class SettingsController {
         const result = await dialog.showOpenDialog(getCurrentWindow(), {
             properties: ["openFile"],
             filters: [
-                { name: "DB files", extensions: ["db"] },
-                { name: "All Files", extensions: ["*"] }
+                { name: i18n.t('dialog.DBFiles'), extensions: ["db"] },
+                { name: i18n.t('dialog.AllFiles'), extensions: ["*"] }
             ],
             defaultPath: defaultPath ?? undefined
         });
@@ -369,7 +369,7 @@ class SettingsController {
             });
 
             confirm(
-                "Do you want to make this database active?",
+                i18n.t('dialog.DatabaseActiveConfirmMessage'),
                 undefined,
                 () => onFinish(true),
                 () => onFinish(false)
@@ -384,8 +384,8 @@ class SettingsController {
             instrumentDatabases.activeDatabasePath
         ) {
             confirm(
-                "Do you want to restart the application?",
-                "Restart is required to finish activation of new database.",
+                i18n.t('dialog.AskForRestartMessage'),
+                i18n.t('dialog.AskForRestartDetail'),
                 this.restart
             );
         }
@@ -587,7 +587,7 @@ const SelectedDatabaseDetails = withTranslation()(observer(
                                 className="btn btn-primary btn-sm"
                                 onClick={settingsController.setAsActiveDatabase}
                             >
-                                {t("settings.selectedDatabaseDetails.SetAsActive")}
+                                {t("settings.SelectedDatabaseDetails.SetAsActive")}
                             </button>
                         </div>
                     )}
@@ -597,7 +597,7 @@ const SelectedDatabaseDetails = withTranslation()(observer(
                             htmlFor="EezStudio_ProjectEditorScrapbook_ItemDetails_Description"
                             className="form-label"
                         >
-                            {t("settings.selectedDatabaseDetails.Description")}
+                            {t("settings.SelectedDatabaseDetails.Description")}
                         </label>
                         <textarea
                             className="form-control"
@@ -624,7 +624,7 @@ const SelectedDatabaseDetails = withTranslation()(observer(
                             }
                             style={{ marginTop: "5px" }}
                         >
-                            {t("settings.selectedDatabaseDetails.ShowInFolder")}
+                            {t("settings.SelectedDatabaseDetails.ShowInFolder")}
                         </button>
 
                         <button
@@ -635,7 +635,7 @@ const SelectedDatabaseDetails = withTranslation()(observer(
                             }
                             style={{ marginTop: "5px", marginLeft: "5px" }}
                         >
-                            {t("settings.selectedDatabaseDetails.CopyPathToClipboard")}
+                            {t("settings.SelectedDatabaseDetails.CopyPathToClipboard")}
                         </button>
                     </div>
 
@@ -646,10 +646,10 @@ const SelectedDatabaseDetails = withTranslation()(observer(
                         })}
                     >
                         <div>
-                            {t('settings.selectedDatabaseDetails.DatabaseSize', { size: formatBytes(selectedDatabase.databaseSize) })}
+                            {t('settings.SelectedDatabaseDetails.DatabaseSize', { size: formatBytes(selectedDatabase.databaseSize) })}
                         </div>
                         <div>
-                            {t('settings.selectedDatabaseDetails.DatabaseLastCompact', { date: getMoment()(selectedDatabase.timeOfLastDatabaseCompactOperation).fromNow() })}
+                            {t('settings.SelectedDatabaseDetails.DatabaseLastCompact', { date: getMoment()(selectedDatabase.timeOfLastDatabaseCompactOperation).fromNow() })}
                         </div>
                         {selectedDatabase.isCompactDatabaseAdvisable && (
                             <div>{COMPACT_DATABASE_MESSAGE}</div>
@@ -660,7 +660,7 @@ const SelectedDatabaseDetails = withTranslation()(observer(
                                 className="btn btn-secondary btn-sm"
                                 onClick={settingsController.compactDatabase}
                             >
-                                {t("settings.selectedDatabaseDetails.CompactDatabase")}
+                                {t("settings.SelectedDatabaseDetails.CompactDatabase")}
                             </button>
                         </div>
                     </div>
@@ -948,7 +948,7 @@ export const Settings = observer(() => {
                             className="btn btn-primary EezStudio_PulseTransition"
                             onClick={settingsController.restart}
                         >
-                            Restart
+                            {t('button.Restart')}
                         </button>
                     </div>
                 </Header>

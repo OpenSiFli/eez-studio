@@ -176,9 +176,10 @@ async function main() {
 
     await loadExtensions(nodeModuleFolders);
 
+    await i18next.init();
+
     extensionsCatalog.load();
 
-    await i18next.init();
     if (!buildProject) {
         loadTabs();
 
