@@ -15,7 +15,7 @@
         "CreateNewDatabase": "创建新数据库",
         "OpenExistingDatabase": "打开现有数据库",
         "DeleteDatabase": "删除数据库",
-        "selectedDatabaseDetails": {
+        "SelectedDatabaseDetails": {
             "SetAsActive": "设为活动",
             "Description": "描述：",
             "ShowInFolder": "在文件夹中显示",
@@ -23,7 +23,8 @@
             "DatabaseSize": "数据库大小为 {{size}}",
             "DatabaseLastCompact": "数据库最后压缩于 {{date}}。",
             "CompactDatabase": "压缩数据库"
-        }
+        },
+        "DatabaseMaintenanceRecommendation": "建议每30天对数据库进行一次压缩整理。"
     },
     "about": {
         "CheckingUpdates": "检查更新中...",
@@ -111,10 +112,16 @@
         "CreateProject": "创建项目",
         "Description": "描述",
         "FindMoreOnWeb": "在平台网站上了解更多内容 ...",
-        "EEZProject": "EEZ 项目",
         "AllFiles": "所有文件",
         "ProjectFilePath": "项目文件路径",
-        "ProjectFolderPath": "项目文件夹路径"
+        "ProjectFolderPath": "项目文件夹路径",
+        "DashboardDescription": "在此开始您的新仪表盘项目开发。",
+        "FirmwareDescription": "在此开始您的新EEZ-GUI项目开发。",
+        "LVGLDescription": "在此开始您的新LVGL项目开发。",
+        "LVGLWithEEZFlowDescription": "在此开始您的新EEZ Flow集成LVGL项目开发。",
+        "IEXTDescription": "在此开始您的新IEXT项目开发。",
+        "BB3AppletDescription": "在此开始您的新BB3 Applet项目开发。",
+        "BB3MicroPythonScriptDescription": "在此开始您的新BB3 MicroPython项目开发。"
     },
     "setup": {
         "InstallingExtension": "正在安装扩展",
@@ -130,10 +137,6 @@
         "GenODTFile": "生成 ODT 文件"
     },
     "extension": {
-        "Button": {
-            "OK": "确定",
-            "Cancel": "取消"
-        },
         "Installed": "已安装",
         "NotInstalled": "未安装",
         "ConFirmMessage": "您即将安装 '{{name}}' 扩展的版本 {{version}}。",
@@ -151,10 +154,7 @@
         "AreYouSure": "您确定吗？",
         "ExtensionUninstalled": "扩展 {{name}} 已卸载。",
         "ExtensionUninstallFailed": "卸载扩展 {{name}} 失败：{{error}}。",
-        "ExtensionFiles": "扩展文件",
-        "AllFiles": "所有文件",
         "SaveTo": "保存到 {{path}}",
-        "ImageFiles": "图像文件",
         "ChangeImage": "更换图像",
         "Versions": "版本:",
         "Install": "安装",
@@ -181,7 +181,10 @@
         "UpdateCatalog": "更新目录",
         "InstallExtension": "安装扩展",
         "InstallExtensionTitle": "从本地文件安装扩展",
-        "NoExtensionFound": "未找到扩展"
+        "NoExtensionFound": "未找到扩展",
+        "ProjectEditorExtensionsLabel": "项目编辑器扩展",
+        "InstrumentExtensionsLabel": "仪器扩展",
+        "MeasurementExtensionsLabel": "测量扩展"
     },
     "instrument": {
         "InstallExtension": "安装扩展",
@@ -228,5 +231,131 @@
     "project_editor": {
         "CommitChanges": "提交更改 (ENTER)",
         "DiscardChanges": "放弃更改 (ESC)"
+    },
+    "templates": {
+        "AllTemplates": "所有模板",
+        "BuiltinTemplates": "内置模板",
+        "BB3ScriptTemplates": "BB3脚本模板",
+        "FromEnvox.eu/gitea": "来自 envox.eu/gitea"
+    },
+    "example": {
+        "NewExamples" : "新示例",
+        "AllExamples" : "全部示例"
+    },
+    "error" :{
+        "DLFailed" : "下载失败!",
+        "NetworkError" : "网络错误",
+        "loadEezProjectErrorNoURL": "无法加载EEZ-PROJECT文件：未指定URL"
+    },
+    "validation" : {
+        "required": "此字段为必填项。",
+        "invalidPrjName": "项目名称无效",
+        "duplicateName": "该位置已存在同名项目。",
+        "fileNotExists": "文件不存在。",
+        "selectAtLeastOneInstrument": "必须至少选择一台仪器",
+        "selectAtLeastOneSession": "必须至少选择一个会话",
+        "selectAtLeastOneShortcut": "必须至少选择一个快捷方式",
+        "descriptionRequired": "描述信息为必填项"
+    },
+    "button" : {
+        "OK" : "好",
+        "Cancel" : "取消",
+        "Restart" : "重新启动",
+        "AddInstrument" : {
+            "label" : "添加仪器",
+            "title" : "添加仪器"
+        },
+        "DeletedInstruments" : {
+            "label" : "已删除仪器",
+            "title" : "显示已删除仪器"
+        },
+        "ExportInstruments" : {
+            "label" : "导出",
+            "title" : "导出到数据库"
+        },
+        "ImportInstruments" : {
+            "label" : "导入",
+            "title" : "从数据库导入"
+        }
+    },
+    "dialog" : {
+        "AllFiles" : "所有文件",
+        "DBFiles" : "数据库文件",
+        "EEZProject": "EEZ 项目",
+        "ExtensionFiles": "扩展文件",
+        "ImageFiles": "图像文件",
+        "DatabaseActiveConfirmMessage" : "您想将此数据库设为活动状态吗？",
+        "AskForRestartMessage" : "您想重新启动应用程序吗？",
+        "AskForRestartDetail" : "需要重启以完成新数据库的激活。",
+        "ExportInstrumentsDialog" : {
+            "ExportInstrumentsOption" : "导出仪器",
+            "ExportSessionsOption" : "导出会话",
+            "ExportShortcutsOption" : "导出快捷方式",
+            "ArchiveHistoryOption" : "归档历史记录",
+            "ArchiveModeTitle": "归档早于以下时间的历史记录项：",
+            "ItemDetailsDescriptionTitle" : "描述:",
+            "deleteHistoryAfterExport": "Delete history after export"
+        }
+    },
+    "common" : {
+        "LVGLVersion" : "LVGL 版本",
+        "VisibilityOptions": {
+            "ShowAll" : "显示",
+            "Show" : "显示",
+            "visible": "可见",
+            "dimmed": "半透明",
+            "hidden": "隐藏",
+            "hiddenAll": "隐藏"
+        },
+        "LockedOptions": {
+            "UnlockAll": "全部解锁",
+            "LockAll": "全部锁定"
+        }
+    },
+    "editor" : {
+        "Features" : {
+            "Page" : {
+                "PageEditor" : {
+
+                },
+                "PageNavigation": {
+                    "UnlockThisWidget": "解锁此控件",
+                    "LockThisWidget": "锁定此控件"
+                },
+                "PageTimeline" : {
+
+                }
+            }
+        },
+        "LVGL" : {
+            "StyleCatalog": {
+                "PositionGroupName": "位置和尺寸",
+                "PositionGroupDescription": "与对象大小、位置、对齐方式和布局相关的属性。",
+                "LayoutGroupName": "布局",
+                "LayoutGroupDescription": "描述布局的属性。",
+                "PaddingGroupName": "内边距",
+                "PaddingGroupDescription": "描述父元素边缘与子元素之间以及子元素之间间距的属性。与HTML中的padding属性非常相似。",
+                "MarginGroupName": "外边距",
+                "MarginGroupDescription": "描述对象周围间距的属性。与HTML中的margin属性非常相似。",
+                "BackgroundGroupName": "背景",
+                "BackgroundGroupDescription": "描述对象背景颜色和图像的属性。",
+                "BorderGroupName": "边框",
+                "BorderGroupDescription": "描述边框的属性。",
+                "OutlineGroupName": "轮廓",
+                "OutlineGroupDescription": "描述轮廓的属性。类似于边框，但在矩形外部绘制。",
+                "ShadowGroupName": "阴影",
+                "ShadowGroupDescription": "描述矩形下方绘制的阴影属性。",
+                "ImageGroupName": "图像",
+                "ImageGroupDescription": "描述图像的属性。",
+                "LineGroupName": "线条",
+                "LineGroupDescription": "描述线型对象的属性。",
+                "ArcGroupName": "弧形",
+                "ArcGroupDescription": "待完善",
+                "TextGroupName": "文本",
+                "TextGroupDescription": "描述文本属性的参数。所有这些属性都是可继承的。",
+                "MiscGroupName": "其他",
+                "MiscGroupDescription": "用于各种用途的混合属性参数。"
+            }
+        }
     }
 }

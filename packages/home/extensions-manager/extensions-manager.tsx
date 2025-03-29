@@ -1041,8 +1041,8 @@ export const DetailsView = withTranslation()(observer(
 
             const result = await dialog.showSaveDialog(getCurrentWindow(), {
                 filters: [
-                    { name: `${t("extension.ExtensionFiles")}`, extensions: ["zip"] },
-                    { name: `${t("extension.AllFiles")}`, extensions: ["*"] }
+                    { name: `${t("dialog.ExtensionFiles")}`, extensions: ["zip"] },
+                    { name: `${t("dialog.AllFiles")}`, extensions: ["*"] }
                 ],
                 defaultPath: getValidFileNameFromFileName(
                     extension.name + ".zip"
@@ -1085,10 +1085,10 @@ export const DetailsView = withTranslation()(observer(
                 properties: ["openFile"],
                 filters: [
                     {
-                        name: `${t("extension.ImageFiles")}`,
+                        name: `${t("dialog.ImageFiles")}`,
                         extensions: ["png", "jpg", "jpeg"]
                     },
-                    { name: `${t("extension.AllFiles")}`, extensions: ["*"] }
+                    { name: `${t("dialog.AllFiles")}`, extensions: ["*"] }
                 ]
             });
             const filePaths = result.filePaths;
@@ -1269,14 +1269,14 @@ const ExtensionsManagerSubNavigation = withTranslation()(observer(
             const result = await dialog.showOpenDialog(getCurrentWindow(), {
                 properties: ["openFile"],
                 filters: [
-                    { name: `${t("extension.Extensions")}`, extensions: ["zip"] },
-                    { name: `${t("extension.AllFiles")}`, extensions: ["*"] }
+                    { name: `${t("dialog.ExtensionFiles")}`, extensions: ["zip"] },
+                    { name: `${t("dialog.AllFiles")}`, extensions: ["*"] }
                 ]
             });
 
             const filePaths = result.filePaths;
 
-            const BUTTONS = [`${t("extension.Button.OK")}`, `${t("extension.Button.Cancel")}`];
+            const BUTTONS = [`${t("button.OK")}`, `${t("button.Cancel")}`];
 
             if (filePaths && filePaths[0]) {
                 try {
@@ -1698,7 +1698,7 @@ export const ExtensionsManager = withTranslation()(observer(
                             }
                         >
                             <Count
-                                label="Project Editor Extensions"
+                                label={t('extension.ProjectEditorExtensionsLabel')}
                                 count={
                                     extensionsManagerStore.searchText
                                         ? extensionsManagerStore.extensionsVersionsCatalogBuilder.get(
@@ -1730,7 +1730,7 @@ export const ExtensionsManager = withTranslation()(observer(
                             }
                         >
                             <Count
-                                label="Instrument Extensions"
+                                label={t('extension.InstrumentExtensionsLabel')}
                                 count={
                                     extensionsManagerStore.searchText
                                         ? extensionsManagerStore.extensionsVersionsCatalogBuilder.get(
@@ -1763,7 +1763,7 @@ export const ExtensionsManager = withTranslation()(observer(
                             }
                         >
                             <Count
-                                label="Measurement Extensions"
+                                label={t('extension.MeasurementExtensionsLabel')}
                                 count={
                                     extensionsManagerStore.searchText
                                         ? extensionsManagerStore.extensionsVersionsCatalogBuilder.get(

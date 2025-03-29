@@ -27,7 +27,7 @@ import {
     downloadAndInstallExtension
 } from "home/extensions-manager/extensions-manager";
 
-import { TFunction } from "i18next";
+import i18n, { TFunction } from "i18next";
 import { withTranslation } from 'react-i18next';
 import { TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
 
@@ -323,7 +323,7 @@ const AddInstrumentDialog = withTranslation()(observer(
             return (
                 <BootstrapDialog
                     modal={true}
-                    title="Add Instrument"
+                    title={i18n.t('button.AddInstrument.title')}
                     open={this.open}
                     size={"large"}
                     onCancel={this.onCancel}
@@ -341,7 +341,7 @@ const AddInstrumentDialog = withTranslation()(observer(
                                 setupState.extensionInstalling.infoType !==
                                 notification.ERROR,
                             style: {},
-                            text: "Cancel"
+                            text: i18n.t('button.Cancel')
                         },
                         {
                             id: "ok",
@@ -351,7 +351,7 @@ const AddInstrumentDialog = withTranslation()(observer(
                             disabled:
                                 setupState.extensionInstalling != undefined,
                             style: {},
-                            text: "OK"
+                            text: i18n.t('button.OK')
                         }
                     ]}
                 >
