@@ -324,8 +324,8 @@ const Toolbar = observer(
             }[] = [
                     {
                         id: "instrument-add",
-                        label: "Add Instrument",
-                        title: "Add instrument",
+                        label: i18n.t('button.AddInstrument.label'),
+                        title: i18n.t('button.AddInstrument.title'),
                         className: "btn-success",
                         style:
                             deletedInstruments.size == 0
@@ -350,8 +350,8 @@ const Toolbar = observer(
             if (deletedInstruments.size > 0) {
                 buttons.push({
                     id: "show-deleted-instruments",
-                    label: "Deleted Instruments",
-                    title: "Show deleted instruments",
+                    label: i18n.t('button.DeletedInstruments.label'),
+                    title: i18n.t('button.DeletedInstruments.title'),
                     className: "btn-secondary",
                     style: { marginRight: 20 },
                     onClick: () => {
@@ -364,13 +364,13 @@ const Toolbar = observer(
 
             buttons.push({
                 id: "export-instrument",
-                label: "Export",
+                label: i18n.t('button.ExportInstruments.label'),
                 icon: (
                     <svg viewBox="0 0 24 24" fill="currentcolor">
                         <path d="M8.71 7.71 11 5.41V15a1 1 0 0 0 2 0V5.41l2.29 2.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-4-4a1 1 0 0 0-.33-.21 1 1 0 0 0-.76 0 1 1 0 0 0-.33.21l-4 4a1 1 0 1 0 1.42 1.42M21 14a1 1 0 0 0-1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4a1 1 0 0 0-2 0v4a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-4a1 1 0 0 0-1-1" />
                     </svg>
                 ),
-                title: "Export to database",
+                title: i18n.t('button.ExportInstruments.title'),
                 className: "btn-secondary",
                 onClick: () => {
                     showExportDialog(this.props.instrumentsStore);
@@ -379,13 +379,13 @@ const Toolbar = observer(
 
             buttons.push({
                 id: "import-instrument",
-                label: "Import",
+                label: i18n.t('button.ImportInstruments.label'),
                 icon: (
                     <svg viewBox="0 0 24 24" fill="currentcolor">
                         <path d="M21 14a1 1 0 0 0-1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4a1 1 0 0 0-2 0v4a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-4a1 1 0 0 0-1-1m-9.71 1.71a1 1 0 0 0 .33.21.94.94 0 0 0 .76 0 1 1 0 0 0 .33-.21l4-4a1 1 0 0 0-1.42-1.42L13 12.59V3a1 1 0 0 0-2 0v9.59l-2.29-2.3a1 1 0 1 0-1.42 1.42Z" />
                     </svg>
                 ),
-                title: "Import from database",
+                title: i18n.t('button.ExportInstruments.title'),
                 className: "btn-secondary",
                 onClick: async () => {
                     let defaultPath = window.localStorage.getItem(
@@ -397,8 +397,8 @@ const Toolbar = observer(
                         {
                             properties: ["openFile"],
                             filters: [
-                                { name: "DB files", extensions: ["db"] },
-                                { name: "All Files", extensions: ["*"] }
+                                { name: i18n.t('dialog.DBFiles'), extensions: ["db"] },
+                                { name: i18n.t('dialog.AllFiles'), extensions: ["*"] }
                             ],
                             defaultPath: defaultPath ?? undefined
                         }

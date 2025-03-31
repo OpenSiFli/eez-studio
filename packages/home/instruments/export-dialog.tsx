@@ -26,6 +26,7 @@ import {
 import { instrumentDatabases } from "eez-studio-shared/db";
 import { shortcuts } from "shortcuts/shortcuts-store";
 import { Shortcut } from "project-editor/features/shortcuts/project-shortcuts";
+import i18n from "i18next";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -434,7 +435,7 @@ const HistoryExportSettings = observer(
                                         event.target.checked;
                                 })}
                             />
-                            Delete history after export
+                            {i18n.t('dialog.deleteHistoryAfterExport.')}
                         </label>
                     </div>
                 </div>
@@ -530,27 +531,27 @@ const ExportDialog = observer(
         onOK = action(() => {
             if (this.mode == "instruments") {
                 if (this.exportModel.selectedInstruments.size == 0) {
-                    this.error = "At least one instrument must be selected.";
+                    this.error = i18n.t('validation.selectAtLeastOneInstrument');
                     return false;
                 }
             }
 
             if (this.mode == "sessions") {
                 if (this.exportModel.selectedSessions.size == 0) {
-                    this.error = "At least one session must be selected.";
+                    this.error = i18n.t('validation.selectAtLeastOneSession');
                     return false;
                 }
             }
 
             if (this.mode == "shortcuts") {
                 if (this.exportModel.selectedShortcuts.size == 0) {
-                    this.error = "At least one shortcut must be selected.";
+                    this.error = i18n.t('validation.selectAtLeastOneShortcut');
                     return false;
                 }
             }
 
             if (this.description.trim() == "") {
-                this.error = "Description is required.";
+                this.error = i18n.t('validation.descriptionRequired');
                 return false;
             }
 
@@ -564,10 +565,10 @@ const ExportDialog = observer(
                 const result = await dialog.showSaveDialog(getCurrentWindow(), {
                     filters: [
                         {
-                            name: "DB files",
+                            name: i18n.t('dialog.DBFiles'),
                             extensions: ["db"]
                         },
-                        { name: "All Files", extensions: ["*"] }
+                        { name: i18n.t('dialog.AllFiles'), extensions: ["*"] }
                     ],
                     defaultPath: defaultPath
                         ? defaultPath + path.sep + fileName
@@ -638,7 +639,7 @@ const ExportDialog = observer(
                                     this.mode = "instruments";
                                 })}
                             >
-                                Export Instruments
+                                {i18n.t('dialog.ExportInstrumentsDialog.ExportInstrumentsOption')}
                             </a>
                         </li>
                         <li className="nav-item">
@@ -652,7 +653,7 @@ const ExportDialog = observer(
                                     this.mode = "sessions";
                                 })}
                             >
-                                Export Sessions
+                                {i18n.t('dialog.ExportInstrumentsDialog.ExportSessionsOption')}
                             </a>
                         </li>
                         <li className="nav-item">
@@ -666,7 +667,7 @@ const ExportDialog = observer(
                                     this.mode = "shortcuts";
                                 })}
                             >
-                                Export Shortcuts
+                                {i18n.t('dialog.ExportInstrumentsDialog.ExportShortcutsOption')}
                             </a>
                         </li>
                         <li className="nav-item">
@@ -680,7 +681,7 @@ const ExportDialog = observer(
                                     this.mode = "archive";
                                 })}
                             >
-                                Archive History
+                                {i18n.t('dialog.ExportInstrumentsDialog.ArchiveHistoryOption')}
                             </a>
                         </li>
                     </ul>
@@ -709,7 +710,7 @@ const ExportDialog = observer(
                     {this.mode == "archive" && (
                         <div className="EezStudio_ExportDialog_ArchiveMode">
                             <div style={{ marginBottom: 10 }}>
-                                Archive history items older then:
+                                {i18n.t('dialog.ExportInstrumentsDialog.ArchiveModeTitle')}
                             </div>
                             <HistoryExportSettings
                                 exportModel={this.exportModel}
@@ -722,7 +723,7 @@ const ExportDialog = observer(
                             htmlFor="EezStudio_ProjectEditorScrapbook_ItemDetails_Description"
                             className="form-label"
                         >
-                            Description:
+                            {i18n.t('dialog.ExportInstrumentsDialog.ItemDetailsDescriptionTitle')}
                         </label>
                         <textarea
                             className="form-control"
