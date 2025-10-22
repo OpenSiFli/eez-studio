@@ -3,6 +3,7 @@ import { dialog, getCurrentWindow } from "@electron/remote";
 import fs from "fs";
 import path from "path";
 import { flatten } from "lodash";
+import i18n from "i18next";
 
 import React from "react";
 import { values } from "mobx";
@@ -217,8 +218,11 @@ export async function exportActivityLogItems(
 ) {
     const result = await dialog.showSaveDialog(getCurrentWindow(), {
         filters: [
-            { name: "EEZ Notebook files", extensions: ["eez-notebook"] },
-            { name: "All Files", extensions: ["*"] }
+            {
+                name: i18n.t("dialog.NotebookFiles"),
+                extensions: ["eez-notebook"]
+            },
+            { name: i18n.t("dialog.AllFiles"), extensions: ["*"] }
         ]
     });
 
@@ -228,7 +232,7 @@ export async function exportActivityLogItems(
             filePath += ".eez-notebook";
         }
 
-        const progressToastId = notification.info("Exporting...", {
+        const progressToastId = notification.info(i18n.t("notebook.Exporting"), {
             autoClose: false
         });
 
@@ -237,14 +241,14 @@ export async function exportActivityLogItems(
                 notification.update(progressToastId, {
                     render: (
                         <div>
-                            <p>Export succeeded!</p>
+                            <p>{i18n.t("notebook.ExportSucceeded")}</p>
                             <button
                                 className="btn btn-sm"
                                 onClick={() => {
                                     shell.showItemInFolder(filePath);
                                 }}
                             >
-                                Show in Folder
+                                {i18n.t("common.ShowInFolder")}
                             </button>
                         </div>
                     ),
@@ -264,7 +268,7 @@ async function addItemsToNotebook(
     notebookId: string
 ) {
     const progressToastId = notification.info(
-        "Exporting items to notebook...",
+        i18n.t("notebook.ExportingToNotebook"),
         {
             autoClose: false
         }
@@ -311,12 +315,12 @@ async function addItemsToNotebook(
         notification.update(progressToastId, {
             render: (
                 <div>
-                    <p>Items added to notebook!</p>
+                    <p>{i18n.t("notebook.ItemsAddedToNotebook")}</p>
                     <button
                         className="btn btn-sm"
                         onClick={() => showNotebook(notebookId)}
                     >
-                        Show Notebook
+                        {i18n.t("notebook.ShowNotebook")}
                     </button>
                 </div>
             ),
@@ -330,7 +334,7 @@ async function addItemsToNotebook(
         db.exec(`ROLLBACK TRANSACTION`);
 
         notification.update(progressToastId, {
-            render: `Failed to add items to notebook (${err})`,
+            render: i18n.t("notebook.AddItemsFailed", { error: `${err}` }),
             type: notification.ERROR,
             autoClose: 5000
         });
@@ -345,14 +349,14 @@ function addToNewNotebook(store: IStore, items: IActivityLogEntry[]) {
             fields: [
                 {
                     name: "name",
-                    displayName: "Notebook name",
+                    displayName: i18n.t("notebook.DialogNotebookName"),
                     type: "string",
                     validators: [
                         validators.required,
                         validators.unique(
                             {},
                             values(notebooks),
-                            "Notebook with the same name already exists"
+                            i18n.t("notebook.DuplicateNotebookName")
                         )
                     ]
                 }
@@ -384,7 +388,7 @@ function addToExistingNotebook(store: IStore, items: IActivityLogEntry[]) {
             fields: [
                 {
                     name: "id",
-                    displayName: "Notebook",
+                    displayName: i18n.t("notebook.DialogNotebook"),
                     type: "enum",
                     enumItems: sortedNotebooks
                 }
@@ -428,19 +432,19 @@ export function exportTool(controller: IActivityLogController) {
         <DropdownIconAction
             key="notebook/export"
             icon="material:library_add"
-            title="Export selected history items to notebook"
+            title={i18n.t("notebook.ExportSelectedHistoryItems")}
         >
             <DropdownItem
-                text="Export as notebook file"
+                text={i18n.t("notebook.ExportAsNotebookFile")}
                 onClick={() => exportActivityLogItems(controller.store, items)}
             />
             <DropdownItem
-                text="Export to a new notebook"
+                text={i18n.t("notebook.ExportToNewNotebook")}
                 onClick={() => addToNewNotebook(controller.store, items)}
             />
             {notebooks.size > 0 && (
                 <DropdownItem
-                    text="Export to an existing notebook"
+                    text={i18n.t("notebook.ExportToExistingNotebook")}
                     onClick={() =>
                         addToExistingNotebook(controller.store, items)
                     }

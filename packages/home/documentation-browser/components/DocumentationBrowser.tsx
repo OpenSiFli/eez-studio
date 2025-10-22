@@ -95,7 +95,7 @@ export const DocumentationBrowser = observer(
                         </div>
                         {isDev && (
                             <div className="EezStudio_DocumentationBrowser_Stat">
-                                <span>Actions</span>
+                                <span>{t("componet.ActionsLabel")}</span>
                                 {model.actionDocCounters.total -
                                     model.actionDocCounters.completed -
                                     model.actionDocCounters.drafts >
@@ -120,7 +120,7 @@ export const DocumentationBrowser = observer(
                         )}
                         {isDev && (
                             <div className="EezStudio_DocumentationBrowser_Stat">
-                                <span>Widgets</span>
+                                <span>{t("componet.WidgetsLabel")}</span>
                                 {model.widgetDocCounters.total -
                                     model.widgetDocCounters.completed -
                                     model.widgetDocCounters.drafts >

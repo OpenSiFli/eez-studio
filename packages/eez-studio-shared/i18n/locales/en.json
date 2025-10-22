@@ -131,9 +131,15 @@
         "NotFound": "No description yet",
         "GroupByProjectType": "Group by project type",
         "GroupByComponentGrops": "Group by component groups",
+        "ActionsLabel": "Actions",
+        "WidgetsLabel": "Widgets",
         "GenMdFile": "Generate markdown file",
         "GenHTMLFile": "Generate HTML file",
-        "GenODTFile": "Generate ODT file"
+        "GenODTFile": "Generate ODT file",
+        "GenerateStart": "Start...",
+        "GenerateProgress": "{{index}} / {{total}}: {{name}}",
+        "GenerateFailed": "Failed for {{name}}: {{error}}",
+        "GenerateDone": "Done."
     },
     "extension": {
         "Installed": "Installed",
@@ -219,6 +225,32 @@
         "Disconnect": "Disconnect",
         "About": "About"
     },
+    "notebook": {
+        "Exporting": "Exporting...",
+        "ExportSucceeded": "Export succeeded!",
+        "ExportingToNotebook": "Exporting items to notebook...",
+        "ItemsAddedToNotebook": "Items added to notebook!",
+        "ShowNotebook": "Show Notebook",
+        "AddItemsFailed": "Failed to add items to notebook ({{error}})",
+        "DialogNotebookName": "Notebook name",
+        "DuplicateNotebookName": "Notebook with the same name already exists",
+        "DialogNotebook": "Notebook",
+        "ExportSelectedHistoryItems": "Export selected history items to notebook",
+        "ExportAsNotebookFile": "Export as notebook file",
+        "ExportToNewNotebook": "Export to a new notebook",
+        "ExportToExistingNotebook": "Export to an existing notebook",
+        "Importing": "Importing...",
+        "NameAlreadyExists": "Notebook with the name \"{{name}}\" already exists.",
+        "AskForDifferentName": "Do you want to enter a different name?",
+        "Imported": "Notebook imported!",
+        "ImportFailed": "Import failed ({{error}})",
+        "Restore": "Restore",
+        "DeletePermanently": "Delete Permanently",
+        "DeleteNotebookPermanentlyTitle": "Delete notebook permanently including all the items",
+        "DeleteNotebookConfirmDetail": "It will also delete all the items in the notebook.",
+        "DeleteAllConfirmDetail": "It will also delete all the items.",
+        "DeleteAllPermanently": "Delete All Permanently"
+    },
     "shortcuts": {
         "ShowIEXTShortcuts": "Show IEXT shortcuts",
         "AddShortcut": "Add shortcut",
@@ -282,7 +314,9 @@
         "DBFiles" : "DB files",
         "EEZProject": "EEZ project",
         "ExtensionFiles": "Extension files",
+        "NotebookFiles": "EEZ Notebook files",
         "ImageFiles": "Image files",
+        "AreYouSure": "Are you sure?",
         "DatabaseActiveConfirmMessage" : "Do you want to make this database active?",
         "AskForRestartMessage" : "Do you want to restart the application?",
         "AskForRestartDetail" : "Restart is required to finish activation of new database.",
@@ -297,6 +331,7 @@
         }
     },
     "common" : {
+        "ShowInFolder" : "Show in Folder",
         "LVGLVersion" : "LVGL version",
         "VisibilityOptions": {
             "Show" : "show",

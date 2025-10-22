@@ -13,6 +13,7 @@ import { db } from "eez-studio-shared/db";
 import { showGenericDialog } from "eez-studio-ui/generic-dialog";
 import { confirm } from "eez-studio-ui/dialog-electron";
 import * as notification from "eez-studio-ui/notification";
+import i18n from "i18next";
 
 import { validators } from "eez-studio-shared/validation";
 
@@ -35,7 +36,7 @@ export async function importNotebook(
         return false;
     }
 
-    const progressToastId = notification.info("Importing...", {
+    const progressToastId = notification.info(i18n.t("notebook.Importing"), {
         autoClose: false
     });
 
@@ -64,22 +65,22 @@ export async function importNotebook(
         });
 
         confirm(
-            `Notebook with the name "${notebookName}" already exists.`,
-            "Do you want to enter a different name?",
+            i18n.t("notebook.NameAlreadyExists", { name: notebookName }),
+            i18n.t("notebook.AskForDifferentName"),
             () => {
                 showGenericDialog({
                     dialogDefinition: {
                         fields: [
                             {
                                 name: "name",
-                                displayName: "Notebook name",
+                                displayName: i18n.t("notebook.DialogNotebookName"),
                                 type: "string",
                                 validators: [
                                     validators.required,
                                     validators.unique(
                                         {},
                                         values(notebooks),
-                                        "Notebook with the same name already exists"
+                                        i18n.t("notebook.DuplicateNotebookName")
                                     )
                                 ]
                             }
@@ -153,13 +154,13 @@ export async function importNotebook(
             notification.update(progressToastId, {
                 render: (
                     <div>
-                        <p>Notebook imported!</p>
+                        <p>{i18n.t("notebook.Imported")}</p>
                         {!(options && options.showNotebook) && (
                             <button
                                 className="btn btn-sm"
                                 onClick={() => showNotebook(notebookId)}
                             >
-                                Show Notebook
+                                {i18n.t("notebook.ShowNotebook")}
                             </button>
                         )}
                     </div>
@@ -176,7 +177,7 @@ export async function importNotebook(
             db.exec(`ROLLBACK TRANSACTION`);
 
             notification.update(progressToastId, {
-                render: `Import failed (${err})`,
+                render: i18n.t("notebook.ImportFailed", { error: `${err}` }),
                 type: notification.ERROR,
                 autoClose: 5000
             });

@@ -5,6 +5,7 @@ import { marked } from "marked";
 import { sourceRootDir } from "eez-studio-shared/util";
 
 import * as notification from "eez-studio-ui/notification";
+import i18n from "i18next";
 
 import { ComponentInfo } from "./component-info";
 import { getModel } from "./model";
@@ -733,7 +734,7 @@ async function generateODTFile(
 }
 
 export async function generateODTFilesForAllComponents() {
-    const progressToastId = notification.info("Start...", {
+    const progressToastId = notification.info(i18n.t("componet.GenerateStart"), {
         autoClose: false
     });
 
@@ -788,17 +789,26 @@ export async function generateODTFilesForAllComponents() {
             i++;
 
             notification.update(progressToastId, {
-                render: `${i} / ${n}: ${componentInfo.name}`,
+                render: i18n.t("componet.GenerateProgress", {
+                    index: i,
+                    total: n,
+                    name: componentInfo.name
+                }),
                 type: notification.INFO
             });
         } catch (err) {
-            notification.error(`Failed for ${componentInfo.name}: ${err}`);
+            notification.error(
+                i18n.t("componet.GenerateFailed", {
+                    name: componentInfo.name,
+                    error: `${err}`
+                })
+            );
             return;
         }
     }
 
     notification.update(progressToastId, {
-        render: "Done.",
+        render: i18n.t("componet.GenerateDone"),
         type: notification.SUCCESS,
         autoClose: 3000
     });

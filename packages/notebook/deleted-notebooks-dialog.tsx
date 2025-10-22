@@ -7,6 +7,8 @@ import { Dialog, showDialog } from "eez-studio-ui/dialog";
 import { confirm } from "eez-studio-ui/dialog-electron";
 import { ListContainer, List, IListNode, ListItem } from "eez-studio-ui/list";
 import { ButtonAction } from "eez-studio-ui/action";
+import { withTranslation } from "react-i18next";
+import { TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
 
 import {
     INotebook,
@@ -17,8 +19,8 @@ import {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const DeletedNotebooksDialog = observer(
-    class DeletedNotebooksDialog extends React.Component {
+const DeletedNotebooksDialog = withTranslation()(observer(
+    class DeletedNotebooksDialog extends React.Component<TranslationComponentProps> {
         element: Element;
 
         constructor(props: any) {
@@ -30,6 +32,7 @@ const DeletedNotebooksDialog = observer(
         }
 
         renderNode(node: IListNode) {
+            const { t } = this.props;
             let notebook = node.data as INotebook;
             return (
                 <ListItem
@@ -46,8 +49,8 @@ const DeletedNotebooksDialog = observer(
                             <div className="EezStudio_NoWrap">
                                 <ButtonAction
                                     className="btn-sm btn-outline-success"
-                                    text="Restore"
-                                    title="Restore"
+                                    text={t("notebook.Restore")}
+                                    title={t("notebook.Restore")}
                                     onClick={() => {
                                         notebooksStore.undeleteObject(notebook);
                                     }}
@@ -58,12 +61,12 @@ const DeletedNotebooksDialog = observer(
                                 />
                                 <ButtonAction
                                     className="btn-sm btn-outline-danger"
-                                    text="Delete Permanently"
-                                    title="Delete notebook permanently including all the items"
+                                    text={t("notebook.DeletePermanently")}
+                                    title={t("notebook.DeleteNotebookPermanentlyTitle")}
                                     onClick={() => {
                                         confirm(
-                                            "Are you sure?",
-                                            "It will also delete all the items in the notebbok.",
+                                            t("dialog.AreYouSure"),
+                                            t("notebook.DeleteNotebookConfirmDetail"),
                                             () => {
                                                 itemsStore.deleteObject(
                                                     { oid: notebook.id },
@@ -96,9 +99,10 @@ const DeletedNotebooksDialog = observer(
         }
 
         deleteAllPermanently() {
+            const { t } = this.props;
             confirm(
-                "Are you sure?",
-                "It will also delete all the items.",
+                t("dialog.AreYouSure"),
+                t("notebook.DeleteAllConfirmDetail"),
                 () => {
                     let deletedNotebooks = this.deletedNotebooks.slice();
                     for (let i = 0; i < deletedNotebooks.length; i++) {
@@ -121,6 +125,7 @@ const DeletedNotebooksDialog = observer(
         }
 
         render() {
+            const { t } = this.props;
             return (
                 <Dialog
                     ref={(ref: any) => {
@@ -134,7 +139,7 @@ const DeletedNotebooksDialog = observer(
                             onClick: () => this.deleteAllPermanently(),
                             disabled: false,
                             style: { marginRight: "auto" },
-                            text: "Delete All Permanently"
+                            text: t("notebook.DeleteAllPermanently")
                         }
                     ]}
                 >
@@ -148,7 +153,7 @@ const DeletedNotebooksDialog = observer(
             );
         }
     }
-);
+));
 
 export function showDeletedNotebooksDialog() {
     showDialog(<DeletedNotebooksDialog />);

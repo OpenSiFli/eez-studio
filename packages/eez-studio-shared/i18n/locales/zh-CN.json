@@ -132,9 +132,15 @@
         "NotFound": "暂无描述",
         "GroupByProjectType": "按项目类型分组",
         "GroupByComponentGrops": "按组件组分组",
+        "ActionsLabel": "操作",
+        "WidgetsLabel": "控件",
         "GenMdFile": "生成 markdown 文件",
         "GenHTMLFile": "生成 HTML 文件",
-        "GenODTFile": "生成 ODT 文件"
+        "GenODTFile": "生成 ODT 文件",
+        "GenerateStart": "开始...",
+        "GenerateProgress": "{{index}} / {{total}}: {{name}}",
+        "GenerateFailed": "{{name}} 失败：{{error}}",
+        "GenerateDone": "完成。"
     },
     "extension": {
         "Installed": "已安装",
@@ -220,6 +226,32 @@
         "Disconnect": "断开连接",
         "About": "关于"
     },
+    "notebook": {
+        "Exporting": "导出中...",
+        "ExportSucceeded": "导出成功！",
+        "ExportingToNotebook": "正在将条目导出到笔记本...",
+        "ItemsAddedToNotebook": "条目已添加到笔记本！",
+        "ShowNotebook": "显示笔记本",
+        "AddItemsFailed": "将条目添加到笔记本失败（{{error}}）",
+        "DialogNotebookName": "笔记本名称",
+        "DuplicateNotebookName": "已存在同名笔记本",
+        "DialogNotebook": "笔记本",
+        "ExportSelectedHistoryItems": "将所选历史条目导出到笔记本",
+        "ExportAsNotebookFile": "导出为笔记本文件",
+        "ExportToNewNotebook": "导出到新笔记本",
+        "ExportToExistingNotebook": "导出到现有笔记本",
+        "Importing": "导入中...",
+        "NameAlreadyExists": "名为“{{name}}”的笔记本已存在。",
+        "AskForDifferentName": "是否输入其他名称？",
+        "Imported": "笔记本导入成功！",
+        "ImportFailed": "导入失败（{{error}}）",
+        "Restore": "恢复",
+        "DeletePermanently": "永久删除",
+        "DeleteNotebookPermanentlyTitle": "永久删除笔记本及其所有条目",
+        "DeleteNotebookConfirmDetail": "这也会删除笔记本中的所有条目。",
+        "DeleteAllConfirmDetail": "这也会删除所有条目。",
+        "DeleteAllPermanently": "全部永久删除"
+    },
     "shortcuts": {
         "ShowIEXTShortcuts": "显示 IEXT 快捷键",
         "AddShortcut": "添加快捷键",
@@ -283,7 +315,9 @@
         "DBFiles" : "数据库文件",
         "EEZProject": "EEZ 项目",
         "ExtensionFiles": "扩展文件",
+        "NotebookFiles": "EEZ 笔记本文件",
         "ImageFiles": "图像文件",
+        "AreYouSure": "确定吗？",
         "DatabaseActiveConfirmMessage" : "您想将此数据库设为活动状态吗？",
         "AskForRestartMessage" : "您想重新启动应用程序吗？",
         "AskForRestartDetail" : "需要重启以完成新数据库的激活。",
@@ -298,6 +332,7 @@
         }
     },
     "common" : {
+        "ShowInFolder" : "在文件夹中显示",
         "LVGLVersion" : "LVGL 版本",
         "VisibilityOptions": {
             "ShowAll" : "显示",
