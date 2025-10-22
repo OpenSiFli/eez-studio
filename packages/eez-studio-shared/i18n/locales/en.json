@@ -253,6 +253,24 @@
             "usbtmc": "USBTMC",
             "webSimulator": "WebSimulator",
             "visa": "VISA"
+        },
+        "modulesSection": {
+            "Title": "Modules",
+            "Headers": {
+                "Slot": "Slot #",
+                "Model": "Model",
+                "Revision": "Revision",
+                "Firmware": "Firmware"
+            },
+            "UploadPinoutPages": "Upload Pinout Pages",
+            "FetchError": "Failed to get modules info from the instrument!",
+            "OtherVersions": "Other versions",
+            "Upgrade": "Upgrade",
+            "Downgrade": "Downgrade",
+            "CouldNotGetLatest": "Could not get info about the latest firmware version!",
+            "NewReleaseBadge": "New release!",
+            "NewReleaseInfo": "A new firmware version <bold>{{version}}</bold> is available (<link>release notes</link>).",
+            "LatestFirmware": "This is the latest firmware version!"
         }
     },
     "notebook": {

@@ -254,6 +254,24 @@
             "usbtmc": "USBTMC",
             "webSimulator": "WebSimulator",
             "visa": "VISA"
+        },
+        "modulesSection": {
+            "Title": "模块",
+            "Headers": {
+                "Slot": "槽位 #",
+                "Model": "型号",
+                "Revision": "版本",
+                "Firmware": "固件"
+            },
+            "UploadPinoutPages": "上传引脚页",
+            "FetchError": "从仪器获取模块信息失败！",
+            "OtherVersions": "其他版本",
+            "Upgrade": "升级",
+            "Downgrade": "降级",
+            "CouldNotGetLatest": "无法获取最新固件版本信息！",
+            "NewReleaseBadge": "新版本！",
+            "NewReleaseInfo": "新的固件版本 <bold>{{version}}</bold> 可用（<link>发行说明</link>）。",
+            "LatestFirmware": "已是最新固件版本！"
         }
     },
     "notebook": {

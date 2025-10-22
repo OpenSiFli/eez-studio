@@ -1,5 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
+import { useTranslation } from "react-i18next";
 
 import { Loader } from "eez-studio-ui/loader";
 
@@ -16,6 +17,7 @@ export const ModulesSection = observer(
         bb3Instrument: BB3Instrument;
         appStore: InstrumentAppStore;
     }) => {
+        const { t } = useTranslation();
         const isConnected = bb3Instrument.instrument.isConnected;
 
         let body;
@@ -28,10 +30,10 @@ export const ModulesSection = observer(
                     <table className="table mb-0 border EezStudio_Table">
                         <thead>
                             <tr>
-                                <th>Slot #</th>
-                                <th>Model</th>
-                                <th>Revision</th>
-                                <th>Firmware</th>
+                                <th>{t("instrument.modulesSection.Headers.Slot")}</th>
+                                <th>{t("instrument.modulesSection.Headers.Model")}</th>
+                                <th>{t("instrument.modulesSection.Headers.Revision")}</th>
+                                <th>{t("instrument.modulesSection.Headers.Firmware")}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -51,7 +53,7 @@ export const ModulesSection = observer(
                             style={{ marginTop: 20 }}
                             disabled={bb3Instrument.busy}
                         >
-                            Upload Pinout Pages
+                            {t("instrument.modulesSection.UploadPinoutPages")}
                         </button>
                     )}
                 </>
@@ -59,11 +61,11 @@ export const ModulesSection = observer(
         } else {
             body = (
                 <div className="alert alert-danger" role="alert">
-                    Failed to get modules info from the instrument!
+                    {t("instrument.modulesSection.FetchError")}
                 </div>
             );
         }
 
-        return <Section title="Modules" body={body} />;
+        return <Section title={t("instrument.modulesSection.Title")} body={body} />;
     }
 );

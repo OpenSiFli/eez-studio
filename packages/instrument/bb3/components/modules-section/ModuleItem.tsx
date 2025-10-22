@@ -1,6 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import classNames from "classnames";
+import { useTranslation, Trans } from "react-i18next";
 
 import { compareVersions } from "eez-studio-shared/util";
 import { Loader } from "eez-studio-ui/loader";
@@ -17,6 +18,7 @@ const OtherReleases = observer(
         module: Module;
         latestFirmwareVersion: string;
     }) => {
+        const { t } = useTranslation();
         if (!module.allReleases) {
             return null;
         }
@@ -48,7 +50,7 @@ const OtherReleases = observer(
                         aria-expanded="false"
                         aria-controls={`allModuleReleases${module.slotIndex}`}
                     >
-                        Other versions{" "}
+                        {t("instrument.modulesSection.OtherVersions")}{" "}
                         <i className="material-icons chevron-right">
                             chevron_right
                         </i>
@@ -92,8 +94,8 @@ const OtherReleases = observer(
                                                 release.version,
                                                 firmwareVersion
                                             ) > 0
-                                                ? "Upgrade"
-                                                : "Downgrade"}
+                                                ? t("instrument.modulesSection.Upgrade")
+                                                : t("instrument.modulesSection.Downgrade")}
                                         </button>
                                     </td>
                                 </tr>
@@ -114,6 +116,7 @@ const ReleaseInfo = observer(
         module: Module;
         latestFirmwareVersion: string | undefined;
     }) => {
+        const { t } = useTranslation();
         const bb3Instrument = module.bb3Instrument;
         const firmwareVersion = module.firmwareVersion;
 
@@ -124,7 +127,7 @@ const ReleaseInfo = observer(
         if (!latestFirmwareVersion) {
             return (
                 <div className="alert alert-danger border mb-0" role="alert">
-                    Could not get info about the latest firmware version!
+                    {t("instrument.modulesSection.CouldNotGetLatest")}
                 </div>
             );
         }
@@ -134,26 +137,30 @@ const ReleaseInfo = observer(
                 <>
                     <div className="d-flex align-items-center fs-6">
                         <span className="badge rounded-pill bg-warning text-dark fs-6 me-3">
-                            New release!
+                            {t("instrument.modulesSection.NewReleaseBadge")}
                         </span>
                         <span>
-                            A new firmware version{" "}
-                            <b>{latestFirmwareVersion}</b> is available (
-                            <a
-                                href="#"
-                                onClick={() =>
-                                    openLink(
-                                        MODULE_FIRMWARE_RELEASES_PAGE(
-                                            module.moduleType
-                                        ) +
-                                            "/tag/" +
-                                            latestFirmwareVersion
+                            <Trans
+                                i18nKey="instrument.modulesSection.NewReleaseInfo"
+                                values={{ version: latestFirmwareVersion }}
+                                components={{
+                                    bold: <b />,
+                                    link: (
+                                        <a
+                                            href="#"
+                                            onClick={() =>
+                                                openLink(
+                                                    MODULE_FIRMWARE_RELEASES_PAGE(
+                                                        module.moduleType
+                                                    ) +
+                                                        "/tag/" +
+                                                        latestFirmwareVersion
+                                                )
+                                            }
+                                        />
                                     )
-                                }
-                            >
-                                release notes
-                            </a>
-                            ).
+                                }}
+                            />
                         </span>
                         <button
                             className="btn btn-primary btn-lg"
@@ -165,7 +172,7 @@ const ReleaseInfo = observer(
                                 )
                             }
                         >
-                            Upgrade
+                            {t("instrument.modulesSection.Upgrade")}
                         </button>
                     </div>
                     <OtherReleases
@@ -179,7 +186,7 @@ const ReleaseInfo = observer(
         return (
             <>
                 <div className="text-success fs-6">
-                    This is the latest firmware version!
+                    {t("instrument.modulesSection.LatestFirmware")}
                 </div>
                 <OtherReleases
                     module={module}
