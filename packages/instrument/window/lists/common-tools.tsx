@@ -1,6 +1,8 @@
 import React from "react";
 import { observable, action, makeObservable } from "mobx";
 import { observer } from "mobx-react";
+import { I18nContext } from "react-i18next";
+import i18n from "i18next";
 
 import type {
     IAxisController,
@@ -23,6 +25,9 @@ export const CommonTools = observer(
         { chartsController: IChartsController },
         {}
     > {
+        static contextType = I18nContext;
+        declare context: React.ContextType<typeof I18nContext>;
+
         constructor(props: { chartsController: IChartsController }) {
             super(props);
 
@@ -70,6 +75,9 @@ export const CommonTools = observer(
         };
 
         render() {
+            const i18nInstance = (this.context && this.context.i18n) || i18n;
+            const t = i18nInstance.t.bind(i18nInstance);
+
             return (
                 <table>
                     <tbody>
@@ -78,7 +86,7 @@ export const CommonTools = observer(
                                 <td>
                                     <button
                                         className="btn btn-secondary"
-                                        title="Zoom to fit range"
+                                        title={t("instrument.commonTools.ZoomAllTitle")}
                                         onClick={
                                             this.props.chartsController.zoomAll
                                         }
@@ -86,19 +94,19 @@ export const CommonTools = observer(
                                             marginRight: 10
                                         }}
                                     >
-                                        Zoom 100%
+                                        {t("instrument.commonTools.ZoomAllButton")}
                                     </button>
                                     <button
                                         className="btn btn-secondary"
-                                        title="Zoom to fit range"
+                                        title={t("instrument.commonTools.ZoomFitTitle")}
                                         onClick={this.zoomToFitRange}
                                     >
-                                        Zoom to Fit Range
+                                        {t("instrument.commonTools.ZoomFitButton")}
                                     </button>
                                 </td>
                             )}
                             <td>
-                                <label>Display</label>
+                                <label>{t("instrument.commonTools.DisplayLabel")}</label>
                             </td>
                             <td>
                                 <label className="form-check-label">
@@ -107,10 +115,18 @@ export const CommonTools = observer(
                                         value={displayOption.get()}
                                         onChange={this.onDisplayOptionChange}
                                     >
-                                        <option value="split">Split</option>
-                                        <option value="voltage">Voltage</option>
-                                        <option value="current">Current</option>
-                                        <option value="both">Both</option>
+                                        <option value="split">
+                                            {t("instrument.commonTools.DisplayOptions.split")}
+                                        </option>
+                                        <option value="voltage">
+                                            {t("instrument.commonTools.DisplayOptions.voltage")}
+                                        </option>
+                                        <option value="current">
+                                            {t("instrument.commonTools.DisplayOptions.current")}
+                                        </option>
+                                        <option value="both">
+                                            {t("instrument.commonTools.DisplayOptions.both")}
+                                        </option>
                                     </select>
                                 </label>
                             </td>

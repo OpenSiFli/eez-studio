@@ -275,6 +275,19 @@
         },
         "scriptsSection": {
             "VersionLabel": "版本："
+        },
+        "commonTools": {
+            "ZoomAllTitle": "缩放至 100%",
+            "ZoomAllButton": "缩放 100%",
+            "ZoomFitTitle": "缩放以适配范围",
+            "ZoomFitButton": "缩放以适配范围",
+            "DisplayLabel": "显示",
+            "DisplayOptions": {
+                "split": "分屏",
+                "voltage": "电压",
+                "current": "电流",
+                "both": "同时显示"
+            }
         }
     },
     "notebook": {

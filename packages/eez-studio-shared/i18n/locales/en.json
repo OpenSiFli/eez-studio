@@ -274,6 +274,19 @@
         },
         "scriptsSection": {
             "VersionLabel": "Version:"
+        },
+        "commonTools": {
+            "ZoomAllTitle": "Zoom to 100%",
+            "ZoomAllButton": "Zoom 100%",
+            "ZoomFitTitle": "Zoom to fit range",
+            "ZoomFitButton": "Zoom to Fit Range",
+            "DisplayLabel": "Display",
+            "DisplayOptions": {
+                "split": "Split",
+                "voltage": "Voltage",
+                "current": "Current",
+                "both": "Both"
+            }
         }
     },
     "notebook": {
