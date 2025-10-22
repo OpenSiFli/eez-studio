@@ -23,6 +23,8 @@ import type {
 import type * as UsbTmcModule from "instrument/connection/interfaces/usbtmc";
 import { guid } from "eez-studio-shared/guid";
 import { getSerialPorts } from "instrument/connection/interfaces/serial-ports-renderer";
+import { Trans, I18nContext } from "react-i18next";
+import i18n from "i18next";
 
 function openLink(url: string) {
     const { shell } = require("electron");
@@ -71,6 +73,8 @@ const devices = new Devices();
 
 export const ConnectionProperties = observer(
     class ConnectionProperties extends React.Component<ConnectionPropertiesProps> {
+        static contextType = I18nContext;
+        declare context: React.ContextType<typeof I18nContext>;
         constructor(props: any) {
             super(props);
 
@@ -411,19 +415,21 @@ export const ConnectionProperties = observer(
         }
 
         render() {
+            const i18nInstance = (this.context && this.context.i18n) || i18n;
+            const t = i18nInstance.t.bind(i18nInstance);
             let options: JSX.Element[] | null = null;
 
             if (this.iface === "ethernet") {
                 options = [
                     <TextInputProperty
                         key="ethernetAddress"
-                        name="Server address"
+                        name={t("instrument.ServerAddress")}
                         value={this.ethernetAddress}
                         onChange={this.onEthernetAddressChange}
                     />,
                     <NumberInputProperty
                         key="ethernetPort"
-                        name="Port"
+                        name={t("instrument.ServerPort")}
                         value={this.ethernetPort}
                         onChange={this.onEthernetPortChange}
                     />
@@ -432,16 +438,16 @@ export const ConnectionProperties = observer(
                 options = [
                     <SelectProperty
                         key="serialPort"
-                        name="Port"
+                        name={t("instrument.SerialPort")}
                         value={this.serialParameters.port}
                         onChange={this.onSerialPortPathChange}
                         inputGroupButton={
                             <button
                                 className="btn btn-secondary"
-                                title="Refresh list of available serial ports"
+                                title={t("instrument.RefreshSerialPortsTitle")}
                                 onClick={this.onRefreshSerialPortPaths}
                             >
-                                Refresh
+                                {t("instrument.Refresh")}
                             </button>
                         }
                     >
@@ -456,7 +462,7 @@ export const ConnectionProperties = observer(
                     </SelectProperty>,
                     <SelectProperty
                         key="serialPortBaudRate"
-                        name="Baud rate"
+                        name={t("instrument.BaudRate")}
                         value={this.serialParameters.baudRate.toString()}
                         onChange={this.onSerialPortBaudRateChange}
                     >
@@ -468,7 +474,7 @@ export const ConnectionProperties = observer(
                     </SelectProperty>,
                     <SelectProperty
                         key="serialPortDataBits"
-                        name="Data bits"
+                        name={t("instrument.DataBits")}
                         value={this.serialParameters.dataBits.toString()}
                         onChange={this.onSerialPortDataBitsChange}
                     >
@@ -479,7 +485,7 @@ export const ConnectionProperties = observer(
                     </SelectProperty>,
                     <SelectProperty
                         key="serialPortStopBits"
-                        name="Stop bits"
+                        name={t("instrument.StopBits")}
                         value={this.serialParameters.stopBits.toString()}
                         onChange={this.onSerialPortStopBitsChange}
                     >
@@ -488,32 +494,32 @@ export const ConnectionProperties = observer(
                     </SelectProperty>,
                     <SelectProperty
                         key="serialPortParity"
-                        name="Parity"
+                        name={t("instrument.Parity")}
                         value={this.serialParameters.parity}
                         onChange={this.onSerialPortParityChange}
                     >
-                        <option value="none">None</option>
-                        <option value="even">Even</option>
-                        <option value="odd">Odd</option>
-                        <option value="mark">Mark</option>
-                        <option value="space">Space</option>
+                        <option value="none">{t("instrument.ParityOptions.none")}</option>
+                        <option value="even">{t("instrument.ParityOptions.even")}</option>
+                        <option value="odd">{t("instrument.ParityOptions.odd")}</option>
+                        <option value="mark">{t("instrument.ParityOptions.mark")}</option>
+                        <option value="space">{t("instrument.ParityOptions.space")}</option>
                     </SelectProperty>,
                     <SelectProperty
                         key="serialPortFlowControl"
-                        name="Flow control"
+                        name={t("instrument.FlowControl")}
                         value={this.serialParameters.flowControl}
                         onChange={this.onSerialPortFlowControlChange}
                     >
-                        <option value="none">None</option>
-                        <option value="xon/xoff">XON/XOFF</option>
-                        <option value="rts/cts">RTS/CTS</option>
+                        <option value="none">{t("instrument.FlowControlOptions.none")}</option>
+                        <option value="xon/xoff">{t("instrument.FlowControlOptions.xonXoff")}</option>
+                        <option value="rts/cts">{t("instrument.FlowControlOptions.rtsCts")}</option>
                     </SelectProperty>
                 ];
             } else if (this.iface === "usbtmc") {
                 options = [
                     <SelectProperty
                         key="usbDevice"
-                        name="Device"
+                        name={t("instrument.Device")}
                         value={this.selectedUsbDeviceIndex.toString()}
                         onChange={optionValue =>
                             this.onUsbDeviceChange(parseInt(optionValue))
@@ -521,10 +527,10 @@ export const ConnectionProperties = observer(
                         inputGroupButton={
                             <button
                                 className="btn btn-secondary"
-                                title="Refresh list of available USB devices"
+                                title={t("instrument.RefreshUsbDevicesTitle")}
                                 onClick={this.onRefreshUsbDevices}
                             >
-                                Refresh
+                                {t("instrument.Refresh")}
                             </button>
                         }
                     >
@@ -558,7 +564,7 @@ export const ConnectionProperties = observer(
                 options = this.visaResources
                     ? [
                           <TextInputProperty
-                              name="Resource"
+                              name={t("instrument.VisaResource")}
                               value={this.visaResource}
                               onChange={this.onVisaResourceChange}
                               inputGroupButton={
@@ -588,10 +594,10 @@ export const ConnectionProperties = observer(
                                       </div>
                                       <button
                                           className="btn btn-outline-secondary"
-                                          title="Refresh list of available VISA resources"
+                                          title={t("instrument.RefreshVisaResourcesTitle")}
                                           onClick={this.onRefreshVisaResources}
                                       >
-                                          Refresh
+                                          {t("instrument.Refresh")}
                                       </button>
                                   </>
                               }
@@ -604,21 +610,22 @@ export const ConnectionProperties = observer(
                                       className="alert alert-warning"
                                       style={{ marginTop: 10 }}
                                   >
-                                      R&S® VISA was not found on your system.
-                                      For more information on how to install
-                                      R&S® VISA please visit{" "}
-                                      <a
-                                          href="#"
-                                          onClick={event => {
-                                              event.preventDefault();
-                                              openLink(
-                                                  "https://www.rohde-schwarz.com/fi/applications/r-s-visa-application-note_56280-148812.html"
-                                              );
+                                      <Trans
+                                          i18nKey="instrument.VisaNotFoundMessage"
+                                          components={{
+                                              link: (
+                                                  <a
+                                                      href="#"
+                                                      onClick={event => {
+                                                          event.preventDefault();
+                                                          openLink(
+                                                              "https://www.rohde-schwarz.com/fi/applications/r-s-visa-application-note_56280-148812.html"
+                                                          );
+                                                      }}
+                                                  />
+                                              )
                                           }}
-                                      >
-                                          this page
-                                      </a>
-                                      .
+                                      />
                                   </div>
                               </td>
                           </tr>
@@ -628,7 +635,7 @@ export const ConnectionProperties = observer(
             options.push(
                 <NumberInputProperty
                     key="timeout"
-                    name="Timeout (ms)"
+                    name={t("instrument.TimeoutMs")}
                     value={this.timeout}
                     onChange={this.onTimeoutChange}
                 />
@@ -637,8 +644,8 @@ export const ConnectionProperties = observer(
             options.push(
                 <NumberInputProperty
                     key="delay"
-                    name="Delay (ms)"
-                    formText="Minimum delay between commands."
+                    name={t("instrument.DelayMs")}
+                    formText={t("instrument.DelayHelp")}
                     value={this.delay}
                     onChange={this.onDelayChange}
                 />
@@ -648,22 +655,38 @@ export const ConnectionProperties = observer(
                 <PropertyList>
                     <SelectProperty
                         key="interface"
-                        name="Interface"
+                        name={t("instrument.Interface")}
                         value={this.iface}
                         onChange={this.onIfaceChange}
                     >
                         {this.props.availableConnections.indexOf("ethernet") !==
-                            -1 && <option value="ethernet">Ethernet</option>}
+                            -1 && (
+                                <option value="ethernet">
+                                    {t("instrument.InterfaceOptions.ethernet")}
+                                </option>
+                            )}
                         {this.props.availableConnections.indexOf("serial") !==
-                            -1 && <option value="serial">Serial</option>}
+                            -1 && (
+                                <option value="serial">
+                                    {t("instrument.InterfaceOptions.serial")}
+                                </option>
+                            )}
                         {this.props.availableConnections.indexOf("usbtmc") !==
-                            -1 && <option value="usbtmc">USBTMC</option>}
+                            -1 && (
+                                <option value="usbtmc">
+                                    {t("instrument.InterfaceOptions.usbtmc")}
+                                </option>
+                            )}
                         {this.props.availableConnections.indexOf(
                             "web-simulator"
                         ) !== -1 && (
-                            <option value="web-simulator">WebSimulator</option>
+                            <option value="web-simulator">
+                                {t("instrument.InterfaceOptions.webSimulator")}
+                            </option>
                         )}
-                        <option value="visa">VISA</option>
+                        <option value="visa">
+                            {t("instrument.InterfaceOptions.visa")}
+                        </option>
                     </SelectProperty>
                     {options}
                 </PropertyList>
@@ -686,6 +709,8 @@ interface ConnectionDialogProps {
 
 const ConnectionDialog = observer(
     class ConnectionDialog extends React.Component<ConnectionDialogProps> {
+        static contextType = I18nContext;
+        declare context: React.ContextType<typeof I18nContext>;
         constructor(props: ConnectionDialogProps) {
             super(props);
 
@@ -743,9 +768,11 @@ const ConnectionDialog = observer(
         };
 
         render() {
+            const i18nInstance = (this.context && this.context.i18n) || i18n;
+            const t = i18nInstance.t.bind(i18nInstance);
             return (
                 <Dialog
-                    okButtonText="Connect"
+                    okButtonText={t("instrument.Connect")}
                     onOk={this.handleSubmit}
                     okEnabled={this.isValidConnectionParameters}
                 >

@@ -28,7 +28,7 @@ import {
 } from "home/extensions-manager/extensions-manager";
 
 import i18n, { TFunction } from "i18next";
-import { withTranslation } from 'react-i18next';
+import { withTranslation, useTranslation } from 'react-i18next';
 import { TranslationComponentProps } from "eez-studio-shared/i18n/i18n";
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -212,6 +212,8 @@ async function onAddInstrument(t: TFunction, onAddCallback: (instrumentId: strin
 }
 
 const Setup = observer(() => {
+    const { t } = useTranslation();
+
     if (setupState.extensionInstalling) {
         const buttonsContainerClassName = classNames(
             "d-flex justify-content-between mt-3 mb-5",
@@ -226,7 +228,7 @@ const Setup = observer(() => {
             <div className="d-flex flex-column justify-content-center align-items-center h-100">
                 {setupState.extensionInstalling.inProgress && (
                     <div>
-                        <h3>Installing Extension</h3>
+                        <h3>{t("setup.InstallingExtension")}</h3>
                         <Loader />
                     </div>
                 )}
@@ -249,7 +251,7 @@ const Setup = observer(() => {
                             });
                         })}
                     >
-                        Back
+                        {t("setup.Back")}
                     </button>
                 </div>
             </div>

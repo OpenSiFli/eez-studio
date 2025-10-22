@@ -208,11 +208,29 @@
         "StopBits": "Stop bits",
         "Parity": "Parity",
         "FlowControl": "Flow control",
+        "ParityOptions": {
+            "none": "None",
+            "even": "Even",
+            "odd": "Odd",
+            "mark": "Mark",
+            "space": "Space"
+        },
+        "FlowControlOptions": {
+            "none": "None",
+            "xonXoff": "XON/XOFF",
+            "rtsCts": "RTS/CTS"
+        },
+        "Refresh": "Refresh",
+        "RefreshSerialPortsTitle": "Refresh list of available serial ports",
+        "RefreshUsbDevicesTitle": "Refresh list of available USB devices",
+        "RefreshVisaResourcesTitle": "Refresh list of available VISA resources",
         "VendorID": "Vendor ID",
         "ProductID": "Product ID",
         "WebSimulatoKey": "Interface",
         "WebSimulatorValue": "WebSimulator",
         "VisaKey": "Resource",
+        "VisaResource": "Resource",
+        "VisaNotFoundMessage": "R&S® VISA was not found on your system. For more information on how to install R&S® VISA please visit <link>this page</link>.",
         "Installing": "Installing...",
         "InstallSuccess": "Extensions successfully installed!",
         "ExtensionNotFound": "Instrument extension not found",
@@ -223,7 +241,19 @@
         "AutoConnect": "Auto connect",
         "Connect": "Connect",
         "Disconnect": "Disconnect",
-        "About": "About"
+        "About": "About",
+        "Device": "Device",
+        "TimeoutMs": "Timeout (ms)",
+        "DelayMs": "Delay (ms)",
+        "DelayHelp": "Minimum delay between commands.",
+        "Interface": "Interface",
+        "InterfaceOptions": {
+            "ethernet": "Ethernet",
+            "serial": "Serial",
+            "usbtmc": "USBTMC",
+            "webSimulator": "WebSimulator",
+            "visa": "VISA"
+        }
     },
     "notebook": {
         "Exporting": "Exporting...",

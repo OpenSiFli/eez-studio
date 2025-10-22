@@ -209,11 +209,29 @@
         "StopBits": "停止位",
         "Parity": "校验位",
         "FlowControl": "流控",
+        "ParityOptions": {
+            "none": "无",
+            "even": "偶校验",
+            "odd": "奇校验",
+            "mark": "标记",
+            "space": "空格"
+        },
+        "FlowControlOptions": {
+            "none": "无",
+            "xonXoff": "XON/XOFF",
+            "rtsCts": "RTS/CTS"
+        },
+        "Refresh": "刷新",
+        "RefreshSerialPortsTitle": "刷新可用串口列表",
+        "RefreshUsbDevicesTitle": "刷新可用 USB 设备列表",
+        "RefreshVisaResourcesTitle": "刷新可用 VISA 资源列表",
         "VendorID": "厂商ID",
         "ProductID": "产品ID",
         "WebSimulatoKey": "接口",
         "WebSimulatorValue": "WebSimulator",
         "VisaKey": "资源",
+        "VisaResource": "资源",
+        "VisaNotFoundMessage": "系统中未找到 R&S® VISA。要了解如何安装 R&S® VISA，请访问<link>此页面</link>。",
         "Installing": "正在安装...",
         "InstallSuccess": "扩展安装成功！",
         "ExtensionNotFound": "未找到仪器扩展",
@@ -224,7 +242,19 @@
         "AutoConnect": "自动连接",
         "Connect": "连接",
         "Disconnect": "断开连接",
-        "About": "关于"
+        "About": "关于",
+        "Device": "设备",
+        "TimeoutMs": "超时 (毫秒)",
+        "DelayMs": "延迟 (毫秒)",
+        "DelayHelp": "命令之间的最小延迟。",
+        "Interface": "接口",
+        "InterfaceOptions": {
+            "ethernet": "以太网",
+            "serial": "串口",
+            "usbtmc": "USBTMC",
+            "webSimulator": "WebSimulator",
+            "visa": "VISA"
+        }
     },
     "notebook": {
         "Exporting": "导出中...",
