@@ -1,18 +1,20 @@
 import React from "react";
 import { action } from "mobx";
 import { observer } from "mobx-react";
+import { useTranslation } from "react-i18next";
 
 import { Script } from "instrument/bb3/objects/Script";
 
 export const SelectScriptVersion = observer(
     ({ script }: { script: Script }) => {
+        const { t } = useTranslation();
         if (!script.versions) {
             return null;
         }
 
         return (
             <div>
-                <label>Version:</label>
+                <label>{t("instrument.scriptsSection.VersionLabel")}</label>
                 <label style={{ paddingLeft: 15 }} className="form-check-label">
                     <select
                         className="form-select form-control-sm"

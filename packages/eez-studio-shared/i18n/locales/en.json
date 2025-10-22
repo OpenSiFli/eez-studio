@@ -271,6 +271,9 @@
             "NewReleaseBadge": "New release!",
             "NewReleaseInfo": "A new firmware version <bold>{{version}}</bold> is available (<link>release notes</link>).",
             "LatestFirmware": "This is the latest firmware version!"
+        },
+        "scriptsSection": {
+            "VersionLabel": "Version:"
         }
     },
     "notebook": {

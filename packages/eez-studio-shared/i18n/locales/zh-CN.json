@@ -272,6 +272,9 @@
             "NewReleaseBadge": "新版本！",
             "NewReleaseInfo": "新的固件版本 <bold>{{version}}</bold> 可用（<link>发行说明</link>）。",
             "LatestFirmware": "已是最新固件版本！"
+        },
+        "scriptsSection": {
+            "VersionLabel": "版本："
         }
     },
     "notebook": {
